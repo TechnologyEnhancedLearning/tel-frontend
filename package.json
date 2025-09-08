@@ -2,16 +2,25 @@
   "name": "tel-frontend",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build:review": "gulp build:review"
+    "build:review": "gulp build:review",
+    "build:package": "cd packages/tel-frontend && npm run build",
+    "build": "npm run build:review && npm run build:package",
+    "lint": "eslint . --ext .js,.ts,.vue",
+    "prettier": "prettier --check ."
   },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-nunjucks-render": "^2.2.3",
     "gulp-sass": "^5.1.0",
-    "sass": "^1.66.0"
+    "sass": "^1.66.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
   },
-  "peerDependencies": {
-    "nhsuk-frontend": "^9.0.0"
+  "engines": {
+    "node": ">=18"
   }
 }
