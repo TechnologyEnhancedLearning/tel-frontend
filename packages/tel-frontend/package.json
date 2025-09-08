@@ -1,0 +1,11 @@
+{
+  "name": "tel-frontend",
+  "version": "0.1.0",
+  "peerDependencies": {
+    "nhsuk-frontend": "^9.0.0"
+  },
+  "files": [
+    "src/tel/assets/",
+    "src/tel/components/"
+  ]
+}
