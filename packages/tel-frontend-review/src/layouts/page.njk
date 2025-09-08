@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title or "TEL Frontend" }}</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="nhsuk-body">
+  <header class="nhsuk-header">
+    <div class="nhsuk-width-container">
+      <h1 class="nhsuk-heading-l">TEL Frontend Review</h1>
+    </div>
+  </header>
+
+  <main class="nhsuk-main-wrapper nhsuk-width-container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
