@@ -1,0 +1,17 @@
+{
+  "name": "tel-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build:review": "gulp build:review"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-nunjucks-render": "^2.2.3",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.66.0"
+  },
+  "peerDependencies": {
+    "nhsuk-frontend": "^9.0.0"
+  }
+}
