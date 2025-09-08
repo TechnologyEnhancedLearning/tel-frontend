@@ -1,0 +1,9 @@
+// Import NHS.UK Frontend base (from peer dependency)
+@use "nhsuk-frontend/all";
+
+// Import TEL Frontend overrides from your package
+// Adjust the relative path depending on your folder structure
+@use "../../tel-frontend/assets/overrides" as tel;
+
+// Any review-site-specific overrides can go here if needed
+// e.g., styling only used for demo purposes
