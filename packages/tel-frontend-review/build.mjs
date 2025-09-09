@@ -69,4 +69,11 @@ async function renderTemplates() {
 
     const html = nunjucks.render(relPath); // render template
     const htmlFile = outPath.replace(/\.njk$/, '.html');
-    await fs.wr
+    await fs.writeFile(htmlFile, html);
+  }
+}
+
+await renderTemplates();
+console.log('✅ Nunjucks templates rendered');
+
+console.log('🎉 Build complete!');
