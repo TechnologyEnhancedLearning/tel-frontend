@@ -1,55 +1,76 @@
-// packages/tel-frontend-review/build.mjs
 import { promises as fs } from 'node:fs';
-import { join, dirname, parse } from 'node:path';
+import { join, relative, parse } from 'node:path';
 import nunjucks from 'nunjucks';
 import fse from 'fs-extra';
+import sass from 'sass';
 
 // Paths
-const root = process.cwd();
-const srcPath = join(root, 'packages/tel-frontend-review/src');
-const distPath = join(root, 'packages/tel-frontend-review/dist');
+const reviewSrc = join(process.cwd(), 'packages/tel-frontend-review/src');
+const reviewDist = join(process.cwd(), 'packages/tel-frontend-review/dist');
+const npmPkgAssets = join(process.cwd(), 'packages/tel-frontend/src/assets');
 
-// Clean dist
-await fse.remove(distPath);
-await fse.ensureDir(distPath);
+// Ensure dist folder exists
+await fse.ensureDir(reviewDist);
 
-// Setup Nunjucks
-const env = nunjucks.configure(srcPath, { autoescape: true });
+// -------------------
+// 1. Compile SCSS
+// -------------------
+const scssEntry = join(reviewSrc, 'assets/styles.scss');
+const scssOutput = join(reviewDist, 'assets/styles.css');
 
-// Default context (you can extend later)
-const context = {
-  assetPath: '/assets',
-  title: 'TEL Frontend Review'
-};
+await fse.ensureDir(join(reviewDist, 'assets'));
 
-// Recursively copy static assets (css/js/images)
-await fse.copy(join(srcPath, 'assets'), join(distPath, 'assets'));
+const result = sass.compile(scssEntry, { style: 'expanded' });
+await fs.writeFile(scssOutput, result.css);
 
-// Render .njk files (excluding layouts)
-async function renderNunjucks(dir) {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
+console.log('✅ SCSS compiled');
 
-  for (const entry of entries) {
-    const fullPath = join(dir, entry.name);
+// -------------------
+// 2. Copy assets from npm package (e.g., images)
+// -------------------
+const assetsDest = join(reviewDist, 'assets');
+await fse.copy(npmPkgAssets, assetsDest, { overwrite: true });
+console.log('✅ Assets copied');
 
-    if (entry.isDirectory()) {
-      await renderNunjucks(fullPath);
-    } else if (entry.isFile() && entry.name.endsWith('.njk')) {
-      // Skip layouts folder
-      if (fullPath.includes('/layouts/')) continue;
+// -------------------
+// 3. Render Nunjucks templates
+// -------------------
+nunjucks.configure([reviewSrc], { autoescape: true });
 
-      const templatePath = fullPath.replace(srcPath + '/', '');
-      const { name, dir: fileDir } = parse(templatePath);
-
-      const outDir = join(distPath, fileDir);
-      await fse.ensureDir(outDir);
-
-      const html = env.render(templatePath, context);
-      await fs.writeFile(join(outDir, `${name}.html`), html, 'utf-8');
+async function renderTemplates() {
+  // Recursively get all .njk files in src (excluding layouts)
+  async function walk(dir) {
+    let files = [];
+    const items = await fs.readdir(dir, { withFileTypes: true });
+    for (const item of items) {
+      const fullPath = join(dir, item.name);
+      if (item.isDirectory()) {
+        files = files.concat(await walk(fullPath));
+      } else if (item.isFile() && item.name.endsWith('.njk')) {
+        files.push(fullPath);
+      }
     }
+    return files;
+  }
+
+  const njkFiles = await walk(reviewSrc);
+
+  for (const file of njkFiles) {
+    // Skip layouts folder
+    if (file.includes('layouts')) continue;
+
+    const relPath = relative(reviewSrc, file);       // relative path
+    const outPath = join(reviewDist, relPath);      // Windows-safe
+    const { dir } = parse(outPath);
+    await fse.ensureDir(dir);
+
+    const html = nunjucks.render(relPath);
+    const htmlFile = outPath.replace(/\.njk$/, '.html');
+    await fs.writeFile(htmlFile, html);
   }
 }
 
-await renderNunjucks(srcPath);
+await renderTemplates();
+console.log('✅ Nunjucks templates rendered');
 
-console.log('✅ TEL Frontend review site built!');
+console.log('🎉 Build complete!');
