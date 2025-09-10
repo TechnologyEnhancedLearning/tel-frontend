@@ -1,66 +1,94 @@
+// packages/tel-frontend-review/build.mjs
+
 import { promises as fs } from "node:fs";
-import { join } from "node:path";
+import { join, dirname, parse } from "node:path";
 import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import fse from "fs-extra";
+import * as sass from "sass";
 
-// Proper Windows-friendly root path
-const reviewRoot = fileURLToPath(new URL(".", import.meta.url));
-const srcDir = join(reviewRoot, "src");
-const distDir = join(reviewRoot, "dist");
+// -------- Paths --------
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const repoRoot = join(__dirname, "../../"); // back to repo root
 
+// TEL frontend package
+const telFrontendSrc = join(repoRoot, "packages/tel-frontend/src/assets/styles.scss");
+const telFrontendDist = join(repoRoot, "packages/tel-frontend/dist");
 
-// Nunjucks setup
-const env = nunjucks.configure(srcDir, { autoescape: true });
+// Review app
+const reviewSrc = join(__dirname, "src");
+const reviewDist = join(__dirname, "dist");
 
-// Copy CSS (nhsuk + tel-frontend)
-async function copyCss() {
-  const nhsukCss = join("node_modules", "nhsuk-frontend", "dist", "nhsuk.min.css");
-  const telCss = join(reviewRoot, "../tel-frontend/dist/tel-frontend.css");
+// NHS.UK frontend (from node_modules)
+const nhsukDist = join(repoRoot, "node_modules/nhsuk-frontend/dist");
 
-  await fse.ensureDir(join(distDir, "assets"));
+// -------- Helpers --------
+async function buildTelFrontend() {
+  console.log("⚙️  Building TEL Frontend CSS...");
 
-  await fse.copy(nhsukCss, join(distDir, "assets/nhsuk-frontend.css"));
-  await fse.copy(telCss, join(distDir, "assets/tel-frontend.css"));
-  console.log("✅ Copied CSS files");
+  await fse.emptyDir(telFrontendDist);
+
+  const css = sass.compile(telFrontendSrc, {
+    style: "expanded",
+    loadPaths: ["node_modules"],
+  });
+
+  await fs.writeFile(join(telFrontendDist, "tel-frontend.css"), css.css);
+  console.log("✅ TEL Frontend CSS built");
 }
 
-// Copy static assets (optional, e.g., images)
-async function copyAssets() {
-  const srcAssets = join(srcDir, "assets");
-  const distAssets = join(distDir, "assets");
-  if (await fse.pathExists(srcAssets)) {
-    await fse.copy(srcAssets, distAssets, { overwrite: true });
-    console.log("✅ Copied static assets");
+async function buildReviewAssets() {
+  console.log("⚙️  Building review app assets...");
+
+  await fse.emptyDir(reviewDist);
+
+  // Copy NHS.UK frontend dist (CSS + JS)
+  await fse.copy(join(nhsukDist, "nhsuk.min.css"), join(reviewDist, "stylesheets/nhsuk.min.css"));
+  await fse.copy(join(nhsukDist, "nhsuk.min.js"), join(reviewDist, "javascripts/nhsuk.min.js"));
+
+  // Copy TEL frontend CSS
+  await fse.copy(join(telFrontendDist, "tel-frontend.css"), join(reviewDist, "stylesheets/tel-frontend.css"));
+
+  // Copy static assets (images, etc.)
+  if (await fse.pathExists(join(reviewSrc, "assets"))) {
+    await fse.copy(join(reviewSrc, "assets"), join(reviewDist, "assets"));
   }
+
+  console.log("✅ Review assets copied");
 }
 
-// Render HTML pages from Nunjucks templates
-async function renderNunjucks() {
-  const examplesDir = join(srcDir, "examples");
-  const files = await fs.readdir(examplesDir);
+async function buildReviewHtml() {
+  console.log("⚙️  Rendering review site HTML...");
+
+  const env = nunjucks.configure([reviewSrc], { autoescape: true });
+  const files = await fse.readdir(reviewSrc);
 
   for (const file of files) {
-    if (!file.endsWith(".njk")) continue;
+    if (file.endsWith(".njk")) {
+      const name = parse(file).name;
+      const html = env.render(file, { title: "TEL Frontend Review" });
 
-    const html = env.render(join("examples", file));
-    const outFile = join(distDir, file.replace(".njk", ".html"));
-    await fse.ensureDir(distDir);
-    await fs.writeFile(outFile, html, "utf8");
-    console.log(`✅ Rendered ${file}`);
+      const outDir = join(reviewDist, name === "index" ? "" : name);
+      await fse.ensureDir(outDir);
+      await fs.writeFile(join(outDir, "index.html"), html);
+      console.log(`📄 Rendered ${file} -> ${outDir}/index.html`);
+    }
+  }
+
+  console.log("✅ Review HTML rendered");
+}
+
+// -------- Main --------
+async function build() {
+  try {
+    await buildTelFrontend();
+    await buildReviewAssets();
+    await buildReviewHtml();
+    console.log("🎉 Build finished successfully");
+  } catch (err) {
+    console.error("❌ Build failed:", err);
+    process.exit(1);
   }
 }
 
-// Main build
-async function build() {
-  await fse.emptyDir(distDir);
-  await copyCss();
-  await copyAssets();
-  await renderNunjucks();
-  console.log("🎉 Review site built!");
-}
-
-build().catch((err) => {
-  console.error("❌ Build failed:", err);
-  process.exit(1);
-});
+build();
