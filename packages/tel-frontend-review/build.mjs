@@ -15,7 +15,7 @@ const env = nunjucks.configure(srcDir, { autoescape: true });
 
 // Copy CSS (nhsuk + tel-frontend)
 async function copyCss() {
-  const nhsukCss = join("node_modules", "nhsuk-frontend", "dist", "nhsuk-frontend.min.css");
+  const nhsukCss = join("node_modules", "nhsuk-frontend", "dist", "nhsuk.min.css");
   const telCss = join(reviewRoot, "../tel-frontend/dist/tel-frontend.css");
 
   await fse.ensureDir(join(distDir, "assets"));
