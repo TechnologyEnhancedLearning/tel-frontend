@@ -10,6 +10,8 @@ import * as sass from "sass";
 // -------- Paths --------
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(__dirname, "../../"); // back to repo root
+const srcDir = join(__dirname, "src");
+
 
 // TEL frontend package
 const telFrontendSrc = join(repoRoot, "packages/tel-frontend/src/assets/styles.scss");
@@ -78,7 +80,7 @@ async function buildReviewHtml() {
   
 
 // 6. Render example pages
-const examplesSrc = join(reviewDir, "src/examples");
+const examplesSrc = join(srcDir, "examples");
 const examplesDist = join(distDir, "examples");
 
 // Ensure examples output folder exists
@@ -92,9 +94,11 @@ if (await fse.pathExists(examplesSrc)) {
       const name = file.replace(/\.njk$/, ".html");
       const rendered = nunjucks.render(join(examplesSrc, file));
       await fs.writeFile(join(examplesDist, name), rendered, "utf8");
+      console.log(`📄 Rendered ${file} -> ${join(examplesDist, name)}`);
     }
   }
 }
+
 
 
   console.log("✅ Review HTML rendered");
