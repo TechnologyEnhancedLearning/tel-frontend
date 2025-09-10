@@ -1,16 +1,18 @@
-// packages/tel-frontend-review/build.mjs
-
 import { promises as fs } from "node:fs";
-import { join, parse } from "node:path";
+import { join, dirname, parse } from "node:path";
+import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import fse from "fs-extra";
 
-// -------- Paths --------
+// Replace __dirname in ES modules
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const repoRoot = join(__dirname, "../../"); // back to repo root
 const reviewSrc = join(__dirname, "src");
 const reviewDist = join(__dirname, "dist");
 const nhsukDist = join(repoRoot, "node_modules/nhsuk-frontend/dist");
 const telFrontendDist = join(repoRoot, "packages/tel-frontend/dist");
+
 
 // -------- Helpers --------
 async function buildReviewAssets() {
