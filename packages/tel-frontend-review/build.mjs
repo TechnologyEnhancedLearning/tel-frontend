@@ -14,7 +14,7 @@ const srcDir = join(__dirname, "src");
 
 
 // TEL frontend package
-const telFrontendSrc = join(repoRoot, "packages/tel-frontend/src/assets/styles.scss");
+const telFrontendSrc = join(repoRoot, "packages/tel-frontend/src/styles.scss");
 const telFrontendDist = join(repoRoot, "packages/tel-frontend/dist");
 
 // Review app
