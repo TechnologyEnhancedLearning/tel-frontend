@@ -75,6 +75,28 @@ async function buildReviewHtml() {
     }
   }
 
+  
+
+// 6. Render example pages
+const examplesSrc = join(reviewDir, "src/examples");
+const examplesDist = join(distDir, "examples");
+
+// Ensure examples output folder exists
+await fse.ensureDir(examplesDist);
+
+// Check if examples folder exists and has files
+if (await fse.pathExists(examplesSrc)) {
+  const files = await fs.readdir(examplesSrc);
+  for (const file of files) {
+    if (file.endsWith(".njk")) {
+      const name = file.replace(/\.njk$/, ".html");
+      const rendered = nunjucks.render(join(examplesSrc, file));
+      await fs.writeFile(join(examplesDist, name), rendered, "utf8");
+    }
+  }
+}
+
+
   console.log("✅ Review HTML rendered");
 }
 
