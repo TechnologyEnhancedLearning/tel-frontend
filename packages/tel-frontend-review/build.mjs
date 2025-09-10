@@ -81,7 +81,7 @@ async function buildReviewHtml() {
 
 // 6. Render example pages
 const examplesSrc = join(srcDir, "examples");
-const examplesDist = join(distDir, "examples");
+const examplesDist = join(reviewDist, "examples");
 
 // Ensure examples output folder exists
 await fse.ensureDir(examplesDist);
