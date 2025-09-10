@@ -1,13 +1,14 @@
-// Minimal build script for tel-frontend-review
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import fse from "fs-extra";
 
-// Paths
-const reviewRoot = new URL(".", import.meta.url).pathname;
+// Proper Windows-friendly root path
+const reviewRoot = fileURLToPath(new URL(".", import.meta.url));
 const srcDir = join(reviewRoot, "src");
 const distDir = join(reviewRoot, "dist");
+
 
 // Nunjucks setup
 const env = nunjucks.configure(srcDir, { autoescape: true });
