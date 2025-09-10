@@ -1,0 +1,29 @@
+// packages/tel-frontend/src/components/hello-world/_hello-world.scss
+
+// Optional: Namespace your classes to avoid conflicts
+.hello-world {
+  // Basic styling for the component
+  background-color: #e0f7fa; // very light cyan background
+  border: 1px solid #00bcd4; // cyan border
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+
+  // Text styling
+  h2 {
+    font-size: 1.5rem;
+    color: #007c91; // darker cyan
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #004d55; // darkish cyan
+  }
+}
+
+// Example of a modifier class
+.hello-world--highlight {
+  background-color: #b2ebf2;
+  border-color: #0097a7;
+}
