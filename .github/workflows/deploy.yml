@@ -3,7 +3,7 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   build-and-deploy:
@@ -22,18 +22,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  
+          node-version: '20'
+          cache: 'npm'
 
-      # 3. Install dependencies
+      # 3. Install dependencies (with workspaces enabled)
       - name: Install dependencies
-        run: npm install
+        run: npm install --workspaces
 
-      # 4. Build the review site
+      # 4. Build the review site (compiles TEL frontend + copies assets + renders HTML)
       - name: Build TEL Frontend review site
         run: node packages/tel-frontend-review/build.mjs
 
-      # 5. Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+      # 5. Upload artifact for GitHub Pages
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: packages/tel-frontend-review/dist
+
+      # 6. Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
