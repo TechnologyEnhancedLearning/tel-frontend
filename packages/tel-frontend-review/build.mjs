@@ -3,6 +3,7 @@ import { join, dirname, parse } from "node:path";
 import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import fse from "fs-extra";
+import * as sass from "sass"; // 👈 add this
 
 // Replace __dirname in ES modules
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -11,10 +12,30 @@ const repoRoot = join(__dirname, "../../"); // back to repo root
 const reviewSrc = join(__dirname, "src");
 const reviewDist = join(__dirname, "dist");
 const nhsukDist = join(repoRoot, "node_modules/nhsuk-frontend/dist");
+
+// TEL frontend package
+const telFrontendSrc = join(repoRoot, "packages/tel-frontend/src/styles.scss");
 const telFrontendDist = join(repoRoot, "packages/tel-frontend/dist");
 
-
 // -------- Helpers --------
+async function buildTelFrontend() {
+  console.log("⚙️  Building TEL Frontend CSS...");
+
+  await fse.emptyDir(telFrontendDist); // clear dist folder
+  await fse.ensureDir(telFrontendDist); // make sure it exists
+
+  console.log("Compiling from:", telFrontendSrc);
+  const css = sass.compile(telFrontendSrc, {
+    style: "expanded",
+    loadPaths: ["node_modules"],
+  });
+  console.log("Sass compiled successfully, writing CSS...");
+
+  const outFile = join(telFrontendDist, "tel-frontend.css");
+  await fs.writeFile(outFile, css.css);
+  console.log("✅ TEL Frontend CSS built at:", outFile);
+}
+
 async function buildReviewAssets() {
   console.log("⚙️  Copying review app assets...");
 
@@ -76,8 +97,9 @@ async function buildReviewHtml() {
 // -------- Main --------
 async function build() {
   try {
-    await buildReviewAssets();
-    await buildReviewHtml();
+    await buildTelFrontend();   // 👈 compile SCSS into tel-frontend.css
+    await buildReviewAssets();  // 👈 copy CSS + assets
+    await buildReviewHtml();    // 👈 render pages
     console.log("🎉 Build finished successfully");
   } catch (err) {
     console.error("❌ Build failed:", err);
