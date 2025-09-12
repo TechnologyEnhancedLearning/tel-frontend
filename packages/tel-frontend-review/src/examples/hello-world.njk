@@ -1,6 +1,9 @@
 {% set title = "Hello World example" %}
 {% extends "layouts/page.njk" %}
 
+{# NHS.UK hero macro import #}
+{% from "packages/components/hero/macro.njk" import hero %}
+
 {# Import the hello-world component from TEL Frontend package #}
 {% from "hello-world/hello-world.njk" import helloWorld %}
 
