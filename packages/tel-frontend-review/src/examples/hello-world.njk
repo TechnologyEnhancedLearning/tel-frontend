@@ -1,6 +1,15 @@
 {% set title = "Hello World example" %}
 {% extends "layouts/page.njk" %}
 
+{% block header %}
+  {% call hero({
+    heading: "This is an internal development app to preview the tel-frontend components.",
+    headingClasses: "nhsuk-body-l nhsuk-u-font-weight-normal",
+    headingLevel: 2
+  }) %}
+  {% endcall %}
+{% endblock %}
+
 {% block content %}
   <h2 class="nhsuk-heading-m">Hello World</h2>
   <p class="nhsuk-body">This is a placeholder example page to test the TEL Frontend review app.</p>
