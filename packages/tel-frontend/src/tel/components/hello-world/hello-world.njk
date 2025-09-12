@@ -1,10 +1,9 @@
+{# tel-frontend-review/src/components/hello-world.njk #}
 {% macro helloWorld(params = {}) %}
   <div class="nhsuk-card {{ params.classes | default('') }}">
     <div class="nhsuk-card__content">
-      <h3 class="nhsuk-card__heading">Hello World Component</h3>
-      <p class="nhsuk-card__description">
-        This is just a test component for setting up the repo.
-      </p>
+      <h3 class="nhsuk-card__heading">{{ params.heading | default('Hello World Component') }}</h3>
+      <p class="nhsuk-card__description">{{ params.text | default('This is just a test component for setting up the repo.') }}</p>
     </div>
   </div>
 {% endmacro %}
