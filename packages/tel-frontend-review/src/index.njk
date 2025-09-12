@@ -1,19 +1,21 @@
 {% set title = "TEL Frontend" %}
 {% extends "layouts/page.njk" %}
 
+{% from "packages/components/hero/macro.njk" import hero %}
+
 {% block header %}
   {% call hero({
     heading: "This is an internal development app to preview the tel-frontend components.",
-    headingClasses: "nhsuk-body-l nhsuk-u-font-weight-normal",
+    headingClasses: "nhsuk-heading-l nhsuk-u-font-weight-normal nhsuk-u-margin-bottom-2",
     headingLevel: 2
   }) %}
-    <p class="nhsuk-u-margin-bottom-0">More info to follow.</p>
+    <p class="nhsuk-body nhsuk-u-margin-bottom-0">More info to follow.</p>
   {% endcall %}
 {% endblock %}
 
 {% block content %}
-  <h2 class="nhsuk-heading-m">Components</h2>
-  <ul class="nhsuk-list">
-    <li><a href="examples/hello-world.html">Hello World example</a></li>
+  <h2 class="nhsuk-heading-m nhsuk-u-margin-top-4">Components</h2>
+  <ul class="nhsuk-list nhsuk-u-margin-bottom-4">
+    <li><a class="nhsuk-link" href="examples/hello-world.html">Hello World example</a></li>
   </ul>
 {% endblock %}
