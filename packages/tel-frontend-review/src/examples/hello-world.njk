@@ -18,9 +18,10 @@
 {% endblock %}
 
 {% block content %}
-  <h2 class="nhsuk-heading-m">Hello World</h2>
-  
- {{ helloWorld() }}
-  
+  <h2 class="nhsuk-heading-m">Example 1</h2>
+  {{ helloWorld() }}  {# Uses default heading and text #}
+
+  <h2 class="nhsuk-heading-m">Example 2</h2>
+  {{ helloWorld({ heading: "Custom Title", text: "This text is different!", classes: "nhsuk-u-margin-bottom-4" }) }}
 
 {% endblock %}
