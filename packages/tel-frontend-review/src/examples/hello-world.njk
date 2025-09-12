@@ -1,6 +1,8 @@
 {% set title = "Hello World example" %}
 {% extends "layouts/page.njk" %}
 
+{% from "packages/components/hero/macro.njk" import hero %}
+
 {% block header %}
   {% call hero({
     heading: "This is an internal development app to preview the tel-frontend components.",
