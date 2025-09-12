@@ -59,14 +59,17 @@ async function buildReviewAssets() {
 async function buildReviewHtml() {
   console.log("⚙️  Rendering review site HTML...");
 
-  // 👇 Add nhsuk-frontend macros path so you can import components
-  const env = nunjucks.configure(
-    [
-      reviewSrc,
-      join(repoRoot, "node_modules/nhsuk-frontend"), // NHS.UK macros + components
-    ],
-    { autoescape: true }
-  );
+  const telComponents = join(repoRoot, "packages/tel-frontend/src/tel/components");
+
+const env = nunjucks.configure(
+  [
+    reviewSrc,           // review site source
+    join(repoRoot, "node_modules/nhsuk-frontend"), // NHS.UK macros
+    telComponents        // TEL Frontend components
+  ],
+  { autoescape: true }
+);
+
 
   const files = await fse.readdir(reviewSrc);
 
