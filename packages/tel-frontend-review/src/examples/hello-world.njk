@@ -1,14 +1,11 @@
 {% set title = "Hello World example" %}
 {% extends "layouts/page.njk" %}
 
-{# Import the NHS.UK hero macro if needed #}
-{% from "packages/components/hero/macro.njk" import hero %}
+{# Import the hello-world component from TEL Frontend package #}
+{% from "hello-world/hello-world.njk" import helloWorld %}
 
-{# Import your TEL Frontend Hello World component #}
-{% from "../../../../tel-frontend/src/tel/components/hello-world/hello-world.njk" import helloWorld %}
-
-{# Optional: Render a hero header #}
 {% block header %}
+  {# Optional hero for this page #}
   {% call hero({
     heading: "This is an internal development app to preview the tel-frontend components.",
     headingClasses: "nhsuk-heading-l nhsuk-u-font-weight-normal nhsuk-u-margin-bottom-2",
@@ -17,7 +14,17 @@
   {% endcall %}
 {% endblock %}
 
-{# Render your component #}
 {% block content %}
-  {{ helloWorld() }}
+  <h2 class="nhsuk-heading-m">Hello World</h2>
+  
+  {# Call the imported component #}
+  {% call helloWorld() %}
+  {% endcall %}
+  
+  <div class="nhsuk-card">
+    <div class="nhsuk-card__content">
+      <h3 class="nhsuk-card__heading">Hello World Card Heading</h3>
+      <p class="nhsuk-card__description">Once deployment is working, replace this with real components.</p>
+    </div>
+  </div>
 {% endblock %}
