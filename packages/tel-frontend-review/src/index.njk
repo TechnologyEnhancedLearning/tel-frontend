@@ -1,6 +1,16 @@
 {% set title = "TEL Frontend" %}
 {% extends "layouts/page.njk" %}
 
+{% block header %}
+  {% call hero({
+    heading: "This is an internal development app to preview the tel-frontend components.",
+    headingClasses: "nhsuk-body-l nhsuk-u-font-weight-normal",
+    headingLevel: 2
+  }) %}
+    <p class="nhsuk-u-margin-bottom-0">More info to follow.</p>
+  {% endcall %}
+{% endblock %}
+
 {% block content %}
   <h2 class="nhsuk-heading-m">Components</h2>
   <ul class="nhsuk-list">
