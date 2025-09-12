@@ -3,7 +3,7 @@ import { join, dirname, parse } from "node:path";
 import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import fse from "fs-extra";
-import * as sass from "sass"; // 👈 add this
+import * as sass from "sass"; // 👈 sass compiler
 
 // Replace __dirname in ES modules
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -59,7 +59,15 @@ async function buildReviewAssets() {
 async function buildReviewHtml() {
   console.log("⚙️  Rendering review site HTML...");
 
-  const env = nunjucks.configure([reviewSrc], { autoescape: true });
+  // 👇 Add nhsuk-frontend macros path so you can import components
+  const env = nunjucks.configure(
+    [
+      reviewSrc,
+      join(repoRoot, "node_modules/nhsuk-frontend"), // NHS.UK macros + components
+    ],
+    { autoescape: true }
+  );
+
   const files = await fse.readdir(reviewSrc);
 
   for (const file of files) {
@@ -97,9 +105,9 @@ async function buildReviewHtml() {
 // -------- Main --------
 async function build() {
   try {
-    await buildTelFrontend();   // 👈 compile SCSS into tel-frontend.css
-    await buildReviewAssets();  // 👈 copy CSS + assets
-    await buildReviewHtml();    // 👈 render pages
+    await buildTelFrontend();   // compile SCSS into tel-frontend.css
+    await buildReviewAssets();  // copy CSS + assets
+    await buildReviewHtml();    // render pages
     console.log("🎉 Build finished successfully");
   } catch (err) {
     console.error("❌ Build failed:", err);
