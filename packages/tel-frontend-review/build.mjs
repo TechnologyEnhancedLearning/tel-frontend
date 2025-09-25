@@ -44,6 +44,9 @@ async function buildReviewCSS() {
     loadPaths: ["node_modules"],
   });
 
+  console.log("Compiled CSS length:", css.css.length);
+  console.log("Preview first 200 chars:\n", css.css.slice(0, 200));
+
   const outDir = join(reviewDist, "stylesheets");
   await fse.ensureDir(outDir);
   await fs.writeFile(join(outDir, "review.css"), css.css);
@@ -53,8 +56,6 @@ async function buildReviewCSS() {
 
 async function buildReviewAssets() {
   console.log("Copying review app assets...");
-
-  await fse.emptyDir(reviewDist);
 
   // Copy NHS.UK frontend dist (CSS + JS)
   await fse.copy(join(nhsukDist, "nhsuk.min.css"), join(reviewDist, "stylesheets/nhsuk.min.css"));
@@ -123,9 +124,10 @@ const env = nunjucks.configure(
 // -------- Main --------
 async function build() {
   try {
+    await fse.emptyDir(reviewDist);
     await buildTelFrontend();   // compile SCSS into tel-frontend.css
-     await buildReviewCSS();        // compile review site SCSS (examples.scss → review.css)
     await buildReviewAssets();  // copy CSS + assets
+    await buildReviewCSS();        // compile review site SCSS (examples.scss → review.css)
     await buildReviewHtml();    // render pages
     console.log("Build finished successfully");
   } catch (err) {
