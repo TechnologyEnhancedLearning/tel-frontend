@@ -3,7 +3,7 @@ import { join, dirname, parse } from "node:path";
 import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import fse from "fs-extra";
-import * as sass from "sass"; // 👈 sass compiler
+import * as sass from "sass"; // sass compiler
 
 // Replace __dirname in ES modules
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -19,7 +19,7 @@ const telFrontendDist = join(repoRoot, "packages/tel-frontend/dist");
 
 // -------- Helpers --------
 async function buildTelFrontend() {
-  console.log("⚙️  Building TEL Frontend CSS...");
+  console.log("Building TEL Frontend CSS...");
 
   await fse.emptyDir(telFrontendDist); // clear dist folder
   await fse.ensureDir(telFrontendDist); // make sure it exists
@@ -33,11 +33,26 @@ async function buildTelFrontend() {
 
   const outFile = join(telFrontendDist, "tel-frontend.css");
   await fs.writeFile(outFile, css.css);
-  console.log("✅ TEL Frontend CSS built at:", outFile);
+  console.log("TEL Frontend CSS built at:", outFile);
+}
+
+async function buildReviewCSS() {
+  console.log("Building review site CSS...");
+
+  const css = sass.compile(join(reviewSrc, "scss/main.scss"), {
+    style: "expanded",
+    loadPaths: ["node_modules"],
+  });
+
+  const outDir = join(reviewDist, "stylesheets");
+  await fse.ensureDir(outDir);
+  await fs.writeFile(join(outDir, "review.css"), css.css);
+
+  console.log("Review site CSS built at:", join(outDir, "review.css"));
 }
 
 async function buildReviewAssets() {
-  console.log("⚙️  Copying review app assets...");
+  console.log("Copying review app assets...");
 
   await fse.emptyDir(reviewDist);
 
@@ -53,11 +68,11 @@ async function buildReviewAssets() {
     await fse.copy(join(reviewSrc, "assets"), join(reviewDist, "assets"));
   }
 
-  console.log("✅ Review assets copied");
+  console.log("Review assets copied");
 }
 
 async function buildReviewHtml() {
-  console.log("⚙️  Rendering review site HTML...");
+  console.log("Rendering review site HTML...");
 
   const telComponents = join(repoRoot, "packages/tel-frontend/src/tel/components");
 
@@ -81,7 +96,7 @@ const env = nunjucks.configure(
       const outDir = join(reviewDist, name === "index" ? "" : name);
       await fse.ensureDir(outDir);
       await fs.writeFile(join(outDir, "index.html"), html);
-      console.log(`📄 Rendered ${file} -> ${outDir}/index.html`);
+      console.log(`Rendered ${file} -> ${outDir}/index.html`);
     }
   }
 
@@ -97,23 +112,24 @@ const env = nunjucks.configure(
         const name = file.replace(/\.njk$/, ".html");
         const rendered = env.render(join("examples", file));
         await fs.writeFile(join(examplesDist, name), rendered, "utf8");
-        console.log(`📄 Rendered ${file} -> ${join(examplesDist, name)}`);
+        console.log(`Rendered ${file} -> ${join(examplesDist, name)}`);
       }
     }
   }
 
-  console.log("✅ Review HTML rendered");
+  console.log("Review HTML rendered");
 }
 
 // -------- Main --------
 async function build() {
   try {
     await buildTelFrontend();   // compile SCSS into tel-frontend.css
+     await buildReviewCSS();        // compile review site SCSS (examples.scss → review.css)
     await buildReviewAssets();  // copy CSS + assets
     await buildReviewHtml();    // render pages
-    console.log("🎉 Build finished successfully");
+    console.log("Build finished successfully");
   } catch (err) {
-    console.error("❌ Build failed:", err);
+    console.error("Build failed:", err);
     process.exit(1);
   }
 }
