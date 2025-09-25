@@ -1,3 +1,83 @@
+/* Wrapper for component example previews */
 .component-design-example {
   width: 100%;
+  margin-bottom: 2rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  padding: 1rem;
+  background-color: #f9f9f9;
+
+  /* Tab navigation */
+  .example-tabs__list {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    padding: 0;
+
+    .example-tab {
+      background-color: #fff;
+      border: 1px solid #dcdcdc;
+      border-radius: 3px;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: #333;
+
+      &[aria-selected="true"] {
+        background-color: #007f56; /* NHS green */
+        color: #fff;
+        border-color: #007f56;
+      }
+
+      &:hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+
+  /* Panels containing code */
+  .example-panel {
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
+    padding: 0.5rem;
+    background-color: #f4f4f4;
+    position: relative;
+    margin-bottom: 1rem;
+
+    &.js-hidden {
+      display: none;
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      background: #f4f4f4;
+      padding: 0.5rem;
+      border-radius: 3px;
+    }
+
+    code {
+      font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+
+    /* Copy button */
+    .copy-button {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      background: #fff;
+      border: 1px solid #dcdcdc;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
 }
