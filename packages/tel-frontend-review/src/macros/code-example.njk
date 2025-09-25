@@ -1,0 +1,64 @@
+{# 
+  Macro: codeExample
+  Wraps a code snippet in a container with tabs and copy button.
+  Parameters:
+    htmlCode: string - HTML code snippet
+    nunjucksCode: string - Nunjucks macro usage snippet
+    defaultTab: string - "html" or "nunjucks", default "html"
+#}
+
+{% macro codeExample(htmlCode, nunjucksCode="", defaultTab="html") %}
+<div class="component-design-example">
+
+  {# Tab navigation #}
+  <ul class="example-tabs__list" role="tablist">
+    <li><button class="example-tab" role="tab" aria-selected="{{ 'true' if defaultTab == 'html' else 'false' }}" data-tab="html">HTML</button></li>
+    <li><button class="example-tab" role="tab" aria-selected="{{ 'true' if defaultTab == 'nunjucks' else 'false' }}" data-tab="nunjucks">Nunjucks</button></li>
+  </ul>
+
+  {# Tab panels #}
+  <div class="example-panel" data-tab="html" style="display: {{ 'block' if defaultTab == 'html' else 'none' }};">
+    <button class="copy-button" data-copy-target="html">Copy code</button>
+    <pre><code class="language-html">{{ htmlCode | safe }}</code></pre>
+  </div>
+
+  {% if nunjucksCode %}
+  <div class="example-panel" data-tab="nunjucks" style="display: {{ 'block' if defaultTab == 'nunjucks' else 'none' }};">
+    <button class="copy-button" data-copy-target="nunjucks">Copy code</button>
+    <pre><code class="language-nunjucks">{{ nunjucksCode | safe }}</code></pre>
+  </div>
+  {% endif %}
+
+</div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.component-design-example').forEach(container => {
+    const tabs = container.querySelectorAll('.example-tab');
+    const panels = container.querySelectorAll('.example-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach(panel => {
+          panel.style.display = (panel.dataset.tab === tab.dataset.tab) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // Copy button functionality
+    container.querySelectorAll('.copy-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetPanel = btn.nextElementSibling;
+        const codeEl = targetPanel.querySelector('code');
+        navigator.clipboard.writeText(codeEl.innerText).then(() => {
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.innerText = 'Copy code'; }, 1500);
+        });
+      });
+    });
+  });
+</script>
+{% endmacro %}
