@@ -7,6 +7,9 @@
 {# Import the hello-world component from TEL Frontend package #}
 {% from "hello-world/hello-world.njk" import helloWorld %}
 
+{# Import the macro for displaying the code snippets #}
+{% from "macros/code-example.njk" import codeExample %}
+
 {% block header %}
   {# Optional hero for this page #}
   {% call hero({
@@ -21,14 +24,10 @@
   <h2 class="nhsuk-heading-m">Example 1</h2>
   {{ helloWorld() }}  {# Uses default heading and text #}
 
-  <pre><code class="language-html">
-    &lt;div class="nhsuk-card"&gt;
-      &lt;div class="nhsuk-card__content"&gt;
-        &lt;h3 class="nhsuk-card__heading"&gt;Hello World Component&lt;/h3&gt;
-        &lt;p class="nhsuk-card__description"&gt;This is just a test component for setting up the repo.&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  </code></pre>
+  {{ codeExample(
+    "&lt;div class=&quot;nhsuk-card&quot;&gt;\n  &lt;div class=&quot;nhsuk-card__content&quot;&gt;\n    &lt;h3 class=&quot;nhsuk-card__heading&quot;&gt;Hello World Component&lt;/h3&gt;\n    &lt;p class=&quot;nhsuk-card__description&quot;&gt;This is just a test component.&lt;/p&gt;\n  &lt;/div&gt;\n&lt;/div&gt;",
+    "{% from 'hello-world/hello-world.njk' import helloWorld %}\n{{ helloWorld() }}"
+  ) }}
 
   <h2 class="nhsuk-heading-m">Example 2</h2>
   {{ helloWorld({ heading: "Custom Title", text: "This text is different!", classes: "nhsuk-u-margin-bottom-4" }) }}
