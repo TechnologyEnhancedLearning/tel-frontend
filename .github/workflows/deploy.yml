@@ -27,11 +27,11 @@ jobs:
 
       # 3. Install dependencies (with workspaces enabled)
       - name: Install dependencies
-        run: npm install --workspaces
+        run: npm install --workspaces --legacy-peer-deps
 
-      # 4. Build both TEL frontend and review site
+      # 4. Build TEL Frontend package + review site
       - name: Build project
-        run: npm run build
+        run: node packages/tel-frontend-review/build.mjs
 
       # 5. Upload artifact for GitHub Pages
       - name: Upload GitHub Pages artifact
