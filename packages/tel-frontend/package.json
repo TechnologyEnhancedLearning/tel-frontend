@@ -1,11 +1,23 @@
 {
   "name": "tel-frontend",
   "version": "0.1.0",
+  "private": true,
   "peerDependencies": {
-    "nhsuk-frontend": "^9.0.0"
+    "nhsuk-frontend": "^10.0.0"
   },
   "files": [
     "src/tel/assets/",
     "src/tel/components/"
-  ]
+  ],
+  "scripts": {
+    "build": "npx gulp build"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-terser": "^2.1.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.72.1"
+  }
 }
