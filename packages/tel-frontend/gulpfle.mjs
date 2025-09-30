@@ -1,34 +1,41 @@
-import gulp from "gulp";
-import concat from "gulp-concat";
-import terser from "gulp-terser";
-import sass from "gulp-sass";
-import dartSass from "sass";
-import rename from "gulp-rename";
+import gulp from 'gulp';
+import sass from 'gulp-sass';
+import dartSass from 'sass';
+import concat from 'gulp-concat';
+import terser from 'gulp-terser';
+import rename from 'gulp-rename';
+import fse from 'fs-extra';
+import { join } from 'node:path';
 
-const compileSass = sass(dartSass);
+const gulpSass = sass(dartSass);
 
-// Paths
-const jsFiles = "packages/tel-frontend/src/tel/components/**/*.js";
-const scssFile = "packages/tel-frontend/src/styles.scss";
-const distDir = "packages/tel-frontend/dist";
+const dist = 'dist';
+const src = 'src/tel';
 
-// -------- Tasks --------
+// --- Clean dist ---
+export const clean = async () => {
+  await fse.emptyDir(dist);
+};
 
-// JS bundle
-gulp.task("bundle-js", () => {
-  return gulp.src(jsFiles)
-    .pipe(concat("tel.min.js"))
+// --- Compile SCSS ---
+export function css() {
+  return gulp
+    .src(`${src}/styles.scss`)
+    .pipe(gulpSass().on('error', gulpSass.logError))
+    .pipe(rename('tel-frontend.css'))
+    .pipe(gulp.dest(dist));
+}
+
+// --- Bundle JS ---
+export function js() {
+  return gulp
+    .src(`${src}/components/**/*.js`)
+    .pipe(concat('tel-frontend.js'))
+    .pipe(gulp.dest(dist))
     .pipe(terser())
-    .pipe(gulp.dest(distDir));
-});
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest(dist));
+}
 
-// CSS compile
-gulp.task("bundle-css", () => {
-  return gulp.src(scssFile)
-    .pipe(compileSass({ outputStyle: "compressed" }).on("error", compileSass.logError))
-    .pipe(rename("tel-frontend.css"))
-    .pipe(gulp.dest(distDir));
-});
-
-// Combined
-gulp.task("build", gulp.parallel("bundle-js", "bundle-css"));
+// --- Full build ---
+export const build = gulp.series(clean, gulp.parallel(css, js));
