@@ -29,9 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm install --workspaces
 
-      # 4. Build the review site (compiles TEL frontend + copies assets + renders HTML)
-      - name: Build TEL Frontend review site
-        run: node packages/tel-frontend-review/build.mjs
+      # 4. Build both TEL frontend and review site
+      - name: Build project
+        run: npm run build
 
       # 5. Upload artifact for GitHub Pages
       - name: Upload GitHub Pages artifact
