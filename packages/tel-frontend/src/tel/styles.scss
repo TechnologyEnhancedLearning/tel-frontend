@@ -1,5 +1,8 @@
-// Import your global overrides
-@use "./styles/overrides";
+// Import overrides first
+@import "styles/_overrides.scss";
 
-// Import per-component SCSS
-@use "./tel/components/hello-world/hello-world";
+// Import all components
+@import "components/hello-world/_hello-world.scss";
+
+// Add future components here
+// @import "components/another-component/_another-component.scss";
