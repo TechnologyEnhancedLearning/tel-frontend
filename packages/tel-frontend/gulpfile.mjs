@@ -1,18 +1,16 @@
 import gulp from 'gulp';
-import sass from 'gulp-sass';
-import dartSass from 'sass';
+import sass from 'sass';
+import gulpSass from 'gulp-sass';
 import concat from 'gulp-concat';
 import terser from 'gulp-terser';
 import rename from 'gulp-rename';
 import fse from 'fs-extra';
-import { join } from 'node:path';
 
-const gulpSass = sass(dartSass);
-
+const sassCompiler = gulpSass(sass);
 const dist = 'dist';
 const src = 'src/tel';
 
-// --- Clean dist ---
+// --- Clean dist folder ---
 export const clean = async () => {
   await fse.emptyDir(dist);
 };
@@ -20,8 +18,8 @@ export const clean = async () => {
 // --- Compile SCSS ---
 export function css() {
   return gulp
-    .src(`${src}/styles.scss`)
-    .pipe(gulpSass().on('error', gulpSass.logError))
+    .src(`${src}/styles.scss`)          // main entry inside tel/
+    .pipe(sassCompiler().on('error', sassCompiler.logError))
     .pipe(rename('tel-frontend.css'))
     .pipe(gulp.dest(dist));
 }
