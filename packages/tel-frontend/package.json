@@ -10,7 +10,7 @@
     "src/tel/components/"
   ],
   "scripts": {
-    "build": "npx gulp build"
+    "build": "npx gulp --gulpfile gulpfile.mjs build"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
