@@ -6,9 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build:package": "cd packages/tel-frontend && npm run build",
-    "build:review": "cd packages/tel-frontend-review && node build.mjs",
-    "build": "npm run build:package && npm run build:review",
+    "build": "node packages/tel-frontend-review/build.mjs",
     "lint": "eslint . --ext .js,.ts,.vue",
     "prettier": "prettier --check ."
   },
