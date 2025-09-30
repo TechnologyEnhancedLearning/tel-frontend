@@ -1,14 +1,14 @@
 {
-  "name": "tel-frontend",
+  "name": "tel-frontend-monorepo",
   "version": "0.1.0",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build:review": "gulp build:review",
     "build:package": "cd packages/tel-frontend && npm run build",
-    "build": "npm run build:review && npm run build:package",
+    "build:review": "cd packages/tel-frontend-review && node build.mjs",
+    "build": "npm run build:package && npm run build:review",
     "lint": "eslint . --ext .js,.ts,.vue",
     "prettier": "prettier --check ."
   },
@@ -18,10 +18,6 @@
     "sass": "^1.72.1"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-nunjucks-render": "^2.2.3",
-    "gulp-sass": "^5.1.0",
-    "sass": "^1.66.0",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0"
   },
