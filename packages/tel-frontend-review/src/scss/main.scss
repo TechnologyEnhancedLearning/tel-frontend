@@ -1,4 +1,6 @@
-// Import TEL Frontend base styles
-@use "../../tel-frontend/src/styles" as tel;
+// main.scss
 
-// Optional: add any review-site-specific overrides
+// Optional: add only review site-specific styles
+body {
+  font-family: Arial, sans-serif;
+}
