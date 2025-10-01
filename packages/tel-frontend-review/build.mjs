@@ -12,7 +12,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(__dirname, "../../"); // back to repo root
 const reviewSrc = join(__dirname, "src");
 const reviewDist = join(__dirname, "dist");
-const nhsukDist = join(repoRoot, "node_modules/nhsuk-frontend/dist");
 
 // TEL frontend package paths
 const telFrontendDir = join(repoRoot, "packages/tel-frontend");
@@ -25,11 +24,9 @@ const telFrontendSrcScss = join(telFrontendDir, "src/styles.scss");
 async function buildTelFrontend() {
   console.log("Building TEL Frontend CSS + JS via Gulp...");
 
-  // Ensure dist folder exists and is clean
   await fse.emptyDir(telFrontendDist);
   await fse.ensureDir(telFrontendDist);
 
-  // Run Gulp build inside tel-frontend package
   try {
     execSync("npx gulp build", {
       cwd: telFrontendDir,
@@ -43,20 +40,24 @@ async function buildTelFrontend() {
   console.log("TEL Frontend CSS/JS built successfully");
 }
 
-// Copy built TEL frontend files + NHS frontend assets + review-specific assets
+// Copy TEL frontend built files + review-specific assets
 async function buildReviewAssets() {
   console.log("Copying review site assets...");
 
   await fse.ensureDir(join(reviewDist, "stylesheets"));
   await fse.ensureDir(join(reviewDist, "javascripts"));
 
-  // Copy NHS.UK frontend dist
-  await fse.copy(join(nhsukDist, "nhsuk.min.css"), join(reviewDist, "stylesheets/nhsuk.min.css"));
-  await fse.copy(join(nhsukDist, "nhsuk.min.js"), join(reviewDist, "javascripts/nhsuk.min.js"));
+  // ✅ No more NHS dist copy — NHS styles now come in via Sass
 
   // Copy TEL frontend built files
-  await fse.copy(join(telFrontendDist, "tel-frontend.css"), join(reviewDist, "stylesheets/tel-frontend.css"));
-  await fse.copy(join(telFrontendDist, "tel.min.js"), join(reviewDist, "javascripts/tel.min.js"));
+  await fse.copy(
+    join(telFrontendDist, "tel-frontend.css"),
+    join(reviewDist, "stylesheets/tel-frontend.css")
+  );
+  await fse.copy(
+    join(telFrontendDist, "tel.min.js"),
+    join(reviewDist, "javascripts/tel.min.js")
+  );
 
   // Copy static assets for review site (images, etc.)
   const reviewAssetsSrc = join(reviewSrc, "assets");
@@ -67,13 +68,13 @@ async function buildReviewAssets() {
   console.log("Review site assets copied");
 }
 
-// Compile review site SCSS (for review site-specific styles)
+// Compile review site SCSS (for review site-specific + NHS styles)
 async function buildReviewCSS() {
   console.log("Building review site CSS...");
 
   const css = sass.compile(join(reviewSrc, "scss/main.scss"), {
     style: "expanded",
-    loadPaths: ["node_modules"],
+    loadPaths: ["node_modules"], // allows @use "nhsuk-frontend/..." etc.
   });
 
   const outDir = join(reviewDist, "stylesheets");
@@ -87,18 +88,20 @@ async function buildReviewCSS() {
 async function buildReviewHtml() {
   console.log("Rendering review site HTML...");
 
-  const telComponents = join(repoRoot, "packages/tel-frontend/src/tel/components");
+  const telComponents = join(
+    repoRoot,
+    "packages/tel-frontend/src/tel/components"
+  );
 
   const env = nunjucks.configure(
     [
-      reviewSrc,                      // review site source
-      join(repoRoot, "node_modules/nhsuk-frontend"), // NHS macros
-      telComponents                   // TEL frontend macros
+      reviewSrc, // review site source
+      join(repoRoot, "node_modules/nhsuk-frontend/packages"), // NHS macros live here in v10
+      telComponents, // TEL frontend macros
     ],
     { autoescape: true }
   );
 
-  // Render root-level .njk files
   const files = await fse.readdir(reviewSrc);
   for (const file of files) {
     if (file.endsWith(".njk")) {
@@ -137,16 +140,9 @@ async function build() {
   try {
     await fse.emptyDir(reviewDist);
 
-    // Step 1: Build TEL frontend (CSS + JS) via Gulp
     await buildTelFrontend();
-
-    // Step 2: Copy assets (TEL + NHS + review site)
     await buildReviewAssets();
-
-    // Step 3: Compile review site SCSS
     await buildReviewCSS();
-
-    // Step 4: Render HTML pages
     await buildReviewHtml();
 
     console.log("Review site build finished successfully");
