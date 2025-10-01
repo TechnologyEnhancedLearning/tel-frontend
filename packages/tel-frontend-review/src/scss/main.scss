@@ -1,10 +1,4 @@
-// packages/tel-frontend-review/src/scss/main.scss
-
-// --- NHS.UK Frontend v10 ---
-// Import core NHS.UK styles using the new Sass module system
-@use "nhsuk-frontend/scss/nhsuk" as *;
-
-// --- TEL Frontend overrides (if any) ---
-// Use your TEL frontend SCSS package
+// Import TEL Frontend base styles
 @use "../../tel-frontend/src/styles" as tel;
 
+// Optional: add any review-site-specific overrides
