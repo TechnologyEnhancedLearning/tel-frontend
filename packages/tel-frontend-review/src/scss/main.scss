@@ -8,11 +8,3 @@
 // Use your TEL frontend SCSS package
 @use "../../tel-frontend/src/styles" as tel;
 
-// --- Optional: Add review-site-specific overrides here ---
-body {
-  // Example: add custom background color for review site
-  background-color: #f7f7f7;
-}
-
-// Import additional review site-specific SCSS files if needed
-@use "components/example" as example;
