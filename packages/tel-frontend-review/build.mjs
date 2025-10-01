@@ -55,7 +55,7 @@ async function buildReviewAssets() {
     join(reviewDist, "stylesheets/tel-frontend.css")
   );
   await fse.copy(
-    join(telFrontendDist, "tel.min.js"),
+    join(telFrontendDist, "tel-frontend.min.js"),
     join(reviewDist, "javascripts/tel.min.js")
   );
 
