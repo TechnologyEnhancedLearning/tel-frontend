@@ -1,2 +1,4 @@
-// Styles for preview pages (tabs, code blocks, copy buttons)
-@import "examples";
+@use "nhsuk-frontend/packages/nhsuk" as *;
+
+// then your overrides and TEL-specific styles
+@use "../../tel-frontend/src/tel/styles" as *;
