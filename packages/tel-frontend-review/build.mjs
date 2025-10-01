@@ -9,16 +9,15 @@ import { execSync } from "node:child_process";
 // Replace __dirname in ES modules
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const repoRoot = join(__dirname, "../../"); // back to repo root
+const repoRoot = join(__dirname, "../../"); // repo root
 const reviewSrc = join(__dirname, "src");
 const reviewDist = join(__dirname, "dist");
+const nhsukDist = join(repoRoot, "node_modules/nhsuk-frontend/dist");
 
-// Correct NHS.UK v10 dist path
-const nhsukDist = join(repoRoot, "node_modules/nhsuk-frontend/dist/nhsuk");
-
-// TEL frontend package paths
+// TEL frontend paths
 const telFrontendDir = join(repoRoot, "packages/tel-frontend");
 const telFrontendDist = join(telFrontendDir, "dist");
+const telFrontendSrcScss = join(telFrontendDir, "src/styles.scss");
 
 // -------- Helpers --------
 
@@ -26,11 +25,9 @@ const telFrontendDist = join(telFrontendDir, "dist");
 async function buildTelFrontend() {
   console.log("Building TEL Frontend CSS + JS via Gulp...");
 
-  // Ensure dist folder exists and is clean
   await fse.emptyDir(telFrontendDist);
   await fse.ensureDir(telFrontendDist);
 
-  // Run Gulp build inside tel-frontend package
   try {
     execSync("npx gulp build", {
       cwd: telFrontendDir,
@@ -44,34 +41,29 @@ async function buildTelFrontend() {
   console.log("TEL Frontend CSS/JS built successfully");
 }
 
-// Copy built TEL frontend files + NHS frontend assets + review-specific assets
+// Copy built TEL frontend files + NHS frontend assets + review site assets
 async function buildReviewAssets() {
   console.log("Copying review site assets...");
 
-  await fse.ensureDir(join(reviewDist, "stylesheets"));
-  await fse.ensureDir(join(reviewDist, "javascripts"));
+  const stylesDir = join(reviewDist, "stylesheets");
+  const scriptsDir = join(reviewDist, "javascripts");
 
-  // Copy NHS.UK frontend dist (v10 paths)
-  await fse.copy(
-    join(nhsukDist, "nhsuk-frontend.min.css"),
-    join(reviewDist, "stylesheets/nhsuk.min.css")
-  );
-  await fse.copy(
-    join(nhsukDist, "nhsuk-frontend.min.js"),
-    join(reviewDist, "javascripts/nhsuk.min.js")
-  );
+  await fse.ensureDir(stylesDir);
+  await fse.ensureDir(scriptsDir);
 
-  // Copy TEL frontend built files
-  await fse.copy(
-    join(telFrontendDist, "tel-frontend.css"),
-    join(reviewDist, "stylesheets/tel-frontend.css")
-  );
-  await fse.copy(
-    join(telFrontendDist, "tel.min.js"),
-    join(reviewDist, "javascripts/tel.min.js")
-  );
+  // --- NHS.UK Frontend v10 ---
+  const nhsCssSrc = join(repoRoot, "node_modules/nhsuk-frontend/dist/nhsuk/nhsuk-frontend.min.css");
+  const nhsJsSrc = join(repoRoot, "node_modules/nhsuk-frontend/dist/nhsuk/nhsuk-frontend.min.js");
 
-  // Copy static assets for review site (images, etc.)
+  await fse.copy(nhsCssSrc, join(stylesDir, "nhsuk.min.css"));
+  await fse.copy(nhsJsSrc, join(scriptsDir, "nhsuk.min.js"));
+
+  // --- TEL Frontend ---
+  await fse.copy(join(telFrontendDist, "tel-frontend.css"), join(stylesDir, "tel-frontend.css"));
+  await fse.copy(join(telFrontendDist, "tel-frontend.js"), join(scriptsDir, "tel-frontend.js"));
+  await fse.copy(join(telFrontendDist, "tel-frontend.min.js"), join(scriptsDir, "tel-frontend.min.js"));
+
+  // --- Review site static assets ---
   const reviewAssetsSrc = join(reviewSrc, "assets");
   if (await fse.pathExists(reviewAssetsSrc)) {
     await fse.copy(reviewAssetsSrc, join(reviewDist, "assets"));
@@ -80,7 +72,7 @@ async function buildReviewAssets() {
   console.log("Review site assets copied");
 }
 
-// Compile review site SCSS (for review site-specific styles)
+// Compile review site SCSS (review site-specific styles)
 async function buildReviewCSS() {
   console.log("Building review site CSS...");
 
@@ -96,7 +88,7 @@ async function buildReviewCSS() {
   console.log("Review site CSS built at:", join(outDir, "review.css"));
 }
 
-// Render review site Nunjucks pages
+// Render review site HTML using Nunjucks
 async function buildReviewHtml() {
   console.log("Rendering review site HTML...");
 
@@ -104,14 +96,14 @@ async function buildReviewHtml() {
 
   const env = nunjucks.configure(
     [
-      reviewSrc,                      // review site source
+      reviewSrc, // review site source
       join(repoRoot, "node_modules/nhsuk-frontend"), // NHS macros
-      telComponents                   // TEL frontend macros
+      telComponents // TEL frontend macros
     ],
     { autoescape: true }
   );
 
-  // Render root-level .njk files
+  // Root-level pages
   const files = await fse.readdir(reviewSrc);
   for (const file of files) {
     if (file.endsWith(".njk")) {
@@ -125,7 +117,7 @@ async function buildReviewHtml() {
     }
   }
 
-  // Render example pages
+  // Example pages
   const examplesSrc = join(reviewSrc, "examples");
   const examplesDist = join(reviewDist, "examples");
   await fse.ensureDir(examplesDist);
@@ -150,16 +142,16 @@ async function build() {
   try {
     await fse.emptyDir(reviewDist);
 
-    // Step 1: Build TEL frontend (CSS + JS) via Gulp
+    // 1. Build TEL frontend
     await buildTelFrontend();
 
-    // Step 2: Copy assets (TEL + NHS + review site)
+    // 2. Copy assets
     await buildReviewAssets();
 
-    // Step 3: Compile review site SCSS
+    // 3. Compile review SCSS
     await buildReviewCSS();
 
-    // Step 4: Render HTML pages
+    // 4. Render review HTML
     await buildReviewHtml();
 
     console.log("Review site build finished successfully");
