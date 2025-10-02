@@ -5,13 +5,13 @@
   <title>{{ title or "TEL Frontend" }}</title>
 
   {# NHS UK precompiled CSS #}
-  <link rel="stylesheet" href="/tel-frontend/stylesheets/nhsuk.min.css">
+  <link rel="stylesheet" href="{{ baseurl }}/stylesheets/nhsuk.min.css">
 
   {# TEL frontend compiled CSS #}
-  <link rel="stylesheet" href="/tel-frontend/stylesheets/tel-frontend.css">
+  <link rel="stylesheet" href="{{ baseurl }}/stylesheets/tel-frontend.css">
 
   {# Review site styling (examples etc) #}
-  <link rel="stylesheet" href="/tel-frontend/stylesheets/review.css">
+  <link rel="stylesheet" href="{{ baseurl }}/stylesheets/review.css">
 </head>
 <body class="nhsuk-body">
 
@@ -30,9 +30,9 @@
   </main>
 
   {# NHS UK frontend JS #}
-  <script src="/tel-frontend/javascripts/nhsuk.min.js"></script>
+  <script src="{{ baseurl }}/javascripts/nhsuk.min.js"></script>
 
   {# TEL frontend JS #}
-  <script src="/tel-frontend/javascripts/tel-frontend.min.js"></script>
+  <script src="{{ baseurl }}/javascripts/tel-frontend.min.js"></script>
 </body>
 </html>
