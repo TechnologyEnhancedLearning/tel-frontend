@@ -1,8 +1,7 @@
 {% set title = "Hello World example" %}
 {% extends "layouts/page.njk" %}
 
-{# NHS.UK hero macro import #}
-{% from "packages/components/hero/macro.njk" import hero %}
+{# Use NHS.UK hero markup directly (no macro import needed) #}
 
 {# Import the hello-world component from TEL Frontend package #}
 {% from "hello-world/hello-world.njk" import helloWorld %}
@@ -11,13 +10,19 @@
 {% from "macros/code-example.njk" import codeExample %}
 
 {% block header %}
-  {# Optional hero for this page #}
-  {% call hero({
-    heading: "This is an internal development app to preview the tel-frontend components.",
-    headingClasses: "nhsuk-heading-l nhsuk-u-font-weight-normal nhsuk-u-margin-bottom-2",
-    headingLevel: 2
-  }) %}
-  {% endcall %}
+  <section class="nhsuk-hero">
+    <div class="nhsuk-width-container nhsuk-hero--border">
+      <div class="nhsuk-grid-row">
+        <div class="nhsuk-grid-column-two-thirds">
+          <div class="nhsuk-hero__wrapper">
+            <h2 class="nhsuk-hero__heading nhsuk-heading-l nhsuk-u-font-weight-normal nhsuk-u-margin-bottom-2">
+              This is an internal development app to preview the tel-frontend components.
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
 
 {% block content %}
@@ -31,5 +36,4 @@
 
   <h2 class="nhsuk-heading-m">Example 2</h2>
   {{ helloWorld({ heading: "Custom Title", text: "This text is different!", classes: "nhsuk-u-margin-bottom-4" }) }}
-
 {% endblock %}
