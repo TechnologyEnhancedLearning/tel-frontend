@@ -3,27 +3,36 @@
 <head>
   <meta charset="utf-8">
   <title>{{ title or "TEL Frontend" }}</title>
+
+  {# NHS UK precompiled CSS #}
   <link rel="stylesheet" href="/tel-frontend/stylesheets/nhsuk.min.css">
+
+  {# TEL frontend compiled CSS #}
   <link rel="stylesheet" href="/tel-frontend/stylesheets/tel-frontend.css">
-  {% set baseurl = "/tel-frontend" %}
-  <link rel="stylesheet" href="{{ baseurl }}/stylesheets/review.css">  
+
+  {# Review site styling (examples etc) #}
+  <link rel="stylesheet" href="/tel-frontend/stylesheets/review.css">
 </head>
 <body class="nhsuk-body">
 
- <header class="nhsuk-hero nhsuk-u-padding-top-3 nhsuk-u-padding-bottom-6">
-  <div class="nhsuk-width-container">
-    <h1 class="nhsuk-hero__heading nhsuk-heading-l nhsuk-u-margin-bottom-3">
-      TEL Frontend Review
-    </h1>
+  <header class="nhsuk-hero nhsuk-u-padding-top-3 nhsuk-u-padding-bottom-6">
+    <div class="nhsuk-width-container">
+      <h1 class="nhsuk-hero__heading nhsuk-heading-l nhsuk-u-margin-bottom-3">
+        TEL Frontend Review
+      </h1>
 
-    {% block header %}{% endblock %}
-  </div>
-</header>
-
+      {% block header %}{% endblock %}
+    </div>
+  </header>
 
   <main class="nhsuk-main-wrapper nhsuk-width-container nhsuk-u-margin-top-4">
     {% block content %}{% endblock %}
   </main>
 
+  {# NHS UK frontend JS #}
+  <script src="/tel-frontend/javascripts/nhsuk.min.js"></script>
+
+  {# TEL frontend JS #}
+  <script src="/tel-frontend/javascripts/tel-frontend.min.js"></script>
 </body>
 </html>
