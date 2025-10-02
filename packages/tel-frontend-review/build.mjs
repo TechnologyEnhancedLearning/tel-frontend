@@ -19,6 +19,10 @@ const nhsukDist = join(repoRoot, "node_modules/nhsuk-frontend/dist");
 const telFrontendDir = join(repoRoot, "packages/tel-frontend");
 const telFrontendDist = join(telFrontendDir, "dist");
 
+// Base URL for local dev vs GitHub Pages
+const baseurl = process.env.GITHUB_PAGES ? "/tel-frontend" : "";
+
+
 // -------- Helpers --------
 
 // Build TEL Frontend (CSS + JS) via Gulp
@@ -113,8 +117,10 @@ async function buildReviewHtml() {
   for (const file of files) {
     if (file.endsWith(".njk")) {
       const name = parse(file).name;
-      const html = env.render(file, { title: "TEL Frontend Review" });
-
+      const html = env.render(file, {
+        title: "TEL Frontend Review",
+        baseurl,  // <-- added
+      });
       const outDir = join(reviewDist, name === "index" ? "" : name);
       await fse.ensureDir(outDir);
       await fs.writeFile(join(outDir, "index.html"), html);
@@ -132,7 +138,7 @@ async function buildReviewHtml() {
     for (const file of exampleFiles) {
       if (file.endsWith(".njk")) {
         const name = file.replace(/\.njk$/, ".html");
-        const rendered = env.render(join("examples", file));
+        const rendered = env.render(join("examples", file), { baseurl });
         await fs.writeFile(join(examplesDist, name), rendered, "utf8");
         console.log(`Rendered ${file} -> ${join(examplesDist, name)}`);
       }
