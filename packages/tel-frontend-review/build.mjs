@@ -20,8 +20,14 @@ const telFrontendDir = join(repoRoot, "packages/tel-frontend");
 const telFrontendDist = join(telFrontendDir, "dist");
 
 // Base URL for local dev vs GitHub Pages
-const baseurl = process.env.GITHUB_PAGES ? "/tel-frontend" : "";
+// Default for local dev
+let baseurl = "";
 
+// If we are building for GitHub Pages, set baseurl
+if (process.env.GITHUB_REF && process.env.GITHUB_REF.startsWith("refs/heads/main")) {
+  // assuming repo name is "tel-frontend"
+  baseurl = "/tel-frontend";
+}
 
 // -------- Helpers --------
 
