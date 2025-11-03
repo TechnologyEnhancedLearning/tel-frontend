@@ -1,0 +1,62 @@
+name: "Design / Hypothesis"
+description: "Propose a design direction or testable hypothesis linked to a UX problem."
+title: "[Design] or [Hypothesis] Short, descriptive title"
+labels: ["UX", "Design", "Hypothesis"]
+body:
+  - type: input
+    id: related_problem
+    attributes:
+      label: "🎯 Linked UX Problem / Opportunity"
+      description: "Reference the related issue number (e.g., #123)."
+      placeholder: "#123"
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: "🧠 Hypothesis"
+      description: "We believe that [this change] will [improve this user outcome] because [evidence/rationale]."
+      placeholder: "We believe simplifying the confirmation step reduces abandonment because research shows confusion at that step."
+    validations:
+      required: true
+  - type: textarea
+    id: design_direction
+    attributes:
+      label: "✏️ Design direction / approach"
+      description: "Describe the concept. Include links to Figma, prototypes, or screenshots."
+      placeholder: "Use the Confirmation pattern, inline help, and clearer microcopy. Figma: …"
+    validations:
+      required: true
+  - type: checkboxes
+    id: validation_plan
+    attributes:
+      label: "🔬 Validation plan"
+      description: "How will we learn whether it works?"
+      options:
+        - label: "Usability testing"
+        - label: "Analytics / funnel monitoring"
+        - label: "A/B or multivariate test"
+        - label: "Accessibility review / AT checks"
+        - label: "Expert / heuristic review"
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "✅ Success criteria"
+      description: "Quantitative or qualitative indicators of success."
+      placeholder: "Completion +15%, error rate <3%, users can proceed without assistance; meets WCAG 2.2 AA."
+    validations:
+      required: false
+  - type: checkboxes
+    id: reviews
+    attributes:
+      label: "🔁 Reviews requested"
+      options:
+        - label: "Design review"
+        - label: "Content review"
+        - label: "Accessibility review"
+        - label: "Technical feasibility"
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "🧱 Dependencies / constraints"
+      description: "Tech limits, data availability, policy, release timing, etc."

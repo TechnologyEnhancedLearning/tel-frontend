@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: TEL UX / Design Support
+    url: https://teams.microsoft.com/
+    about: "Ask the UX team for help, or request a quick review."
+  - name: 🧱 NHSE Technology Enhanced Learning (TEL) Design System
+    url: https://technologyenhancedlearning.github.io/tel-frontend/
+    about: "The TEL Design system is based off of the NHSE design system. View TEL patterns, components, and accessibility guidance."
