@@ -1,0 +1,57 @@
+name: "UX Problem / Opportunity"
+description: "Capture a problem or opportunity, service gap, wide reaching issue, or UX debt accompanied by supporting information and desired outcomes."
+title: "[Problem]: <title>"
+labels: ["ux", "problem", "activity"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: "What is the problem or opportunity?"
+      description: "Describe from the user's perspective. Focus on what’s happening, not solutions."
+      placeholder: "Users abandon the appointment form when asked to confirm their NHS number."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: "Why does this matter?"
+      description: "Explain the impact on users, staff, or service outcomes."
+      placeholder: "Confusion at this step increases incomplete submissions and call volume."
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "🌐 Scope"
+      description: "Is this local to one journey or systemic across patterns/services?"
+      options:
+        - "Single page"
+        - "A short multi-step process"
+        - "A complex multi-step process or transactional journey"
+        - "Site wide or service level (a large and wide reaching issue, it's big)"
+    validations:
+      required: false
+  - type: checkboxes
+    id: users
+    attributes:
+      label: "🎯 Who is affected?"
+      options:
+        - label: "Learners"
+        - label: "Content creators"
+        - label: "Admins"
+        - label: "Support"
+        - label: "Front-line staff"
+        - label: "First-time / new user"
+        - label: "Low digital literacy users"
+  - type: textarea
+    id: supporting
+    attributes:
+      label: "Supporting information"
+      description: "Add any insights, evidence, desktop research or assumptions that help define the problem."
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: "🗒 Notes"
+      description: "Any context, links, dependencies, etc."
