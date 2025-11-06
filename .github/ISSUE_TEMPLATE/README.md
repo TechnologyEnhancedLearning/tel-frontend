@@ -1,7 +1,7 @@
 # Git issue 
-The main goal of applying this structure is to capture UX work outside of the standard work stream so, as a UX team, we can group, prioritise and assert a priority to our work. This will alow us to feed into the main work stream but in addition allow us to track and plan in UX independently.
+The main goal of applying this structure is to capture UX work outside of the standard work stream so, as a UX team, we can group, priorities and assert a priority to our work. This will alow us to feed into the main work stream but in addition allow us to track and plan in UX independently.
 
-One issue we face is it's hard to track changes we've established to have a beneficial impact. These are often obvioscated by the "completion" of a project what has tended to leave work in a dark corner gathering dust. This work aims to increase UX maturity within the team and allow us to pull focus back to UX work items that dont get picked up in the initial 
+One issue we face is it's hard to track changes we've established to have a beneficial impact. These are often obfuscated by the "completion" of a project what has tended to leave work in a dark corner gathering dust. This work aims to increase UX maturity within the team and allow us to pull focus back to UX work items that don't get picked up in the initial 
 
 ## Summary structure
 UX activities broken down via a simple clear structure
@@ -12,7 +12,7 @@ three levels of issues
 3. Smaller steps
 
 ## Issue structure
-- "Project brief" "problem" > "activity", "problems" > "actions", "steps"
+- "Project brief" "problem" > "activity", "problems" > "actions"
 - labels - epic, task, sub-task
 
 ### Level 1
@@ -51,7 +51,7 @@ three levels of issues
 ## Notes and and follow up actions
 - Does there need to be an activity type - a generic not problem statement or hypothesis
 - add level 3 "pain point" and "Step" issue types
-Add issue types for documentation including - generic, component and findings
+- Add issue types for documentation including - generic, component and findings
 - Add "ux-testing-plan" to help build consistent testing plans
 - Check if we should we list out services as labels and provide them via issues.
 - look into design iteration cycles best practice
