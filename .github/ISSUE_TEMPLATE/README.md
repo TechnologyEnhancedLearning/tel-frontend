@@ -59,9 +59,9 @@ UX activities are broken down using a simple, clear hierarchy with **three level
 - Observation  
 
 **UX Action**  
-- 🎯 What needs doing?  
-- 🧩 Type / category  
-- 🗒 Notes (optional)  
+- What needs doing?  
+- Type / category  
+- Notes (optional)  
 
 ---
 
@@ -72,4 +72,3 @@ UX activities are broken down using a simple, clear hierarchy with **three level
 - Add a “ux-testing-plan” template to help build consistent testing plans.  
 - Check whether we should list services as labels and provide them via issues.  
 - Investigate best practices for design iteration cycles.  
-- Add labels for: `"UX"`, `"Problem"`, `"Activity"`, `"Action"`, `"Project"`, `"Brief"`.  
