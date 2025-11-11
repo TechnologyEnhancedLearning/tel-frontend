@@ -1,7 +1,7 @@
 name: "🦩 UX activity"
 description: "Capture a specific UX activity — content, design, research, testing or iteration — linked to a project brief or problem."
 title: "[Activity]: <title>"
-labels: ["ux", "activity"]
+labels: ["ux ✍️", "activity 🦩"]
 
 body:
   - type: textarea

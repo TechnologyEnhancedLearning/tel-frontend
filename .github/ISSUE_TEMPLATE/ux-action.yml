@@ -1,7 +1,7 @@
 name: "⚡️ UX Action"
 description: "Capture a small, specific UX task linked to a broader brief or task."
 title: "[Action]: <title>"
-labels: ["ux", "action"]
+labels: ["ux ✍️", "action ⚡️"]
 body:
   - type: textarea
     id: action

@@ -1,7 +1,7 @@
 name: "🐳 UX Project brief"
 description: "Capture a problem or opportunity, service gap, wide reaching issue, or UX debt accompanied by supporting information and desired outcomes."
 title: "[Project]: <title>
-labels: ["project", "ux", "brief"]
+labels: ["ux ✍️", "project 🐳", "brief 🖍️"]
 body:
   - type: textarea
     id: what
