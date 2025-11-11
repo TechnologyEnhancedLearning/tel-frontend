@@ -49,7 +49,7 @@ body:
       label: "Summary goals"
       description: "Concisely list out the main goals for this project."
     validations:
-      required: false
+      required: true
   - type: textarea
     id: business
     attributes:
@@ -61,23 +61,20 @@ body:
     id: mvp
     attributes:
       label: "MVP"
-      description: ""
     validations:
-      required: true
+      required: false
   - type: textarea
     id: mvpplus
     attributes:
       label: "MVP Plus + 🌟 (feel free to imagine this in chromatic text)"
-      description: ""
     validations:
-      required: true
+      required: false
   - type: textarea
     id: success
     attributes:
       label: "What does success look like"
-      description: ""
     validations:
-      required: true
+      required: false
   - type: checkboxes
     id: roadmap
     attributes:
@@ -85,3 +82,12 @@ body:
       options:
         - label: "Yes"
         - label: "No"
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: "If yes, how does this tie back to the roadmap?"
+    validations:
+      required: false
+ 
