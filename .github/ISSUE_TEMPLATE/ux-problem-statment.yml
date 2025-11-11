@@ -1,7 +1,7 @@
 name: "🔮 UX Problem / Opportunity"
 description: "Capture a problem or opportunity, service gap, wide reaching issue, or UX debt accompanied by supporting information and desired outcomes."
 title: "[Problem]: <title>"
-labels: ["ux", "problem", "activity"]
+labels: ["ux ✍️", "problem 🔮", "activity 🦩"]
 body:
   - type: textarea
     id: what
