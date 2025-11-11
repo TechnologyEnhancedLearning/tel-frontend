@@ -1,4 +1,4 @@
-name: "🦩 UX Project brief"
+name: "🐳 UX Project brief"
 description: "Capture a problem or opportunity, service gap, wide reaching issue, or UX debt accompanied by supporting information and desired outcomes."
 title: "[Project]: <title>
 labels: ["project", "ux", "brief"]
@@ -22,8 +22,8 @@ body:
   - type: dropdown
     id: scope
     attributes:
-      label: "🌐 Scope"
-      description: "Is this local to one journey or systemic across patterns/services?"
+      label: "Scope"
+      description: "Is this local to one journey or systemic across patterns or services?"
       options:
         - "Single page"
         - "A short multi-step process"
@@ -34,14 +34,14 @@ body:
   - type: checkboxes
     id: users
     attributes:
-      label: "🎯 Who is affected?"
+      label: "Who is affected?"
       options:
         - label: "Learners"
         - label: "Content creators"
         - label: "Admins"
         - label: "Support"
         - label: "Front-line staff"
-        - label: "First-time / new user"
+        - label: "First-time, new user"
         - label: "Low digital literacy users"
   - type: textarea
     id: goals

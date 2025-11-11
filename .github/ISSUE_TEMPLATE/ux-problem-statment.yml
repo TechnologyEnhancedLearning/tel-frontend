@@ -1,4 +1,4 @@
-name: "UX Problem / Opportunity"
+name: "🔮 UX Problem / Opportunity"
 description: "Capture a problem or opportunity, service gap, wide reaching issue, or UX debt accompanied by supporting information and desired outcomes."
 title: "[Problem]: <title>"
 labels: ["ux", "problem", "activity"]
@@ -22,7 +22,7 @@ body:
   - type: dropdown
     id: scope
     attributes:
-      label: "🌐 Scope"
+      label: "Scope"
       description: "Is this local to one journey or systemic across patterns/services?"
       options:
         - "Single page"
@@ -34,7 +34,7 @@ body:
   - type: checkboxes
     id: users
     attributes:
-      label: "🎯 Who is affected?"
+      label: "Who is affected?"
       options:
         - label: "Learners"
         - label: "Content creators"
@@ -53,5 +53,5 @@ body:
   - type: textarea
     id: notes
     attributes:
-      label: "🗒 Notes"
+      label: "Notes"
       description: "Any context, links, dependencies, etc."
