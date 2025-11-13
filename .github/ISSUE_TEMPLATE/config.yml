@@ -2,4 +2,6 @@ blank_issues_enabled: true
 contact_links:
   - name: NHSE Technology Enhanced Learning (TEL) Design System
     url: https://technologyenhancedlearning.github.io/tel-frontend/
-    about: The TEL Design system is based on the NHSE design system. View TEL patterns, components, and accessibility guidance.
+    about: The TEL Design system is based on the NHS Design System.
+  - name: NHS Service manual
+    url: https://service-manual.nhs.uk/
