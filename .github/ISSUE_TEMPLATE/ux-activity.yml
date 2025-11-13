@@ -1,0 +1,48 @@
+name: "🦩 UX activity"
+description: "Capture a specific UX activity — content, design, research, testing or iteration — linked to a project brief or problem."
+title: "[Activity]: <title>"
+labels: ["ux ✍️", "activity 🦩"]
+
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: "Objective"
+      description: "What’s the purpose of this task?"
+      placeholder: "Validate revised confirmation step with low-vision users."
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: "Description / approach"
+      description: "Describe what will be done, including design or research details as needed."
+      placeholder: "Update CSS tokens for focus rings. Test using NVDA and keyboard-only navigation."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category"
+      description: "Choose the type of UX work this action represents."
+      options:
+        - "Design"
+        - "Content"
+        - "Accessibility"
+        - "Research"
+        - "Testing"
+        - "Documentation"
+        - "Prototype"
+        - "Frontend component"
+        - "Other"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Notes"
+      description: "Any context, links, dependencies, etc."
+      

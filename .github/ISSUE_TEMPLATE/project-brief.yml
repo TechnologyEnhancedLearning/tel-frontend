@@ -1,0 +1,93 @@
+name: "🐳 UX Project brief"
+description: "Capture a problem or opportunity, service gap, wide reaching issue, or UX debt accompanied by supporting information and desired outcomes."
+title: "[Project]: <title>
+labels: ["ux ✍️", "project 🐳", "brief 🖍️"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: "What is the problem or opportunity?"
+      description: "Describe from the user's perspective. Focus on what’s happening, not solutions."
+      placeholder: "Users abandon the appointment form when asked to confirm their NHS number."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: "Why does this matter?"
+      description: "Explain the impact on users, staff, or service outcomes."
+      placeholder: "Confusion at this step increases incomplete submissions and call volume."
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "Scope"
+      description: "Is this local to one journey or systemic across patterns or services?"
+      options:
+        - "Single page"
+        - "A short multi-step process"
+        - "A complex multi-step process or transactional journey"
+        - "Site wide or service level (a large and wide reaching issue, it's big)"
+    validations:
+      required: true
+  - type: checkboxes
+    id: users
+    attributes:
+      label: "Who is affected?"
+      options:
+        - label: "Learners"
+        - label: "Content creators"
+        - label: "Admins"
+        - label: "Support"
+        - label: "Front-line staff"
+        - label: "First-time, new user"
+        - label: "Low digital literacy users"
+  - type: textarea
+    id: goals
+    attributes:
+      label: "Summary goals"
+      description: "Concisely list out the main goals for this project."
+    validations:
+      required: true
+  - type: textarea
+    id: business
+    attributes:
+      label: "Business needs"
+      description: ""
+    validations:
+      required: false
+  - type: textarea
+    id: mvp
+    attributes:
+      label: "MVP"
+    validations:
+      required: false
+  - type: textarea
+    id: mvpplus
+    attributes:
+      label: "MVP Plus + 🌟 (feel free to imagine this in chromatic text)"
+    validations:
+      required: false
+  - type: textarea
+    id: success
+    attributes:
+      label: "What does success look like"
+    validations:
+      required: false
+  - type: checkboxes
+    id: roadmap
+    attributes:
+      label: "Does this tie back to the roadmap y/n"
+      options:
+        - label: "Yes"
+        - label: "No"
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: "If yes, how does this tie back to the roadmap?"
+    validations:
+      required: false
+ 

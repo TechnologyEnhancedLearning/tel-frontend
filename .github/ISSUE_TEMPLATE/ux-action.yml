@@ -1,0 +1,29 @@
+name: "⚡️ UX Action"
+description: "Capture a small, specific UX task linked to a broader brief or task."
+title: "[Action]: <title>"
+labels: ["ux ✍️", "action ⚡️"]
+body:
+  - type: textarea
+    id: action
+    attributes:
+      label: "What needs doing?"
+      description: "Keep this concise and actionable — a single piece of work."
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Type"
+      options:
+        - "Design"
+        - "Content"
+        - "Accessibility"
+        - "Research"
+        - "Documentation"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Notes"
+      description: "Any context, links, dependencies, etc."
