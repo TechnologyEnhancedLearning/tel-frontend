@@ -1,6 +1,6 @@
 name: "🐳 UX Project brief"
 description: "Capture a problem or opportunity, service gap, wide reaching issue, or UX debt accompanied by supporting information and desired outcomes."
-title: "[Project]: <title>
+title: "[Project]: "
 labels: ["ux ✍️", "project 🐳", "brief 🖍️"]
 body:
   - type: textarea
@@ -70,13 +70,13 @@ body:
     validations:
       required: false
   - type: textarea
-    id: success
+    id: whatIsSuccess
     attributes:
       label: "What does success look like"
     validations:
       required: false
   - type: checkboxes
-    id: roadmap
+    id: dropdown
     attributes:
       label: "Does this tie back to the roadmap y/n"
       options:

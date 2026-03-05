@@ -1,6 +1,6 @@
 name: "🦩 UX activity"
 description: "Capture a specific UX activity — content, design, research, testing or iteration — linked to a project brief or problem."
-title: "[Activity]: <title>"
+title: "[Activity]: "
 labels: ["ux ✍️", "activity 🦩"]
 
 body:
