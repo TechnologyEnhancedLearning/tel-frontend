@@ -54,7 +54,6 @@ body:
     id: business
     attributes:
       label: "Business needs"
-      description: ""
     validations:
       required: false
   - type: textarea
