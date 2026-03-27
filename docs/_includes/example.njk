@@ -1,0 +1,107 @@
+<div class="tel-example">
+  <span class="tel-example__new-window">
+    <a href="{{ href }}" target="_blank">Open this example <span class="nhsuk-u-visually-hidden">({{ title }})</span> in a new tab</a>
+  </span>
+  {%- if mobile == true %}
+  <div class="tel-iframe__container">
+    <div class="tel-iframe__header {%- if mobileHeader == "blue" %} tel-iframe__header--blue{% endif -%}"></div>
+    <svg class="ios-notch" viewBox="-40 0 300 31">
+      <path d="M0 1V0h219v1a5 5 0 0 0-5 5v3c0 12.15-9.85 22-22 22H27C14.85 31 5 21.15 5 9V6a5 5 0 0 0-5-5z" fill-rule="evenodd"></path>
+    </svg>
+  {% endif -%}
+  <iframe
+    onload="{%- if mobile == true %}{% else %}this.style.height = this.contentWindow.document.documentElement.scrollHeight + 'px';{% endif %}"
+    class="tel-example__frame"
+    scrolling="auto"
+    frameborder="0"
+    height="{%- if mobile == true %}700px{% else %}{{ height }}{% endif %}"
+    src="{{ href }}"
+    title="{{ title }}"
+  ></iframe>
+  {%- if mobile == true %}
+  </div>
+  {% endif -%}
+</div>
+
+{# Tabs - seperate into an include #}
+<div class="tel-tabs" data-module="tel-tabs">
+  {# Tabs list #}
+  {% set showNunjucksTab = showNunjucks is not defined or showNunjucks != false %}
+  <ul class="tel-tabs__list" role="tablist">
+    {%- if showNunjucksTab -%}
+      <li class="tel-tabs__list-item" role="presentation"><a class="tel-tabs__tab nhsuk-link--no-visited-state" href="#html-default-{{ id }}" role="tab" id="tab_html-default-{{ id }}" aria-controls="html-default-{{ id }}">HTML</a></li>
+      <li class="tel-tabs__list-item" role="presentation"><a class="tel-tabs__tab nhsuk-link--no-visited-state" href="#nunjucks-default-{{ id }}" role="tab" id="tab_nunjucks-default-{{ id }}" aria-controls="nunjucks-default-{{ id }}">Nunjucks</a></li>
+    {%- else -%}
+      <li class="tel-tabs__list-item" role="presentation"><a class="tel-tabs__tab nhsuk-link--no-visited-state" href="#html-default-{{ id }}" role="tab" id="tab_html-default-{{ id }}" aria-controls="html-default-{{ id }}">HTML</a></li>
+    {%- endif -%}
+    {%- if jsCode %}<li class="tel-tabs__list-item" role="presentation"><a class="tel-tabs__tab nhsuk-link--no-visited-state" href="#js-default-{{ id }}" role="tab" id="tab_js-default-{{ id }}" aria-controls="js-default-{{ id }}">JavaScript</a></li>{% endif -%}
+    {%- if figmaLink %}<li class="tel-tabs__list-item" role="presentation"><a class="tel-tabs__tab nhsuk-link--no-visited-state" href="#figma-default-{{ id }}" role="tab" id="tab_figma-default-{{ id }}" aria-controls="figma-default-{{ id }}">Figma</a></li>{% endif -%}
+    {%- if razorLink %}<li class="tel-tabs__list-item" role="presentation"><a class="tel-tabs__tab nhsuk-link--no-visited-state" href="#razor-default-{{ id }}" role="tab" id="tab_razor-default-{{ id }}" aria-controls="razor-default-{{ id }}">Razor component</a></li>{% endif -%}
+  </ul>
+
+  {# HTML Tab content #}
+  <div class="tel-tabs__panel tel-tabs__panel--hidden" id="html-default-{{ id }}" role="tabpanel" aria-labelledby="tab_html-default-{{ id }}">
+    <button class="tel-copy__button" data-module="tel-copy" data-clipboard-target="#html-default-{{ id }}-code">Copy code</button>
+    <div id="html-default-{{ id }}-code">
+      {%- highlight "html" -%}
+        {{ htmlCode | safe }}
+      {%- endhighlight -%}
+    </div>
+  </div>
+
+  {# Nunjucks Tab content #}
+  <div class="tel-tabs__panel tel-tabs__panel--hidden" id="nunjucks-default-{{ id }}" role="tabpanel" aria-labelledby="tab_nunjucks-default-{{ id }}">
+
+    {%- if arguments -%}
+      <details class="nhsuk-details nhsuk-u-padding-4" data-module="nhsuk-details">
+        <summary class="nhsuk-details__summary">
+          <span class="nhsuk-details__summary-text">
+            Nunjucks macro options
+          </span>
+        </summary>
+        <div class="nhsuk-details__text">
+          <p>Use options to customise the appearance, content and behaviour of a component when using a macro, for example, changing the text.</p>
+          <p>Some options are required for the macro to work; these are marked as "Required" in the option description.</p>
+          <p>If you're using Nunjucks macros in production with "html" options, or ones ending with "html", you must sanitise the HTML to protect against <a href="https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting">cross-site scripting exploits</a>.</p>
+          {% if arguments %}
+            {% set macroOptionsPath = "tel/components/" + arguments + "/macro-options.md" %}
+            {% if arguments == "card" %}
+              {% set macroOptionsPath = "tel/components/card/macro-options-card.md" %}
+            {% elif arguments == "card-group" %}
+              {% set macroOptionsPath = "tel/components/card/macro-options-card-group.md" %}
+            {% endif %}
+            <div class="tel-table--scroll">
+              {% include macroOptionsPath ignore missing %}
+            </div>
+          {% endif %}
+        </div>
+      </details>
+    {%- endif -%}
+    <button class="tel-copy__button" data-module="tel-copy" data-clipboard-target="#nunjucks-default-{{ id }}-code">Copy code</button>
+    <div id="nunjucks-default-{{ id }}-code">
+      {%- highlight "jinja2" -%}
+        {{ nunjucksCode | safe }}
+      {%- endhighlight -%}
+    </div>
+  </div>
+
+  {# Figma Tab content #}
+  {% if figmaLink -%}
+    <div class="tel-tabs__panel nhsuk-u-padding-2 tel-tabs__panel--hidden" id="figma-default-{{ id }}" role="tabpanel" aria-labelledby="tab_figma-default-{{ id }}">
+
+      To use the component in your design, add the NHS TEL Figma library to your working files, and navigate using the components tab.
+
+      <a href="{{ figmaLink }}" class="nhsuk-link--no-visited-state" target="_blank" rel="noopener noreferrer">View component in Figma (opens in a new tab)</a>
+    </div>
+  {% endif -%}
+
+  {# Razor Tab content #}
+  {% if razorLink -%}
+    <div class="tel-tabs__panel nhsuk-u-padding-2 tel-tabs__panel--hidden" id="razor-default-{{ id }}" role="tabpanel" aria-labelledby="tab_razor-default-{{ id }}">
+
+      To use the component in your .net application, install the NHS TEL Razor Component Library and import the component.
+
+      <a href="{{ razorLink }}" class="nhsuk-link--no-visited-state" target="_blank" rel="noopener noreferrer">View component in razor (opens in a new tab)</a>
+    </div>
+  {% endif -%}
+</div>

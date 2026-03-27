@@ -1,0 +1,13 @@
+{# Wrapper tag #}
+{% set title = params.title if params.title is defined else 'Hello World' %}
+{% set href = params.href if params.href is defined else '#' %}
+{% set description = params.description if params.description is defined else 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur enim.' %}
+
+<div class="tel-example-card">
+  <div class="tel-example-card__content">
+    <h2 class="tel-example-card__title">
+      <a href="{{ href }}">{{ title }}</a>
+    </h2>
+    <p class="tel-example-card__description">{{ description }}</p>
+  </div>
+</div>

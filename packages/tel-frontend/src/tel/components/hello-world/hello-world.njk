@@ -1,9 +1,0 @@
-{# packages/tel-frontend/src/tel/components/hello-world/hello-world.njk #}
-{% macro helloWorld(params = {}) %}
-  <div class="nhsuk-card hello-world {{ params.classes | default('') }}" data-module="hello-world">
-    <div class="nhsuk-card__content">
-      <h3 class="nhsuk-card__heading">{{ params.heading | default('Hello World Component') }}</h3>
-      <p class="nhsuk-card__description">{{ params.text | default('This is just a test component for setting up the repo.') }}</p>
-    </div>
-  </div>
-{% endmacro %}

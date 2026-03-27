@@ -1,0 +1,14 @@
+---
+htmlAttributes:
+  class: tel-html-background-colour-white
+---
+
+{% extends "./base.njk" %}
+
+{% block skiplink %}{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  {{ content | safe }}
+{% endblock %}

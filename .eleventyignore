@@ -1,0 +1,6 @@
+**/*/_old/
+**/*/_unused/
+**/*/_delete/
+**/*/_template/
+.template_*
+_sort/**/*

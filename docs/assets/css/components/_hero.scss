@@ -1,0 +1,21 @@
+// Hero overrides
+// Reduces spacing on mobile screens
+.tel-hero {
+  background-color: nhsuk-colour("blue");
+
+  .nhsuk-hero__wrapper {
+    @include nhsuk-media-query($until: tablet) {
+      padding-bottom: nhsuk-spacing(5);
+      padding-top: nhsuk-spacing(5);
+    }
+  }
+}
+
+.tel-hero-img {
+  margin: 56px auto 56px auto;
+  max-width: 100%;
+
+  @include nhsuk-media-query($until: desktop) {
+    display: none;
+  }
+}

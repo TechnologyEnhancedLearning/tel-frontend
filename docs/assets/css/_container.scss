@@ -1,0 +1,15 @@
+// TEL main container
+.tel-width-container {
+  padding-top: 60px; // to give correct spacing for sticky header
+}
+
+// TEL main wrapper
+.tel-main-wrapper {
+  padding: 0 0 130px; // to give correct spacing for sticky footer
+}
+
+// TEL html class
+// Removes the dark grey background at the bottom of shorter pages
+.tel-html-background-colour-grey-5 {
+  background-color: nhsuk-colour("grey-5");
+}

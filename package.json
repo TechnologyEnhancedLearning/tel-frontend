@@ -1,26 +1,56 @@
 {
-  "name": "tel-frontend-monorepo",
-  "version": "0.1.0",
-  "private": true,
-  "workspaces": [
-    "packages/*"
+  "name": "tel-frontend",
+  "version": "5.0.1",
+  "description": "A CSS library built on top of nhsuk-frontend providing styles for the NHS Technology Enhanced Learning design system.",
+  "main": "index.js",
+  "type": "module",
+  "files": [
+    "dist"
   ],
   "scripts": {
-  "build:review": "node packages/tel-frontend-review/build.mjs",
-  "build:package": "cd packages/tel-frontend && npm run build",
-  "build": "npm run build:review && npm run build:package"
+    "prepack": "gulp bundle",
+    "release": "gulp release",
+    "lint": "prettier --check .",
+    "start": "concurrently npm:docs:serve npm:css:watch",
+    "docs:serve": "npm run css:build && npx @11ty/eleventy --serve",
+    "docs:build": "npm run css:build && npx @11ty/eleventy",
+    "css:watch": "gulp",
+    "css:build": "gulp compileCSS",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhsuk/nhsapp-frontend.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nhsuk/nhsapp-frontend/issues"
+  },
+  "homepage": "https://github.com/nhsuk/nhsapp-frontend#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "3.0.0-alpha.6",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "concurrently": "^8.2.2",
+    "fs-extra": "^11.2.0",
+    "gulp": "^5.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cli": "^3.0.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-nunjucks": "^6.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-zip": "^6.0.0",
+    "markdown-it-anchor": "^9.0.1",
     "nhsuk-frontend": "^10.0.0",
     "nunjucks": "^3.2.4",
-    "fs-extra": "^11.1.1",
-    "sass": "^1.72.1"
+    "plugin-error": "^1.0.1",
+    "prettier": "^3.2.5",
+    "sass": "^1.74.1"
   },
-  "devDependencies": {
-    "eslint": "^8.0.0",
-    "prettier": "^3.0.0"
-  },
-  "engines": {
-    "node": ">=18"
+  "peerDependencies": {
+    "nhsuk-frontend": "^10.0.0"
   }
 }

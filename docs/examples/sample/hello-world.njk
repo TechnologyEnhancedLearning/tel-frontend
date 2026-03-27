@@ -1,0 +1,15 @@
+---
+layout: layouts/example.njk
+title: Hello world in examples/examples/hello-world.njk
+description: This is an example of a hello world component.
+figmaLink: https://www.figma.com/example-link
+razorLink: //examples/hello-world.com
+arguments: hello-world
+---
+{% from 'tel/components/hello-world/macro.njk' import exampleHelloWorld %}
+
+{{ exampleHelloWorld({
+  title: 'Request repeat prescriptions',
+  href: '#',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur enim.'
+}) }}

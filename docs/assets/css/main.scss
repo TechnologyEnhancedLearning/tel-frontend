@@ -1,0 +1,49 @@
+// Import all styles from the NHS TEL frontend library
+@import "src/all";
+
+// Code example syntax highlighting
+@import "node_modules/prismjs/themes/prism";          // Default light theme
+// @import "node_modules/prismjs/themes/prism-dark";     // Dark theme
+// @import "node_modules/prismjs/themes/prism-tomorrow"; // Subtle dark
+// @import "node_modules/prismjs/themes/prism-okaidia";  // High contrast
+// @import "docs/assets/css/code-colours";
+
+// Docs specific styles
+// @import "docs/assets/css/components/hero";
+@import "docs/assets/css/components/side-navigation";
+// @import "docs/assets/css/components/callout";
+// @import "docs/assets/css/components/bottom-nav-native";
+// @import "docs/assets/css/components/top-nav-native";
+// @import "docs/assets/css/components/header-native";
+// @import "docs/assets/css/container";
+// @import "docs/assets/css/colour";
+@import "docs/assets/css/tabs";
+@import "docs/assets/css/content";
+@import "docs/assets/css/mobile-iframe";
+@import "docs/assets/css/example";
+@import "docs/assets/css/utilities";
+
+// Add correct spacing around code highlighter and content
+pre {
+  + p,
+  + ol,
+  + ul {
+    @include nhsuk-responsive-padding(4, "top");
+  }
+
+  + h2,
+  + h3 {
+    padding-top: nhsuk-spacing(5);
+
+    @include nhsuk-media-query($from: desktop) {
+      padding-top: nhsuk-spacing(7);
+    }
+  }
+}
+
+// Stop table breaking container on small screens
+@include nhsuk-media-query($until: tablet) {
+  .tel-table tr td {
+    word-break: break-word;
+  }
+}

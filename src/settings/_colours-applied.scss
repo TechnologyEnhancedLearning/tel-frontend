@@ -1,0 +1,15 @@
+@use "sass:map";
+@use "colours-palette" as palette;
+
+/// Returns a colour from the NHS TEL palette by name.
+/// Example: color: tel-colour("dark-blue");
+@function tel-colour($name, $fallback: null) {
+  $value: map.get(palette.$tel-colours, $name);
+  @if $value == null {
+    @if $fallback != null {
+      @return $fallback;
+    }
+    @error "Unknown tel colour `#{$name}`";
+  }
+  @return $value;
+}

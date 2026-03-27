@@ -1,0 +1,11 @@
+.tel-u-hide-from-tablet {
+  @include nhsuk-media-query($from: tablet) {
+    display: none !important;
+  }
+}
+
+.tel-u-hide-until-tablet {
+  @include nhsuk-media-query($until: tablet) {
+    display: none !important;
+  }
+}
