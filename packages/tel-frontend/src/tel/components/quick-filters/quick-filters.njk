@@ -1,4 +1,4 @@
-{% macro quickFilters(title, heading, tags, activeTag) %}
+{% macro quickFilters(heading, tags, activeTag) %}
 <nav class="quick-filters" data-component="quick-filters">
 
   <ul class="quick-filters__list" role="list" data-quick-filters-list>
@@ -12,7 +12,7 @@
         class="quick-filters__button{% if not activeTag %} quick-filters__button--active{% endif %}"
         data-quick-filter
         data-filter-value=""
-        aria-current="{{ not activeTag ? 'true' : 'false' }}"
+        aria-current="{{ 'true' if not activeTag else 'false' }}"
       >
         <span>All</span>
       </a>
@@ -27,7 +27,7 @@
           class="quick-filters__button{% if activeTag and activeTag == value %} quick-filters__button--active{% endif %}"
           data-quick-filter
           data-filter-value="{{ value }}"
-          aria-current="{{ activeTag and activeTag == value ? 'true' : 'false' }}"
+          aria-current="{{ 'true' if activeTag and activeTag == value else 'false' }}"
         >
           <span>{{ label }}</span>
         </a>
