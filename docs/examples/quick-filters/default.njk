@@ -4,9 +4,9 @@ title: Quick Filters Default
 description: A standard example of the quick filters component.
 arguments: quick-filters
 ---
-{% from 'tel/components/quick-filters/macro.njk' import quickFilters %}
+{% from 'tel/components/quick-filters/macro.njk' import telQuickFilters %}
 
-{{ quickFilters({
+{{ telQuickFilters({
   heading: "Filter by level:",
   tags: [
     { label: "Beginner", value: "beginner" },
