@@ -16,6 +16,7 @@ const nunjucksEnv = nunjucks.configure([
   'src/assets',
 
   // Includes specific to our documentation
+  'docs/_includes/tel',
   'docs/_includes',
   'docs/assets',
 
