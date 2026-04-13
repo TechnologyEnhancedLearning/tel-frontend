@@ -1,0 +1,16 @@
+---
+layout: layouts/example.njk
+title: Quick Filters Default
+description: A standard example of the quick filters component.
+arguments: quick-filters
+---
+{% from 'tel/components/quick-filters/macro.njk' import quickFilters %}
+
+{{ quickFilters({
+  heading: "Filter by level:",
+  tags: [
+    { label: "Beginner", value: "beginner" },
+    { label: "Intermediate", value: "intermediate" },
+    { label: "Advanced", value: "advanced" }
+  ]
+}) }}

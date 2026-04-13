@@ -1,0 +1,40 @@
+<nav class="quick-filters" data-component="quick-filters">
+  <ul class="quick-filters__list" role="list" data-quick-filters-list>
+
+    {# Display the heading if one is provided #}
+    {% if params.heading %}
+      <span class="quick-filters__list-heading">{{ params.heading }}</span>
+    {% endif %}
+
+    {# The "All" filter button #}
+    <li class="quick-filters__list-item">
+      <a
+        href="{{ params.allHref | default('#') }}"
+        class="quick-filters__button{% if not params.activeTag %} quick-filters__button--active{% endif %}"
+        data-quick-filter
+        data-filter-value=""
+        aria-current="{{ 'true' if not params.activeTag else 'false' }}"
+      >
+        <span>All</span>
+      </a>
+    </li>
+
+    {# Loop through the tags provided in params #}
+    {% for tag in params.tags %}
+      {% set label = tag.label or tag %}
+      {% set value = tag.value or tag %}
+      <li class="quick-filters__list-item">
+        <a
+          href="{{ tag.href | default('#') }}"
+          class="quick-filters__button{% if params.activeTag and params.activeTag == value %} quick-filters__button--active{% endif %}"
+          data-quick-filter
+          data-filter-value="{{ value }}"
+          aria-current="{{ 'true' if params.activeTag and params.activeTag == value else 'false' }}"
+        >
+          <span>{{ label }}</span>
+        </a>
+      </li>
+    {% endfor %}
+
+  </ul>
+</nav>
