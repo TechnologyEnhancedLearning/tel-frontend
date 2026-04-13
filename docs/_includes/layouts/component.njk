@@ -32,18 +32,6 @@
           text: 'Components'
         },
         items: collections.component | sort(attribute="data.title")
-      },
-      {
-        heading: {
-          text: 'Cards and Lists'
-        },
-        items: collections.cardsAndLists | sort(attribute="data.title")
-      },
-      {
-        heading: {
-          text: 'Archived'
-        },
-        items: collections.archivedComponent | sort(attribute="data.title")
       }
     ]
   }) }}

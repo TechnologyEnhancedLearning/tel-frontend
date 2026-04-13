@@ -1,15 +1,10 @@
 // Import NHS.UK Frontend
 @import "nhsuk-frontend/dist/nhsuk/index";
 
-// Settings
-// @import "settings/colours";
+// 2. Your Library Settings (Optional)
+// Add a blank file at src/_settings.scss if you need custom TEL variables later
+// @import "settings";
 
-// styles
-// @import "styles/icon/icons";
-
-// components
+// 3. Your Custom Components
 @import "components/hello-world/hello-world";
 
-// utilities
-// @import "utilities/display";
-// @import "utilities/truncate";
