@@ -11,7 +11,7 @@ body:
       description: "What’s the purpose of this task?"
       placeholder: "Validate revised confirmation step with low-vision users."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: details
@@ -20,7 +20,7 @@ body:
       description: "Describe what will be done, including design or research details as needed."
       placeholder: "Update CSS tokens for focus rings. Test using NVDA and keyboard-only navigation."
     validations:
-      required: true
+      required: false
 
   - type: dropdown
     id: category
@@ -38,7 +38,7 @@ body:
         - "Frontend component"
         - "Other"
     validations:
-      required: true
+      required: false
       
   - type: textarea
     id: notes
