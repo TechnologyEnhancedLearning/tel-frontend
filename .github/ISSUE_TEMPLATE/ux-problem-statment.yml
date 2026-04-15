@@ -10,7 +10,7 @@ body:
       description: "Describe from the user's perspective. Focus on what’s happening, not solutions."
       placeholder: "Users abandon the appointment form when asked to confirm their NHS number."
     validations:
-      required: true
+      required: false
   - type: textarea
     id: why
     attributes:
@@ -18,7 +18,7 @@ body:
       description: "Explain the impact on users, staff, or service outcomes."
       placeholder: "Confusion at this step increases incomplete submissions and call volume."
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: scope
     attributes:
