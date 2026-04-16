@@ -1,0 +1,5 @@
+@forward "nhsuk-frontend/dist/nhsuk/index";
+@use "nhsuk-frontend/dist/nhsuk/index" as *;
+
+// TEL styles rely on NHS mixins and variables being available in scope.
+@import "components/hello-world/hello-world";

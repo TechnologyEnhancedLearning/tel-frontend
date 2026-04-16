@@ -1,5 +1,8 @@
-// Import all styles from the NHS TEL frontend library
-@import "src/all";
+// Import all styles from the NHS TEL frontend library and expose NHS mixins
+// to the docs-specific Sass in this file.
+@use "src/tel" as * with (
+  $nhsuk-page-width: 1500px
+);
 
 // Code example syntax highlighting
 @import "node_modules/prismjs/themes/prism";          // Default light theme

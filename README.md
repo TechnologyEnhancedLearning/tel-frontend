@@ -14,3 +14,21 @@ NHS TEL Frontend is mainatined by staff at NHS England. If you have a question, 
 ## Building on the NHS digital service manual
 
 The NHS TEL uses the [NHS design system](https://service-manual.nhs.uk/design-system), however it also uses NHS TEL-specific design components and patterns that need documenting with guidance.
+
+## Sass usage
+
+This package publishes compiled CSS in `dist/main.css`, and it also ships the source Sass files in `dist/tel-frontend`.
+
+If your service wants the default NHS width, you can continue to use the compiled CSS bundle.
+
+If your service compiles Sass and needs to override NHS frontend variables such as page width, import the TEL Sass entrypoint and configure it when you load the module:
+
+```scss
+@use "tel-frontend/dist/tel-frontend/tel" with (
+  $nhsuk-page-width: 1200px
+);
+```
+
+This works because `src/tel.scss` forwards `nhsuk-frontend`, so the consuming app can set NHS Sass variables before the TEL styles are generated.
+
+If you only consume the compiled CSS, Sass variables have already been resolved and you will need to use a plain CSS override instead.
