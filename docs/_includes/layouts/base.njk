@@ -57,10 +57,20 @@
 {% endblock %}
 
 {% block bodyEnd %}
+  {# 1. This loads your bundled JS (built by Gulp/Rollup) #}
   <script src="/assets/js/main.js"></script>
-   <script type="module" src="/nhsuk-frontend/dist/nhsuk/nhsuk-frontend.min.js"></script>
+
+  {# 2. Initialize NHS UK components #}
+  <script type="module" src="/nhsuk-frontend/dist/nhsuk/nhsuk-frontend.min.js"></script>
   <script type="module">
     import { initAll } from '/nhsuk-frontend/dist/nhsuk/nhsuk-frontend.min.js'
     initAll()
+  </script>
+
+{# YOUR TEL Frontend JS #}
+  <script type="module">
+    // Using the absolute path to your source file to bypass any build/dist issues
+    import { initAll as initTEL } from '/src/all.js';
+    initTEL();
   </script>
 {% endblock %}
