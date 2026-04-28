@@ -1,0 +1,50 @@
+{% extends "./sidebar.njk" %}
+
+{%- from "./partials/side-navigation.njk" import telSideNavigation %}
+
+{% block beforeContent %}
+  {% if title === "Get started" %}
+    {{ breadcrumb({
+      href: "/",
+      text: "Home"
+    }) }}
+  {% else %}
+    {{ breadcrumb({
+      items: [
+        {
+          href: "/",
+          text: "Home"
+        }
+      ],
+      href: "/get-started",
+      text: "Get started"
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% set sidebar %}
+  {{ telSideNavigation({
+    label: 'How we work',
+    currentPath: page.url,
+    sections: [
+      {
+        heading: {
+          text: 'Setup'
+        },
+        items: collections.setup | sort(attribute="data.order")
+      }
+    ]
+  }) }}
+{% endset %}
+
+{% block content %}
+  {% if tags and "prototyping" in tags %}
+    <span class="nhsuk-caption-xl">Prototyping</span>
+  {% elif tags and "production" in tags %}
+    <span class="nhsuk-caption-xl">Setup</span>
+  {% endif %}
+  <h1 class="nhsuk-heading-xl nhsuk-u-margin-bottom-5">
+    {{ title }}
+  </h1>
+  {{ content | safe }}
+{% endblock %}
