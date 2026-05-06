@@ -21,10 +21,8 @@
   &__list-item.tel-quick-filters__list-item {
     display: flex;
     align-items: center;
-    min-height: 44px;
     margin-bottom: 0;
-    padding: 0;
-
+    padding: 4px;
     &:hover {
       background-color: nhsuk-colour('grey-4');
       border-radius: $nhsuk-border-radius;
