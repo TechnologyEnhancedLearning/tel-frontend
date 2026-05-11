@@ -27,17 +27,17 @@ jobs:
 
       # 3. Install dependencies (including devDependencies)
       - name: Install dependencies
-        run: npm install --workspaces
+        run: npm install
 
-      # 4. Build TEL Frontend package and review site
+      # 4. Build documentation site
       - name: Build project
-        run: npm run build
+        run: npm run docs:build
 
       # 5. Upload artifact for GitHub Pages
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/tel-frontend-review/dist
+          path: _site
 
       # 6. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
