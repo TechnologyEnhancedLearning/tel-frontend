@@ -9,7 +9,7 @@ body:
       label: "What needs doing?"
       description: "Keep this concise and actionable — a single piece of work."
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: category
     attributes:
@@ -21,7 +21,7 @@ body:
         - "Research"
         - "Documentation"
     validations:
-      required: true
+      required: false
   - type: textarea
     id: notes
     attributes:

@@ -10,7 +10,7 @@ body:
       description: "Describe from the user's perspective. Focus on what’s happening, not solutions."
       placeholder: "Users abandon the appointment form when asked to confirm their NHS number."
     validations:
-      required: true
+      required: false
   - type: textarea
     id: why
     attributes:
@@ -18,7 +18,7 @@ body:
       description: "Explain the impact on users, staff, or service outcomes."
       placeholder: "Confusion at this step increases incomplete submissions and call volume."
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: scope
     attributes:
@@ -30,7 +30,7 @@ body:
         - "A complex multi-step process or transactional journey"
         - "Site wide or service level (a large and wide reaching issue, it's big)"
     validations:
-      required: true
+      required: false
   - type: checkboxes
     id: users
     attributes:
@@ -49,7 +49,7 @@ body:
       label: "Summary goals"
       description: "Concisely list out the main goals for this project."
     validations:
-      required: true
+      required: false
   - type: textarea
     id: business
     attributes:
@@ -82,7 +82,7 @@ body:
         - label: "Yes"
         - label: "No"
     validations:
-      required: true
+      required: false
   - type: textarea
     id: success
     attributes:
