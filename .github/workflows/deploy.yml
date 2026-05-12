@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - bugfix/fix-deploy-workflow
   workflow_dispatch: # Allows manual triggering from the Actions tab
 
 permissions:
