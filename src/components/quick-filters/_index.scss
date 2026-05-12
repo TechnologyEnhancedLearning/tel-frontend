@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 0;
-    padding: 4px;
+    padding: nhsuk-spacing(1);
     &:hover {
       background-color: nhsuk-colour('grey-4');
       border-radius: $nhsuk-border-radius;
@@ -37,7 +37,7 @@
     position: relative;
 
     // BASE STATE: Centered with 24px padding
-    padding: 10px 24px;
+    padding: nhsuk-spacing(2) nhsuk-spacing(4);
     min-width: 90px;
 
     border: 1px solid nhsuk-colour('grey-3');
@@ -64,8 +64,7 @@
     &:before {
       content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10' fill='none'%3E%3Cpath d='M1.5 5.45455L4.83333 8L10.5 1' stroke='%23004281' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
       display: none;
-      width: 12px;
-      margin-right: 8px;
+      width: nhsuk-spacing(3);
       vertical-align: middle;
     }
 
@@ -75,7 +74,7 @@
       color: nhsuk-shade(nhsuk-colour('blue'), 30%);
 
       // ACTIVE STATE: Padding change happens instantly now
-      padding: 10px 14px;
+      padding: nhsuk-spacing(2) nhsuk-spacing(3);
 
       &:before {
         display: inline-block;
