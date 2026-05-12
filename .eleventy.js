@@ -153,12 +153,16 @@ export default function (eleventyConfig) {
 
   eleventyConfig.setLibrary('md', markdownIt({ html: true }).use(anchor))
 
+  // Check if we are running in a GitHub Action environment
+  const isProduction = process.env.GITHUB_ACTIONS === 'true'
+
   return {
     dir: {
       input: 'docs',
       output: 'dist/docs'
     },
-    pathPrefix: "/tel-frontend/",
+    // Only use the prefix if we are in production
+    pathPrefix: isProduction ? '/tel-frontend/' : '/',
     markdownTemplateEngine: 'njk'
   }
 }
