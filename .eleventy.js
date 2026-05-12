@@ -122,7 +122,11 @@ export default function (eleventyConfig) {
   eleventyConfig.setLibrary('md', markdownIt({ html: true }).use(anchor))
 
   return {
-    dir: { input: 'docs', output: 'dist/docs' },
+    dir: {
+      input: 'docs',
+      output: 'dist/docs'
+    },
+    pathPrefix: "/tel-frontend/",
     markdownTemplateEngine: 'njk'
   }
 }
