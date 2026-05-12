@@ -158,6 +158,7 @@ export default function (eleventyConfig) {
       input: 'docs',
       output: 'dist/docs'
     },
+    pathPrefix: "/tel-frontend/",
     markdownTemplateEngine: 'njk'
   }
 }
