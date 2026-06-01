@@ -1,7 +1,8 @@
 <!-- prettier-ignore-file -->
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `heading` | string | No | Text to display before the filter buttons, such as "Filter by level:". |
+| `filterTitle` | string | No | Text to display before the filter list to caption or title the content, such as "Filter by level:". |
+| `heading` | string | No | Text to display before the filter buttons, such as "Show" to provide more detail about the expected interaction. |
 | `showAll` | boolean | No | Set to `false` to hide the default "All" button. Defaults to `true`. |
 | `allLabel` | string | No | Custom text for the default "All" button. Defaults to `"All"`. |
 | `allHref` | string | No | The URL the "All" button links to if JavaScript is disabled. Defaults to `"#"`. |

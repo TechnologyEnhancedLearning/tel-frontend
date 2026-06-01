@@ -7,7 +7,8 @@ nunjucksCode: |
   {% from 'tel/components/quick-filters/macro.njk' import telQuickFilters %}
 
   {{ telQuickFilters({
-    heading: "Filter by level:",
+    filterTitle: "Filter by level",
+    heading: "Show:",
     tags: [
       { label: "Beginner", value: "beginner" },
       { label: "Intermediate", value: "intermediate" },
@@ -19,7 +20,8 @@ nunjucksCode: |
 
 {# 1. The Component #}
 {{ telQuickFilters({
-  heading: "Filter by level:",
+  filterTitle: "Filter by level",
+  heading: "Show:",
   tags: [
     { label: "Beginner", value: "beginner" },
     { label: "Intermediate", value: "intermediate" },

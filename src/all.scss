@@ -4,6 +4,8 @@
 // 2. Your Library Settings (Optional)
 // Add a blank file at src/_settings.scss if you need custom TEL variables later
 // @import "settings";
+@import "variables";
+@import "mixins";
 
 // 3. Your Custom Components
 @import "components/hello-world/hello-world";

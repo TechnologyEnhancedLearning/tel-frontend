@@ -1,4 +1,8 @@
 <nav class="tel-quick-filters" data-component="tel-quick-filters" data-module="tel-quick-filters">
+  {% if params.filterTitle %}
+    <div class="tel-quick-filters__filter-title">{{ params.filterTitle }}</div>
+  {% endif %}
+
   <ul class="tel-quick-filters__list" role="list">
 
     {% if params.heading %}
