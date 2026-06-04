@@ -11,24 +11,18 @@ import matter from 'gray-matter'
 import prettier from 'prettier'
 
 const nunjucksEnv = nunjucks.configure([
-  // Our own styles and assets
   'src/styles',
   'src/assets',
-
-  // Includes specific to our documentation
   'docs/_includes/tel',
   'docs/_includes',
   'docs/assets',
-
-  // NHS.UK frontend components (updated for v10)
-  'node_modules/nhsuk-frontend/dist', // allow resolving paths like nhsuk/macros/attributes.njk
+  'node_modules/nhsuk-frontend/dist',
   'node_modules/nhsuk-frontend/dist/nhsuk',
   'node_modules/nhsuk-frontend/dist/nhsuk/components',
   'node_modules/nhsuk-frontend/dist/nhsuk/macros'
 ])
 
 export default function (eleventyConfig) {
-  // Copy components before build starts
   eleventyConfig.on('eleventy.before', async () => {
     try {
       const sourceDirs = {
@@ -36,10 +30,8 @@ export default function (eleventyConfig) {
         styles: 'src/styles',
         assets: 'src/assets'
       }
-
       const targetBase = 'docs/_includes/tel'
       await fs.ensureDir(targetBase)
-
       for (const [name, sourceDir] of Object.entries(sourceDirs)) {
         const targetDir = `${targetBase}/${name}`
         if (await fs.pathExists(sourceDir)) {
@@ -52,27 +44,12 @@ export default function (eleventyConfig) {
     }
   })
 
-  // Configure a custom nunjucks environment
   eleventyConfig.setLibrary('njk', nunjucksEnv)
-
-  // Watch for changes in these directories and files
   eleventyConfig.addWatchTarget('./src/')
   eleventyConfig.addWatchTarget('./docs/assets/')
-
-  // Add images to docs
   eleventyConfig.addPassthroughCopy('docs/assets/images')
-
-  // Add NHSUK frontend JS/components
-  eleventyConfig.addPassthroughCopy({
-    'node_modules/nhsuk-frontend/dist': 'nhsuk-frontend/dist'
-  })
-
-  // Copy the NHS assets folder to /assets so default assetPath (/assets) works
-  eleventyConfig.addPassthroughCopy({
-    'node_modules/nhsuk-frontend/dist/nhsuk/assets': 'assets'
-  })
-
-  // Add syntax highlighting to code blocks
+  eleventyConfig.addPassthroughCopy({ 'node_modules/nhsuk-frontend/dist': 'nhsuk-frontend/dist' })
+  eleventyConfig.addPassthroughCopy({ 'node_modules/nhsuk-frontend/dist/nhsuk/assets': 'assets' })
   eleventyConfig.addPlugin(syntaxHighlight)
 
   eleventyConfig.addTemplateFormats('scss')
@@ -80,54 +57,44 @@ export default function (eleventyConfig) {
     outputFileExtension: 'css',
     compile: async function (inputContent, inputPath) {
       let parsed = path.parse(inputPath)
-      if (parsed.name.startsWith('_')) {
-        return
-      }
+      if (parsed.name.startsWith('_')) return
       let result = sass.compileString(inputContent, {
-        // Expanded load paths so @import "nhsuk/index" and other bare imports resolve
-        loadPaths: [
-          '.',
-          'node_modules',
-          'node_modules/nhsuk-frontend/dist',
-          'node_modules/nhsuk-frontend/src'
-        ]
+        loadPaths: ['.', 'node_modules', 'node_modules/nhsuk-frontend/dist', 'node_modules/nhsuk-frontend/src']
       })
-      return async (data) => {
-        return result.css
-      }
+      return async (data) => result.css
     }
   })
 
-  // Add GitHub URL filter
   eleventyConfig.addFilter('toGitHubUrl', function (path) {
-    // Remove leading './' if present
-    if (path.startsWith('./')) {
-      path = path.slice(2)
-    }
-
+    if (path.startsWith('./')) path = path.slice(2)
     return `https://github.com/TechnologyEnhancedLearning/tel-frontend/edit/main/${path}`
   })
 
-  // We need this HtmlBase plugin for serving our docs on github pages at a subdirectory
-  // https://www.11ty.dev/docs/plugins/html-base/
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin)
+  eleventyConfig.addPassthroughCopy("src");
 
+  // --- UPDATED SHORTCODE ---
   eleventyConfig.addShortcode('example', async function (examplePath) {
     const exampleFile = fs
       .readFileSync(path.join('docs/examples', examplePath), 'utf8')
       .trim()
-    let { data, content: nunjucksCode } = matter(exampleFile)
+
+    let { data, content } = matter(exampleFile)
+
+    // Check if user provided an override in the Front Matter
+    const nunjucksCode = data.nunjucksCode || content
 
     // Always show Nunjucks tab unless explicitly disabled
-    let showNunjucksAuto = true
-    if (typeof data.showNunjucks === 'boolean') {
-      showNunjucksAuto = data.showNunjucks
+    let showNunjucksAuto = data.showNunjucks !== false
+
+    const rawHtmlCode = nunjucksEnv.renderString(content)
+    let prettyHtmlCode = rawHtmlCode
+    try {
+      prettyHtmlCode = await prettier.format(rawHtmlCode, { parser: 'html' })
+    } catch (e) {
+      console.warn("Prettier formatting failed for:", examplePath);
     }
 
-    const rawHtmlCode = nunjucksEnv.renderString(nunjucksCode)
-    const prettyHtmlCode = await prettier.format(rawHtmlCode, {
-      parser: 'html'
-    })
     const href = `/examples/${examplePath.replace('.njk', '')}`
 
     const templateData = {
@@ -136,7 +103,7 @@ export default function (eleventyConfig) {
       id: href.replace(/\//g, '-'),
       title: data.title,
       htmlCode: prettyHtmlCode,
-      nunjucksCode: nunjucksCode,
+      nunjucksCode: nunjucksCode, // This is now clean or overridden
       figmaLink: data.figmaLink,
       razorLink: data.razorLink,
       mobile: data.mobile,
@@ -145,9 +112,10 @@ export default function (eleventyConfig) {
       backlink: data.backlink || data.backLink || false,
       backLinkHref: data.backLinkHref,
       backLinkText: data.backLinkText,
-      arguments: data.arguments, // existing
-      showNunjucks: showNunjucksAuto // computed visibility
+      arguments: data.arguments,
+      showNunjucks: showNunjucksAuto
     }
+
     return nunjucksEnv.render('example.njk', templateData)
   })
 

@@ -1,0 +1,79 @@
+---
+layout: layouts/example.njk
+title: Quick Filters Default
+description: A standard example of the quick filters component with live results.
+arguments: quick-filters
+nunjucksCode: |
+  {% from 'tel/components/quick-filters/macro.njk' import telQuickFilters %}
+
+  {{ telQuickFilters({
+    filterTitle: "Filter by level",
+    heading: "Show:",
+    tags: [
+      { label: "Beginner", value: "beginner" },
+      { label: "Intermediate", value: "intermediate" },
+      { label: "Advanced", value: "advanced" }
+    ]
+  }) }}
+---
+{% from 'tel/components/quick-filters/macro.njk' import telQuickFilters %}
+
+{# 1. The Component #}
+{{ telQuickFilters({
+  filterTitle: "Filter by level",
+  heading: "Show:",
+  tags: [
+    { label: "Beginner", value: "beginner" },
+    { label: "Intermediate", value: "intermediate" },
+    { label: "Advanced", value: "advanced" }
+  ]
+}) }}
+
+<hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+
+{# 2. The Demo Data ... (rest of your file remains unchanged) #}
+
+{# 2. The Demo Data #}
+<div id="demo-results">
+  <h3 class="nhsuk-heading-s">Courses</h3>
+  <ul class="nhsuk-list nhsuk-list--border">
+    <li data-level="beginner"><strong>Beginner:</strong> Introduction to NHS Standards</li>
+    <li data-level="intermediate"><strong>Intermediate:</strong> Advanced Nunjucks Templating</li>
+    <li data-level="beginner"><strong>Beginner:</strong> HTML & Accessibility Basics</li>
+    <li data-level="advanced"><strong>Advanced:</strong> Developing Design Systems at Scale</li>
+    <li data-level="intermediate"><strong>Intermediate:</strong> JavaScript Event Delegation</li>
+  </ul>
+
+  {# 3. Empty State (Hidden by default) #}
+  <p id="no-results-message" class="nhsuk-body" style="display: none;">
+    No courses found for the selected levels.
+  </p>
+</div>
+
+{# 4. The Implementation Logic #}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filtersContainer = document.querySelector('.tel-quick-filters');
+    const items = document.querySelectorAll('#demo-results li');
+    const emptyMessage = document.getElementById('no-results-message');
+
+    if (filtersContainer) {
+      filtersContainer.addEventListener('tel.quick-filters.change', (event) => {
+        const activeFilters = event.detail.filters;
+        let visibleCount = 0;
+
+        items.forEach(item => {
+          const itemLevel = item.dataset.level;
+          // Logic: Show if 'all' is active OR if the specific level is selected
+          const shouldShow = activeFilters.includes('all') || activeFilters.includes(itemLevel);
+
+          item.style.display = shouldShow ? 'block' : 'none';
+          if (shouldShow) visibleCount++;
+        });
+
+        // Toggle the "No results" message
+        emptyMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+      });
+    }
+  });
+</script>

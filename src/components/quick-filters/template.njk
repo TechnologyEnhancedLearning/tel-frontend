@@ -1,0 +1,50 @@
+<nav class="tel-quick-filters" data-component="tel-quick-filters" data-module="tel-quick-filters">
+  {% if params.filterTitle %}
+    <div class="tel-quick-filters__filter-title">{{ params.filterTitle }}</div>
+  {% endif %}
+
+  <ul class="tel-quick-filters__list" role="list">
+
+    {% if params.heading %}
+      <span class="tel-quick-filters__list-heading">{{ params.heading }}</span>
+    {% endif %}
+
+    {# The "All" filter button #}
+    {% if params.showAll !== false %}
+      <li class="tel-quick-filters__list-item">
+        {# Active if no tags provided or 'all' is in the active list #}
+        {% set isAllActive = not params.activeTags or params.activeTags | length == 0 or 'all' in params.activeTags %}
+        <a
+          href="{{ params.allHref | default('#') }}"
+          class="tel-quick-filters__button{% if isAllActive %} tel-quick-filters__button--active{% endif %}"
+          role="button"
+          aria-pressed="{{ "true" if isAllActive else "false" }}"
+          data-filter-value="all"
+        >
+          <span>{{ params.allLabel | default('All') }}</span>
+        </a>
+      </li>
+    {% endif %}
+
+    {# Loop through the tags provided in params #}
+    {% for tag in params.tags %}
+      {% set label = tag.label or tag %}
+      {% set value = tag.value or tag %}
+      {# Checks if this value is in the activeTags array #}
+      {% set isActive = params.activeTags and value in params.activeTags %}
+
+      <li class="tel-quick-filters__list-item">
+        <a
+          href="{{ tag.href | default('#') }}"
+          class="tel-quick-filters__button{% if isActive %} tel-quick-filters__button--active{% endif %}"
+          role="button"
+          aria-pressed="{{ "true" if isActive else "false" }}"
+          data-filter-value="{{ value }}"
+        >
+          <span>{{ label }}</span>
+        </a>
+      </li>
+    {% endfor %}
+
+  </ul>
+</nav>
