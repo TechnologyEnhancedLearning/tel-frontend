@@ -8,5 +8,9 @@
 @import "mixins";
 
 // 3. Your Custom Components
+@import "components/tel-definition-list/index";
+@import "components/tel-icons/index";
 @import "components/hello-world/hello-world";
+@import "components/tel-learning-listing/index";
+@import "components/tel-rating/index";
 @import "components/quick-filters/index";

@@ -1,0 +1,38 @@
+---
+layout: layouts/example.njk
+title: Learning Listings Default
+description: A standard example of the quick filters component with live results.
+arguments: learning-listing
+nunjucksCode: |
+  {% from 'tel/components/tel-learning-listing/macro.njk' import learningListing %}
+
+  {{ learningListing({
+    headingLevel: 3,
+    heading: "lorem ipsum dolor sit amet consectetur adipiscing",
+    description: "This is a description of the learning listing. lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    starRating: 70,
+    progress: 50,
+    developedWith: "Developed with elearning for healthcare",
+    footerLinkText: "Enabling Effective Learning",
+    footerLink: "#"
+  }) }}
+---
+  {% from 'tel/components/tel-learning-listing/macro.njk' import learningListing %}
+
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+      {# 1. The Component #}
+      {{ learningListing({
+        headingLevel: 3,
+        heading: "lorem ipsum dolor sit amet consectetur adipiscing",
+        description: "This is a description of the learning listing. lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        starRating: 70,
+        progress: 56,
+        footerLinkText: "Enabling Effective Learning",
+        footerLink: "#"
+      }) }}
+
+    </div>
+  </div>
