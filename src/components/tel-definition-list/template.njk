@@ -1,0 +1,15 @@
+{% set groups = params.groups | default([]) %}
+{% set type = params.type | default('inline') %}
+{% set additionalClasses = params.additionalClasses | default('') %}
+{% set size = params.size | default('') %}
+
+<dl class="tel-definition-list tel-definition-list--{{ type }} {{ additionalClasses }} {% if size|length %}tel-definition-list--{{ size }}{% endif %}">
+  {% for group in groups %}
+    <div class="tel-definition-list__group">
+      <dt class="tel-definition-list__title">{{ group.title | safe }}</dt>
+      {% for description in group.descriptions %}
+      <dd class="tel-definition-list__description">{{ description | safe }}</dd>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</dl>

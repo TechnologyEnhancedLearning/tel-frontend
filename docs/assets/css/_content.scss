@@ -13,3 +13,15 @@
     max-width: 100%; // So images do not break the container
   }
 }
+
+.tel-max-width {
+  max-width: initial;
+  
+  &--300 {
+    max-width: 300px;
+  }
+  
+  &--400 {
+    max-width: 400px;
+  }
+}

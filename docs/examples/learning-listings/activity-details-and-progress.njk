@@ -1,0 +1,69 @@
+---
+layout: layouts/example.njk
+title: Learning Listings Default
+description: A standard example of the quick filters component with live results.
+arguments: learning-listing
+nunjucksCode: |
+  {% from "tel/components/tel-learning-listing/activity-details-and-progress.njk" import activityDetailsAndProgress %}
+
+  {{ activityDetailsAndProgress(
+    progress=50,
+    additionalClasses='customer-class'
+  ) }}
+---
+  {% from "tel/components/tel-learning-listing/activity-details-and-progress.njk" import activityDetailsAndProgress %}
+  {% from "nhsuk/components/summary-list/macro.njk" import summaryList %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+      {% set notStarted %}
+        {{ activityDetailsAndProgress(
+          progress=0
+        ) }}
+      {% endset %}
+
+      {% set inProgress %}
+        {{ activityDetailsAndProgress(
+          progress=65
+        ) }}
+      {% endset %}
+      
+      {% set completed %}
+        {{ activityDetailsAndProgress(
+          progress=100
+        ) }}
+      {% endset %}
+
+      {# 1. The Component #}
+      {{ summaryList({
+        rows: [
+          {
+            key: {
+              text: "Not started"
+            },
+            value: {
+              html: notStarted
+            }
+          },
+          {
+            key: {
+              text: "In progress"
+            },
+            value: {
+              html: inProgress
+            }
+          },
+          {
+            key: {
+              text: "Completed"
+            },
+            value: {
+              html: completed
+            }
+          }
+        ]
+      }) }}
+
+    </div>
+  </div>

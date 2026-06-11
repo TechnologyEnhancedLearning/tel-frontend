@@ -1,0 +1,71 @@
+{% from "nhsuk/components/card/macro.njk" import card %}
+{% from "../tel-rating/template.njk" import rating %}
+{% from "./activity-details-and-progress.njk" import activityDetailsAndProgress %}
+  
+{% set headingLevel = params.headingLevel if params.headingLevel else 2 %}
+{% set imgURL = params.imgURL if params.imgURL else null %}
+
+{% set courseCardClass = ' tel-learning-listing--course-card' if params.isCourse else '' %}
+
+
+
+{% set learning_listing_heading %}
+  <div class="tel-learning-listing__heading">
+    <a href="#" class="tel-learning-listing__heading-link">
+      <h{{ headingLevel }} class="tel-learning-listing__heading-text">
+        {{ params.heading }}
+      </h{{ headingLevel }}>
+    </a>
+  </div>
+{% endset%}
+{% set learning_listing_content %}
+  <div class="tel-learning-listing__content">
+    {% if params.description is string %}
+    <div class="tel-learning-listing__description">
+      <p>{{ params.description }}</p>
+    </div>
+    {% endif %}
+
+    {% if params.starRating is defined %}
+    <div class="tel-learning-listing__rating">
+      {{ rating(progress=params.starRating) }}
+    </div>
+    {% endif %}
+
+    <div class="tel-learning-listing__key-activity-information">
+
+      {{ activityDetailsAndProgress(params.progress) }}
+
+    </div>
+  </div>
+
+  <div class="tel-learning-listing__footer">
+    <div class="tel-learning-listing__catalogue">
+      <img src="https://picsum.photos/100" alt="" class="tel-learning-listing__catalogue-image">
+      <a href="{{ params.footerLink | default('#') }}" class="tel-learning-listing__catalogue-link">{{ params.footerLinkText | default("Enabling Effective Learning") }}</a>
+    </div>
+
+    {% if params.developedWith is string or params.developedWith == true %}
+      <div class="tel-learning-listing__developed-with">
+        {{ params.developedWith | default("Developed with elearning for healthcare") }}
+      </div>
+    {% endif %}
+  </div>
+{% endset %}
+
+{% if params.showAsCard == true %}
+  {% call card({
+    classes: "tel-learning-listing tel-learning-listing--learning-card" + courseCardClass,
+    imgURL: imgURL,
+    headingHtml: learning_listing_heading
+  }) %}
+    {{ learning_listing_content | safe }}
+  {%- endcall %}
+
+{%- else %}
+
+  <div class="tel-learning-listing nhsuk-u-reading-width">
+    {{ learning_listing_heading | safe }}
+    {{ learning_listing_content | safe }}
+  </div>
+{%- endif %}
