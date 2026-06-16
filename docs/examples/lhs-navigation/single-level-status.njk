@@ -1,0 +1,39 @@
+---
+layout: layouts/example.njk
+title: Left Hand Side Navigation - Simple with Status
+description: A simple example of the LHS Navigation component with top-level items and status indicators.
+arguments: lhs-navigation
+---
+{% from 'tel/components/lhs-navigation/macro.njk' import telLhsNavigation %}
+
+{{ telLhsNavigation({
+  showLocks: false,
+  showStatus: true,
+  items: [
+    {
+      text: "Navigation title 1",
+      href: "#",
+      status: "complete"
+    },
+    {
+      text: "Navigation title 2",
+      href: "#",
+      status: "unstarted"
+    },
+    {
+      text: "Navigation title 3",
+      href: "#",
+      status: "false"
+    },
+    {
+      text: "Navigation title 4",
+      href: "#",
+      status: "complete"
+    },
+    {
+      text: "Navigation title 5",
+      href: "#",
+      status: "unstarted"
+    }
+  ]
+}) }}

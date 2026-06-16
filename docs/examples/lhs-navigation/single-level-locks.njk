@@ -1,0 +1,39 @@
+---
+layout: layouts/example.njk
+title: Left Hand Side Navigation - Simple with Locks
+description: A simple example of the LHS Navigation component with top-level items and lock indicators.
+arguments: lhs-navigation
+---
+{% from 'tel/components/lhs-navigation/macro.njk' import telLhsNavigation %}
+
+{{ telLhsNavigation({
+  showLocks: true,
+  showStatus: false,
+  items: [
+    {
+      text: "Navigation title 1",
+      href: "#",
+      locked: false
+    },
+    {
+      text: "Navigation title 2",
+      href: "#",
+      locked: true
+    },
+    {
+      text: "Navigation title 3",
+      href: "#",
+      locked: false
+    },
+    {
+      text: "Navigation title 4",
+      href: "#",
+      locked: true
+    },
+    {
+      text: "Navigation title 5",
+      href: "#",
+      locked: false
+    }
+  ]
+}) }}

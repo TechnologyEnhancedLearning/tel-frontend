@@ -1,0 +1,415 @@
+@import "nhsuk/index";
+
+.tel-lhs-navigation {
+  background: white;
+
+  // ============================================================================
+  // Tree Structure
+  // ============================================================================
+  &__tree {
+    list-style-type: none;
+    margin: 0 2rem;
+    width: 400px;
+    padding: 0px;
+    border-right: 1px solid #D8DDE0;
+    background-color: white;
+  }
+
+  // ============================================================================
+  // Sections & Items
+  // ============================================================================
+  &__section {
+    border-bottom: 1px solid #D8DDE0;
+    margin-bottom: 1rem;
+    margin-right: 0;
+  }
+
+  &__section:last-of-type {
+    border-bottom: none;
+  }
+
+  &__section &__section {
+    border-bottom: none;
+  }
+
+  &__item {
+    list-style-type: none;
+    padding: 0;
+    padding-right: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  &__tree > &__item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0px;
+    border-bottom: 1px solid nhsuk-colour('grey-4');
+  }
+
+  &__tree > &__item:last-child {
+    border-bottom: none;
+  }
+
+  &__item.tel-lhs-navigation__section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  // ============================================================================
+  // Section Content (Nested Lists)
+  // ============================================================================
+  &__section-content {
+    border-left: 2px solid #D8DDE0;
+    margin-left: 0.9375rem;
+    margin-top: 0;
+    padding-left: 0;
+    flex-basis: 100%;
+
+    .tel-lhs-navigation__item {
+      padding-right: 0;
+    }
+
+    & .tel-lhs-navigation__section-content {
+      margin-left: 1.75rem;
+    }
+  }
+
+  &__tree > &__item > &__section-content {
+    padding-top: 0.75rem;
+  }
+
+  // ============================================================================
+  // Links
+  // ============================================================================
+  &__link {
+    @include nhsuk-font(16);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    color: nhsuk-colour('blue');
+    text-decoration: none;
+    flex-grow: 1;
+
+    &:visited {
+      color: nhsuk-colour('blue');
+    }
+
+    &:hover {
+      background-color: none;
+      color: nhsuk-colour('blue');
+      text-decoration: underline;
+    }
+
+    &:hover:visited:not(:focus) {
+      color: nhsuk-colour('blue');
+    }
+
+    &:focus {
+      z-index: 2;
+    }
+
+    &--active {
+      border-left-color: nhsuk-colour('blue');
+      background-color: nhsuk-tint(nhsuk-colour('blue'), 90%);
+      color: nhsuk-shade(nhsuk-colour('blue'), 30%);
+      font-weight: bold;
+    }
+  }
+
+  // ============================================================================
+  // Chevron (Expand/Collapse Toggle)
+  // ============================================================================
+  &__chevron {
+    border-radius: 0.25rem;
+
+    &:not(:focus) {
+      background-color: #E4F0FA;
+    }
+
+    &:focus {
+      border-radius: 0;
+    }
+  }
+
+  &__chevron-icon {
+    align-self: flex-start;
+    flex-shrink: 0;
+
+    &--expanded {
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    &--collapsed {
+      display: none;
+    }
+
+    .icon {
+      font-size: 0.75rem;
+    }
+  }
+
+  // ============================================================================
+  // Text & Titles
+  // ============================================================================
+  &__title {
+    display: flex;
+    align-items: center;
+    padding-left: 1.4375rem;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__section &__title {
+    padding-left: 2.3125rem;
+  }
+
+  &__section &__section-title {
+    position: relative;
+    padding-left: 0;
+  }
+
+  // ============================================================================
+  // Groups (Left & Right)
+  // ============================================================================
+  &__left-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__right-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    align-self: flex-start;
+    width: 2.75rem;
+    margin-left: 0.5rem;
+    padding-top: 0.125rem;
+
+    &--single {
+      width: 1.125rem; // 18px (width of one icon)
+
+      .tel-lhs-navigation__lock,
+      .tel-lhs-navigation__status {
+        margin: 0;
+      }
+    }
+  }
+
+  // ============================================================================
+  // Icons (Lock & Status)
+  // ============================================================================
+  &__lock {
+    flex-shrink: 0;
+    margin-right: auto;
+  }
+
+  &__status {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  &__lock + &__status {
+    margin-left: 0;
+  }
+
+  &__icon {
+    display: block;
+
+    &-background {
+      fill: nhsuk-colour('white');
+    }
+
+    &--lock {
+      .tel-lhs-navigation__icon-background {
+        fill: nhsuk-colour('grey-2');
+      }
+
+      .tel-lhs-navigation__icon-border {
+        stroke: nhsuk-shade(nhsuk-colour('grey-1'), 30%);
+      }
+
+      .tel-lhs-navigation__icon-symbol {
+        fill: nhsuk-colour('white');
+      }
+    }
+
+    &--complete {
+      .tel-lhs-navigation__icon-background {
+        fill: nhsuk-colour('green');
+      }
+
+      .tel-lhs-navigation__icon-border {
+        stroke: nhsuk-shade(nhsuk-colour('green'), 20%);
+      }
+
+      .tel-lhs-navigation__icon-symbol {
+        stroke: nhsuk-colour('white');
+      }
+    }
+
+    &--unstarted {
+      circle {
+        fill: nhsuk-colour('white');
+        stroke: nhsuk-colour('grey-1');
+      }
+    }
+  }
+
+  // ============================================================================
+  // Curve Connector (Visual Tree Lines)
+  // ============================================================================
+  &__curve {
+    width: 1rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    border-bottom: 2px solid nhsuk-colour('grey-4');
+    border-left: 2px solid nhsuk-colour('grey-4');
+    border-bottom-left-radius: 50%;
+    margin-left: -2px;
+    align-self: flex-start;
+  }
+
+  &__curve + &__chevron {
+    max-width: calc(100% - 0.875rem);
+  }
+
+  // ============================================================================
+  // Toggle Button (Mobile Menu)
+  // ============================================================================
+  &__toggle {
+    display: none;
+    width: fit-content;
+
+    @media screen and (max-width: 44rem) {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      background: white;
+      color: nhsuk-colour('blue');
+      border: 1px solid black;
+      border-radius: 0.25rem;
+      box-shadow: inset 0 -3px 0 black;
+
+      .icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        font-size: 14px;
+      }
+
+      .tel-lhs-navigation__toggle-text {
+        overflow-wrap: break-word;
+        font-size: 19px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &__content &__toggle {
+    margin-left: 1rem;
+  }
+
+  &.tel-lhs-navigation--open > &__toggle {
+    @media screen and (max-width: 44rem) {
+      display: none;
+    }
+  }
+
+  &__toggle.nhsuk-button:hover {
+    box-shadow: inset 0 -3px 0 black;
+  }
+
+  &__toggle.nhsuk-button:focus {
+    box-shadow: inset 0 -3px 0 black;
+  }
+
+  // Override secondary button colours
+  &__toggle.nhsuk-button--secondary::after,
+  &__toggle.nhsuk-button--secondary-solid::after,
+  &__toggle.nhsuk-button--secondary:not(:focus):not(:active)::before,
+  &__toggle.nhsuk-button--secondary-solid:not(:focus):not(:active)::before {
+    border: none;
+    box-shadow: none;
+  }
+
+  // ============================================================================
+  // Content Container (Mobile Slide-out Panel)
+  // ============================================================================
+  &__content {
+    @media screen and (max-width: 44rem) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 90%;
+      max-width: 460px;
+      height: 100%;
+      background-color: white;
+      border-right: 40px solid #005eb8;
+      box-sizing: border-box;
+      transform: translateX(-100%);
+      transition: transform .3s ease-in-out;
+      z-index: 1000;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, .1);
+      overflow-y: auto;
+      overflow-x: visible;
+      overscroll-behavior: contain;
+      padding: 20px 0;
+    }
+  }
+
+  // ============================================================================
+  // Responsive Adjustments
+  // ============================================================================
+  @media screen and (max-width: 44rem) {
+    &__tree {
+      width: 360px;
+      margin-left: 0.25rem;
+    }
+
+    &.tel-lhs-navigation--open &__content {
+      transform: translateX(0);
+    }
+  }
+}
+
+// ============================================================================
+// JavaScript-Enabled States
+// ============================================================================
+.js-enabled {
+  .tel-lhs-navigation {
+    &__section-content.collapsed {
+      display: none;
+    }
+
+    &__chevron.collapsed {
+      &:not(:focus) {
+        background-color: transparent;
+      }
+
+      .tel-lhs-navigation__chevron-icon--collapsed {
+        display: inline-block;
+        flex-shrink: 0;
+      }
+
+      .tel-lhs-navigation__chevron-icon--expanded {
+        display: none;
+      }
+    }
+
+    &__item:has(> .tel-lhs-navigation__chevron.collapsed) .tel-lhs-navigation__curve {
+      border: none;
+    }
+  }
+}

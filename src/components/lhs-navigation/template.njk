@@ -1,0 +1,163 @@
+{% macro statusIndicators(item, showLocks, showStatus) %}
+  {%- if showLocks and item.locked -%}
+    <span class="tel-lhs-navigation__lock">
+      <svg class="tel-lhs-navigation__icon tel-lhs-navigation__icon--lock" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect class="tel-lhs-navigation__icon-background" x="0.5" y="0.5" width="17" height="17" rx="8.5"/>
+        <rect class="tel-lhs-navigation__icon-border" x="0.5" y="0.5" width="17" height="17" rx="8.5"/>
+        <path class="tel-lhs-navigation__icon-symbol" d="M7.57143 7.03125V7.875H10.4286V7.03125C10.4286 6.2543 9.78929 5.625 9 5.625C8.21071 5.625 7.57143 6.2543 7.57143 7.03125ZM6.42857 7.875V7.03125C6.42857 5.63379 7.58036 4.5 9 4.5C10.4196 4.5 11.5714 5.63379 11.5714 7.03125V7.875H11.8571C12.4875 7.875 13 8.37949 13 9V12.375C13 12.9955 12.4875 13.5 11.8571 13.5H6.14286C5.5125 13.5 5 12.9955 5 12.375V9C5 8.37949 5.5125 7.875 6.14286 7.875H6.42857Z"/>
+      </svg>
+    </span>
+  {%- endif -%}
+  {%- if showStatus and item.status != "false" -%}
+    <span class="tel-lhs-navigation__status tel-lhs-navigation__status--{{ item.status }}" data-for="cm_completion" data-value="1">
+      {%- if item.status == "complete" -%}
+        <svg class="tel-lhs-navigation__icon tel-lhs-navigation__icon--complete" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Complete">
+          <rect class="tel-lhs-navigation__icon-background" x="0.5" y="0.5" width="17" height="17" rx="8.5"/>
+          <rect class="tel-lhs-navigation__icon-border" x="0.5" y="0.5" width="17" height="17" rx="8.5"/>
+          <path class="tel-lhs-navigation__icon-symbol" d="M5.5625 9.25095L8.5625 11.7509L12.4375 6.24902" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      {%- elif item.status == "unstarted" -%}
+        <svg class="tel-lhs-navigation__icon tel-lhs-navigation__icon--unstarted" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unstarted">
+          <circle cx="9" cy="9" r="8.5"/>
+        </svg>
+      {%- endif -%}
+    </span>
+  {%- endif -%}
+{% endmacro %}
+
+<nav class="tel-lhs-navigation" data-component="tel-lhs-navigation" data-module="tel-lhs-navigation">
+
+
+  <button type="button" class="nhsuk-button nhsuk-button--secondary-solid tel-lhs-navigation__toggle" aria-controls="tel-lhs-nav-content" aria-expanded="false">
+    <span class="icon-wrapper" aria-hidden="true">
+      <i class="icon fa fa-angle-double-right"></i>
+    </span>
+    <span class="tel-lhs-navigation__toggle-text">Open page menu</span>
+  </button>
+
+  <div class="tel-lhs-navigation__content">
+    <button type="button" class="nhsuk-button nhsuk-button--secondary-solid tel-lhs-navigation__toggle" aria-controls="tel-lhs-nav-content" aria-expanded="false">
+      <span class="icon-wrapper" aria-hidden="true">
+        <i class="icon fa fa-angle-double-left"></i>
+      </span>
+      <span class="tel-lhs-navigation__toggle-text">Close page menu</span>
+    </button>    
+    <ul class="tel-lhs-navigation__tree" role="tree">
+      {%- if params.items -%}
+        {%- for item in params.items -%}
+          <li class="tel-lhs-navigation__item {% if item.children %}tel-lhs-navigation__section{% endif %}" data-id="{{ item.id }}" role="treeitem" aria-expanded="{% if item.expanded %}true{% else %}false{% endif %}" aria-selected="false">
+              {%- if item.children -%}
+
+                <a href="#" class="tel-lhs-navigation__link tel-lhs-navigation__chevron{% if not item.expanded %} collapsed{% endif %}" aria-expanded="{% if item.expanded %}true{% else %}false{% endif %}" aria-controls="tel-lhs-nav-collapse-{{ loop.index }}" data-toggle-target="#tel-lhs-nav-collapse-{{ loop.index }}">
+                  <div class="tel-lhs-navigation__left-group">
+                    <div class="tel-lhs-navigation__title tel-lhs-navigation__section-title" id="tel-lhs-nav-section-title-{{ loop.index }}" role="presentation">
+                      <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--collapsed" title="Expand">
+                        <i class="icon fa fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <span class="sr-only">Expand</span>
+                      </span>
+                      <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--expanded" title="Collapse">
+                        <i class="icon fa fa-chevron-down fa-fw" aria-hidden="true"></i>
+                        <span class="sr-only">Collapse</span>
+                      </span>
+                      {{ item.text }}
+                    </div>
+                  </div>
+              {%- else -%}
+                <a href="{{ item.href }}" class="tel-lhs-navigation__link {% if item.locked %}tel-lhs-navigation__link--locked{% endif %}">
+                  <div class="tel-lhs-navigation__left-group">
+                    <div class="tel-lhs-navigation__title tel-lhs-navigation__section-title" id="tel-lhs-nav-section-title-{{ loop.index }}" role="presentation">
+                      {{ item.text }}
+                    </div>
+                  </div>
+              {%- endif -%}
+
+              {%- if params.showLocks or params.showStatus -%}
+                <div class="tel-lhs-navigation__right-group{% if params.showLocks != params.showStatus %} tel-lhs-navigation__right-group--single{% endif %}">
+                  {{ statusIndicators(item, params.showLocks, params.showStatus) }}
+                </div>
+              {%- endif -%}
+              </a>
+
+            
+            {%- if item.children -%}
+              <ul id="tel-lhs-nav-collapse-{{ loop.index }}" class="tel-lhs-navigation__section-content{% if not item.expanded %} collapsed{% endif %}" aria-labelledby="tel-lhs-nav-section-title-{{ loop.index }}" role="group">
+                {%- for child in item.children -%}
+                  <li class="tel-lhs-navigation__item {% if child.children %}tel-lhs-navigation__section{% endif %}" data-id="{{ child.id }}" role="treeitem" aria-selected="false">
+                    {%- if child.children -%}
+                      {# <div class="tel-lhs-navigation__curve--container"> #}
+                        <div class="tel-lhs-navigation__curve"></div>
+                        <a href="#" class="tel-lhs-navigation__link tel-lhs-navigation__chevron{% if not child.expanded %} collapsed{% endif %}" aria-expanded="{% if child.expanded %}true{% else %}false{% endif %}" aria-controls="tel-lhs-nav-collapse-{{ loop.index }}-{{ loop.index0 }}" data-toggle-target="#tel-lhs-nav-collapse-{{ loop.index }}-{{ loop.index0 }}">
+                          <div class="tel-lhs-navigation__title tel-lhs-navigation__section-title" id="tel-lhs-nav-section-title-{{ loop.index }}-{{ loop.index0 }}">
+                            <div class="tel-lhs-navigation__left-group">
+                              <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--collapsed" title="Expand">
+                                <i class="icon fa fa-chevron-right fa-fw" aria-hidden="true"></i>
+                                <span class="sr-only">Expand</span>
+                              </span>
+                              <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--expanded" title="Collapse">
+                                <i class="icon fa fa-chevron-down fa-fw" aria-hidden="true"></i>
+                                <span class="sr-only">Collapse</span>
+                              </span>
+                              {{ child.text }}
+                            </div>
+
+                            {%- if params.showLocks or params.showStatus -%}
+                              <div class="tel-lhs-navigation__right-group{% if params.showLocks != params.showStatus %} tel-lhs-navigation__right-group--single{% endif %}">
+                                {{ statusIndicators(child, params.showLocks, params.showStatus) }}
+                              </div>
+                            {%- endif -%}
+                          </div>
+                        </a>
+                      {# </div> #}
+                      <ul id="tel-lhs-nav-collapse-{{ loop.index }}-{{ loop.index0 }}" class="tel-lhs-navigation__section-content{% if not child.expanded %} collapsed{% endif %}" aria-labelledby="tel-lhs-nav-section-title-{{ loop.index }}-{{ loop.index0 }}" role="group">
+                        {%- for grandchild in child.children -%}
+                          <li class="tel-lhs-navigation__item" data-id="{{ grandchild.id }}" role="treeitem" aria-selected="false">
+                            <a href="{{ grandchild.href }}" class="tel-lhs-navigation__link{% if grandchild.locked %} tel-lhs-navigation__link--locked{% endif %}">
+                              <div class="tel-lhs-navigation__title">
+                                <div class="tel-lhs-navigation__left-group">
+                                  {{ grandchild.text }}
+                                </div>
+
+                                {%- if params.showLocks or params.showStatus -%}
+                                  <div class="tel-lhs-navigation__right-group{% if params.showLocks != params.showStatus %} tel-lhs-navigation__right-group--single{% endif %}">
+                                    {{ statusIndicators(grandchild, params.showLocks, params.showStatus) }}
+                                  </div>
+                                {%- endif -%}
+                              </div>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- else -%}
+                      <a href="{{ child.href }}" class="tel-lhs-navigation__link{% if child.locked %} tel-lhs-navigation__link--locked{% endif %}">
+                        <div class="tel-lhs-navigation__title">
+                          <div class="tel-lhs-navigation__left-group">
+                            {{ child.text }}
+                          </div>
+
+                          {%- if params.showLocks or params.showStatus -%}
+                            <div class="tel-lhs-navigation__right-group{% if params.showLocks != params.showStatus %} tel-lhs-navigation__right-group--single{% endif %}">
+                              {{ statusIndicators(child, params.showLocks, params.showStatus) }}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      </a>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+  </div>
+</nav>
+
+<script type="module">
+  import LhsNavigation from '{{ "/assets/js/components/lhs-navigation/lhs-navigation.js" | url }}';
+  
+  const $navs = document.querySelectorAll('[data-module="tel-lhs-navigation"]');
+  $navs.forEach(($nav) => {
+    new LhsNavigation($nav).init();
+  });
+</script>

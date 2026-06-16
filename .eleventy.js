@@ -48,22 +48,51 @@ export default function (eleventyConfig) {
   eleventyConfig.addWatchTarget('./src/')
   eleventyConfig.addWatchTarget('./docs/assets/')
   eleventyConfig.addPassthroughCopy('docs/assets/images')
-  eleventyConfig.addPassthroughCopy({ 'node_modules/nhsuk-frontend/dist': 'nhsuk-frontend/dist' })
-  eleventyConfig.addPassthroughCopy({ 'node_modules/nhsuk-frontend/dist/nhsuk/assets': 'assets' })
+
+  // Add component JS to docs assets
+  eleventyConfig.addPassthroughCopy({ 
+    'src/components': 'assets/js/components' 
+  })
+
+  // Add NHSUK frontend JS/components
+  eleventyConfig.addPassthroughCopy({
+    'node_modules/nhsuk-frontend/dist': 'nhsuk-frontend/dist'
+  })
+
+  // Copy the NHS assets folder to /assets so default assetPath (/assets) works
+  eleventyConfig.addPassthroughCopy({
+    'node_modules/nhsuk-frontend/dist/nhsuk/assets': 'assets'
+  })
+
+  // Add syntax highlighting to code blocks
   eleventyConfig.addPlugin(syntaxHighlight)
 
   eleventyConfig.addTemplateFormats('scss')
+
   eleventyConfig.addExtension('scss', {
     outputFileExtension: 'css',
-    compile: async function (inputContent, inputPath) {
-      let parsed = path.parse(inputPath)
-      if (parsed.name.startsWith('_')) return
-      let result = sass.compileString(inputContent, {
-        loadPaths: ['.', 'node_modules', 'node_modules/nhsuk-frontend/dist', 'node_modules/nhsuk-frontend/src']
-      })
-      return async (data) => result.css
+    compile: async function (_inputContent, inputPath) {
+      let parsed = path.parse(inputPath);
+      if (parsed.name.startsWith('_')) {
+        return
+      }
+
+      return async (data) => {
+        let result = sass.compile(inputPath, {
+          loadPaths: [
+            '.',
+            'src',
+            'src/components',
+            'node_modules',
+            'node_modules/nhsuk-frontend/dist',
+            'node_modules/nhsuk-frontend/src'
+          ],
+          sourceMap: true
+        });
+        return result.css;
+      };
     }
-  })
+  });
 
   eleventyConfig.addFilter('toGitHubUrl', function (path) {
     if (path.startsWith('./')) path = path.slice(2)

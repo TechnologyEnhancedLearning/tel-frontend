@@ -1,0 +1,182 @@
+---
+layout: layouts/example.njk
+title: Left Hand Side Navigation - Tree Structure with Status and Locks
+description: An example of the LHS Navigation component with a hierarchical tree structure including status and lock indicators.
+arguments: lhs-navigation
+---
+{% from 'tel/components/lhs-navigation/macro.njk' import telLhsNavigation %}
+
+{{ telLhsNavigation({
+  showLocks: true,
+  showStatus: true,
+  items: [
+    {
+      text: "Navigation section 1",
+      href: "#",
+      expanded: true,
+      locked: false,
+      status: "complete",
+      children: [
+        {
+          text: "Subsection 1.1",
+          href: "#",
+          expanded: true,
+          locked: false,
+          status: "complete",
+          children: [
+            {
+              text: "Navigation title 1.1.1",
+              href: "#",
+              locked: false,
+              status: "complete"
+            },
+            {
+              text: "Navigation title 1.1.2",
+              href: "#",
+              locked: false,
+              status: "complete"
+            }
+          ]
+        },
+        {
+          text: "Navigation title 1.2",
+          href: "#",
+          locked: true,
+          status: "unstarted"
+        }
+      ]
+    },
+    {
+      text: "Navigation section 2",
+      href: "#",
+      expanded: false,
+      locked: false,
+      status: "unstarted",
+      children: [
+        {
+          text: "Navigation title 2.1",
+          href: "#",
+          locked: false,
+          status: "unstarted"
+        },
+        {
+          text: "Subsection 2.2",
+          href: "#",
+          expanded: false,
+          locked: true,
+          status: "unstarted",
+          children: [
+            {
+              text: "Navigation title 2.2.1",
+              href: "#",
+              locked: true,
+              status: "unstarted"
+            },
+            {
+              text: "Navigation title 2.2.2",
+              href: "#",
+              locked: true,
+              status: "false"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      text: "Navigation section 3",
+      href: "#",
+      expanded: true,
+      locked: false,
+      status: "complete",
+      children: [
+        {
+          text: "Subsection 3.1",
+          href: "#",
+          expanded: true,
+          locked: false,
+          status: "complete",
+          children: [
+            {
+              text: "Navigation title 3.1.1",
+              href: "#",
+              locked: false,
+              status: "complete"
+            },
+            {
+              text: "Navigation title 3.1.2",
+              href: "#",
+              locked: true,
+              status: "unstarted"
+            }
+          ]
+        },
+        {
+          text: "Subsection 3.2",
+          href: "#",
+          expanded: false,
+          locked: false,
+          status: "unstarted",
+          children: [
+            {
+              text: "Navigation title 3.2.1",
+              href: "#",
+              locked: false,
+              status: "unstarted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      text: "Navigation section 4",
+      href: "#",
+      expanded: false,
+      locked: true,
+      status: "unstarted",
+      children: [
+        {
+          text: "Navigation title 4.1",
+          href: "#",
+          locked: true,
+          status: "unstarted"
+        },
+        {
+          text: "Navigation title 4.2",
+          href: "#",
+          locked: true,
+          status: "false"
+        }
+      ]
+    },
+    {
+      text: "Navigation section 5",
+      href: "#",
+      expanded: true,
+      locked: false,
+      status: "unstarted",
+      children: [
+        {
+          text: "Subsection 5.1",
+          href: "#",
+          expanded: true,
+          locked: false,
+          status: "complete",
+          children: [
+            {
+              text: "Navigation title 5.1.1",
+              href: "#",
+              locked: false,
+              status: "complete"
+            }
+          ]
+        },
+        {
+          text: "Navigation title 5.2",
+          href: "#",
+          locked: true,
+          status: "unstarted"
+        }
+      ]
+    }
+  ]
+}) }}

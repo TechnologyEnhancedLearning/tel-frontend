@@ -1,0 +1,136 @@
+---
+layout: layouts/example.njk
+title: Left Hand Side Navigation - Tree Structure
+description: An example of the LHS Navigation component with a hierarchical tree structure up to three levels deep.
+arguments: lhs-navigation
+---
+{% from 'tel/components/lhs-navigation/macro.njk' import telLhsNavigation %}
+
+{{ telLhsNavigation({
+  showLocks: false,
+  showStatus: false,
+  items: [
+    {
+      text: "Navigation section 1",
+      href: "#",
+      expanded: true,
+      children: [
+        {
+          text: "Subsection 1.1",
+          href: "#",
+          expanded: true,
+          children: [
+            {
+              text: "Navigation title 1.1.1",
+              href: "#"
+            },
+            {
+              text: "Navigation title 1.1.2",
+              href: "#"
+            }
+          ]
+        },
+        {
+          text: "Navigation title 1.2",
+          href: "#"
+        }
+      ]
+    },
+    {
+      text: "Navigation section 2",
+      href: "#",
+      expanded: false,
+      children: [
+        {
+          text: "Navigation title 2.1",
+          href: "#"
+        },
+        {
+          text: "Subsection 2.2",
+          href: "#",
+          expanded: false,
+          children: [
+            {
+              text: "Navigation title 2.2.1",
+              href: "#"
+            },
+            {
+              text: "Navigation title 2.2.2",
+              href: "#"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      text: "Navigation section 3",
+      href: "#",
+      expanded: true,
+      children: [
+        {
+          text: "Subsection 3.1",
+          href: "#",
+          expanded: true,
+          children: [
+            {
+              text: "Navigation title 3.1.1",
+              href: "#"
+            },
+            {
+              text: "Navigation title 3.1.2",
+              href: "#"
+            }
+          ]
+        },
+        {
+          text: "Subsection 3.2",
+          href: "#",
+          expanded: false,
+          children: [
+            {
+              text: "Navigation title 3.2.1",
+              href: "#"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      text: "Navigation section 4",
+      href: "#",
+      expanded: false,
+      children: [
+        {
+          text: "Navigation title 4.1",
+          href: "#"
+        },
+        {
+          text: "Navigation title 4.2",
+          href: "#"
+        }
+      ]
+    },
+    {
+      text: "Navigation section 5",
+      href: "#",
+      expanded: true,
+      children: [
+        {
+          text: "Subsection 5.1",
+          href: "#",
+          expanded: true,
+          children: [
+            {
+              text: "Navigation title 5.1.1",
+              href: "#"
+            }
+          ]
+        },
+        {
+          text: "Navigation title 5.2",
+          href: "#"
+        }
+      ]
+    }
+  ]
+}) }}

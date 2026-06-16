@@ -1,0 +1,50 @@
+---
+layout: layouts/example.njk
+title: Left Hand Side Navigation - All States
+description: A comprehensive example of the LHS Navigation component demonstrating all combinations of status and lock states.
+arguments: lhs-navigation
+---
+{% from 'tel/components/lhs-navigation/macro.njk' import telLhsNavigation %}
+
+{{ telLhsNavigation({
+  showLocks: true,
+  showStatus: true,
+  items: [
+    {
+      text: "Complete, Unlocked",
+      href: "#",
+      locked: false,
+      status: "complete"
+    },
+    {
+      text: "Complete, Locked",
+      href: "#",
+      locked: true,
+      status: "complete"
+    },
+    {
+      text: "Unstarted, Unlocked",
+      href: "#",
+      locked: false,
+      status: "unstarted"
+    },
+    {
+      text: "Unstarted, Locked",
+      href: "#",
+      locked: true,
+      status: "unstarted"
+    },
+    {
+      text: "No Status, Unlocked",
+      href: "#",
+      locked: false,
+      status: "false"
+    },
+    {
+      text: "No Status, Locked",
+      href: "#",
+      locked: true,
+      status: "false"
+    }
+  ]
+}) }}
