@@ -12,7 +12,7 @@ Quick filters help users quickly identify and move between clear groups of conte
 
 They are intended to either replace or work alongside existing filters where there is a meaningful split in content type. They raise important filtering options to a more visible layer of the page, making it easier for users to understand the main groups or themes available to them.
 
-Quick filters should support users to access content more quickly, especially where the main content groups are already clearly defined.
+Quick filters should help users access content more quickly, especially when the main content groups are already clearly defined.
 
 ## Example
 {% example "quick-filters/default.njk" %}
@@ -21,11 +21,11 @@ Quick filters should support users to access content more quickly, especially wh
 This component is currently being explored or used in:
 - pages where users are looking for learning
 - pages where users are viewing their learning history
-- pages where users may need to apply more than one filter
+- pages where users may need to apply more than 1 filter
 - current Learning Hub platform designs and prototypes
 
 ## When to use this component
-Use the Quick Filters component when you have a list of items that can be categorized into clear, mutually exclusive groups.
+Use the quick filters component when you have a list of items that can be categorised into clear and mutually exclusive groups.
 
 Use quick filters when there is a clear and meaningful split in content.
 
@@ -48,7 +48,7 @@ They should not be used when:
 - search or autosuggest would be a better way for users to find what they need
 - the page only needs a standard search input or search autosuggest pattern
 
-Quick filters should not be added just to make a page feel more interactive. If the split in content is not meaningful, the filter may make it harder for users to find relevant results.
+Quick filters should not be added to make a page feel more interactive. If the content split is not meaningful, the filter may make it harder for users to find relevant results.
 
 ## How it works
 Quick filters work as an inclusive filtering component.
@@ -77,7 +77,7 @@ Do not use quick filters for long lists of tags or highly specific metadata.
 
 ## Research evidence
 ### What has been seen so far
-Quick filters have been tested through click tests on several pages to understand whether users understood the filters and could use them in the context of current platform designs.
+Quick filters were tested using click tests across several pages. This helped us understand whether users recognised the filters and could use them in the current platform design.
 
 Testing has included:
 - users looking for learning
@@ -85,7 +85,7 @@ Testing has included:
 - users applying multiple filters to a page
 - follow-up survey questions after users interacted with the filters
 
-We have seen users interact with this component in usability tests and click tests.
+We have observed users interacting with this component in usability tests and click tests.
 
 ### Confidence level: medium
 
