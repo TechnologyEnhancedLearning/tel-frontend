@@ -19,14 +19,23 @@ export default class LhsNavigation {
       $button.addEventListener('click', () => this.handleToggleClick());
     });
 
+    window.addEventListener('keydown', (event) => this.handleGlobalEscape(event));
+
     this.$module.dataset.telInitialised = 'true';
   }
 
   handleKeyDown(event) {
-    // Handle Space bar on anchor tags
     if (event.key === ' ' || event.code === 'Space') {
       event.preventDefault();
       this.handleClick(event);
+    }
+  }
+
+  handleGlobalEscape(event) {
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      if (this.$module.classList.contains('tel-lhs-navigation--open')) {
+        this.handleToggleClick();
+      }
     }
   }
 
@@ -51,7 +60,6 @@ export default class LhsNavigation {
 
     const isExpanded = $chevron.getAttribute('aria-expanded') === 'true';
 
-    // change state of classes, then swap aria-expanded state
     if (isExpanded) {
       $chevron.classList.add('collapsed');
       $target.classList.add('collapsed');

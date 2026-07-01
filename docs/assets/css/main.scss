@@ -48,3 +48,9 @@ pre {
     word-break: break-word;
   }
 }
+
+// Increase page width to match NHS Digital service manual
+.nhsuk-width-container {
+  max-width: 1100px;
+}
+

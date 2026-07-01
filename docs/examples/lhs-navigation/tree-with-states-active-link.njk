@@ -9,78 +9,15 @@ arguments: lhs-navigation
 {{ telLhsNavigation({
   showLocks: true,
   showStatus: true,
+  activeHref: "#5.1.2",
   items: [
     {
-      text: "Navigation section 1",
-      href: "#1",
-      expanded: false,
-      locked: false,
-      status: "complete",
-      children: [
-        {
-          text: "Subsection 1.1",
-          href: "#1.1",
-          expanded: false,
-          locked: false,
-          status: "complete",
-          children: [
-            {
-              text: "Navigation title 1.1.1",
-              href: "#1.1.1",
-              locked: false,
-              status: "complete"
-            },
-            {
-              text: "Navigation title 1.1.2",
-              href: "#1.1.2",
-              locked: false,
-              status: "complete"
-            }
-          ]
-        },
-        {
-          text: "Navigation title 1.2",
-          href: "#1.2",
-          locked: true,
-          status: "unstarted"
-        }
-      ]
+      text: "Navigation title 1",
+      href: "#1"
     },
     {
-      text: "Navigation section 2",
-      href: "#2",
-      expanded: false,
-      locked: false,
-      status: "unstarted",
-      children: [
-        {
-          text: "Navigation title 2.1",
-          href: "#2.1",
-          locked: false,
-          status: "unstarted"
-        },
-        {
-          text: "Subsection 2.2",
-          href: "#2.2",
-          expanded: false,
-          locked: true,
-          status: "unstarted",
-          children: [
-            {
-              text: "Navigation title 2.2.1",
-              href: "#2.2.1",
-              locked: true,
-              status: "unstarted"
-            },
-            {
-              text: "Navigation title 2.2.2",
-              href: "#2.2.2",
-              locked: true,
-              status: "false"
-            }
-          ]
-        }
-      ]
+      text: "Navigation title 2",
+      href: "#2"
     },
     {
       text: "Navigation section 3",
@@ -105,25 +42,16 @@ arguments: lhs-navigation
             {
               text: "Navigation title 3.1.2",
               href: "#3.1.2",
-              locked: true,
-              status: "unstarted"
+              locked: false,
+              status: "complete"
             }
           ]
         },
         {
-          text: "Subsection 3.2",
+          text: "Navigation title 3.2",
           href: "#3.2",
-          expanded: false,
-          locked: false,
-          status: "unstarted",
-          children: [
-            {
-              text: "Navigation title 3.2.1",
-              href: "#3.2.1",
-              locked: false,
-              status: "unstarted"
-            }
-          ]
+          locked: true,
+          status: "unstarted"
         }
       ]
     },
@@ -131,20 +59,35 @@ arguments: lhs-navigation
       text: "Navigation section 4",
       href: "#4",
       expanded: false,
-      locked: true,
+      locked: false,
       status: "unstarted",
       children: [
         {
           text: "Navigation title 4.1",
           href: "#4.1",
-          locked: true,
+          locked: false,
           status: "unstarted"
         },
         {
-          text: "Navigation title 4.2",
+          text: "Subsection 4.2",
           href: "#4.2",
+          expanded: false,
           locked: true,
-          status: "false"
+          status: "unstarted",
+          children: [
+            {
+              text: "Navigation title 4.2.1",
+              href: "#4.2.1",
+              locked: true,
+              status: "unstarted"
+            },
+            {
+              text: "Navigation title 4.2.2",
+              href: "#4.2.2",
+              locked: true,
+              status: "false"
+            }
+          ]
         }
       ]
     },
@@ -153,7 +96,7 @@ arguments: lhs-navigation
       href: "#5",
       expanded: false,
       locked: false,
-      status: "unstarted",
+      status: "complete",
       children: [
         {
           text: "Subsection 5.1",
@@ -167,12 +110,78 @@ arguments: lhs-navigation
               href: "#5.1.1",
               locked: false,
               status: "complete"
+            },
+            {
+              text: "Navigation title 5.1.2",
+              href: "#5.1.2",
+              locked: true,
+              status: "unstarted"
             }
           ]
         },
         {
-          text: "Navigation title 5.2",
+          text: "Subsection 5.2",
           href: "#5.2",
+          expanded: false,
+          locked: false,
+          status: "unstarted",
+          children: [
+            {
+              text: "Navigation title 5.2.1",
+              href: "#5.2.1",
+              locked: false,
+              status: "unstarted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      text: "Navigation section 6",
+      href: "#6",
+      expanded: false,
+      locked: true,
+      status: "unstarted",
+      children: [
+        {
+          text: "Navigation title 6.1",
+          href: "#6.1",
+          locked: true,
+          status: "unstarted"
+        },
+        {
+          text: "Navigation title 6.2",
+          href: "#6.2",
+          locked: true,
+          status: "false"
+        }
+      ]
+    },
+    {
+      text: "Navigation section 7",
+      href: "#7",
+      expanded: false,
+      locked: false,
+      status: "unstarted",
+      children: [
+        {
+          text: "Subsection 7.1",
+          href: "#7.1",
+          expanded: false,
+          locked: false,
+          status: "complete",
+          children: [
+            {
+              text: "Navigation title 7.1.1",
+              href: "#7.1.1",
+              locked: false,
+              status: "complete"
+            }
+          ]
+        },
+        {
+          text: "Navigation title 7.2",
+          href: "#7.2",
           locked: true,
           status: "unstarted"
         }
