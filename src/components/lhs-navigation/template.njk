@@ -71,13 +71,11 @@
               <a href="#" class="tel-lhs-navigation__link tel-lhs-navigation__chevron{% if not isExpanded %} collapsed{% endif %}" aria-expanded="{% if isExpanded %}true{% else %}false{% endif %}" aria-controls="tel-lhs-nav-collapse-{{ topLevelIndex }}" data-toggle-target="#tel-lhs-nav-collapse-{{ topLevelIndex }}">
                 <div class="tel-lhs-navigation__left-group">
                   <div class="tel-lhs-navigation__title tel-lhs-navigation__section-title" id="tel-lhs-nav-section-title-{{ topLevelIndex }}" role="presentation">
-                    <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--collapsed" title="Expand">
+                    <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--collapsed" aria-hidden="true">
                       <i class="icon fa fa-chevron-right fa-fw" aria-hidden="true"></i>
-                      <span class="sr-only">Expand</span>
                     </span>
-                    <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--expanded" title="Collapse">
+                    <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--expanded" aria-hidden="true">
                       <i class="icon fa fa-chevron-down fa-fw" aria-hidden="true"></i>
-                      <span class="sr-only">Collapse</span>
                     </span>
                     {{ item.text }}
                   </div>
@@ -122,13 +120,11 @@
                       <a href="#" class="tel-lhs-navigation__link tel-lhs-navigation__chevron{% if not isChildExpanded %} collapsed{% endif %}" aria-expanded="{% if isChildExpanded %}true{% else %}false{% endif %}" aria-controls="tel-lhs-nav-collapse-{{ topLevelIndex }}-{{ childIndex }}" data-toggle-target="#tel-lhs-nav-collapse-{{ topLevelIndex }}-{{ childIndex }}">
                         <div class="tel-lhs-navigation__title tel-lhs-navigation__section-title" id="tel-lhs-nav-section-title-l1-{{ topLevelIndex }}-l2-{{ childIndex }}">
                           <div class="tel-lhs-navigation__left-group">
-                            <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--collapsed" title="Expand">
+                            <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--collapsed" aria-hidden="true">
                               <i class="icon fa fa-chevron-right fa-fw" aria-hidden="true"></i>
-                              <span class="sr-only">Expand</span>
                             </span>
-                            <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--expanded" title="Collapse">
+                            <span class="tel-lhs-navigation__chevron-icon tel-lhs-navigation__chevron-icon--expanded" aria-hidden="true">
                               <i class="icon fa fa-chevron-down fa-fw" aria-hidden="true"></i>
-                              <span class="sr-only">Collapse</span>
                             </span>
                             {{ child.text }}
                           </div>
