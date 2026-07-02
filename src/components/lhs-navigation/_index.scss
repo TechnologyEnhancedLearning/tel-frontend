@@ -1,0 +1,460 @@
+@import "nhsuk/index";
+
+// Component Specific Variables
+$tel-lhs-navigation-pale-blue: #e4f0fa;
+
+.tel-lhs-navigation {
+  background: nhsuk-colour('white');
+
+  // Overlay Implementation
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: nhsuk-colour("blue");
+    opacity: 0;
+    z-index: 999; 
+    pointer-events: none;
+    transition: opacity .3s ease-in-out;
+  }
+
+  &.tel-lhs-navigation--open::before {
+    @media screen and (max-width: 48rem) {
+      opacity: 90%;
+      pointer-events: auto;
+    }
+  }
+
+  // ============================================================================
+  // Tree Structure
+  // ============================================================================
+  &__tree {
+    list-style-type: none;
+    width: 100%;
+    max-width: 400px;
+    padding: 0px;
+    padding-left: 2rem;
+    border-right: 1px solid nhsuk-colour("grey-4");
+    background-color: nhsuk-colour('white');
+  }
+
+  // ============================================================================
+  // Sections & Items
+  // ============================================================================
+  &__section {
+    border-bottom: 1px solid nhsuk-colour("grey-4");
+    margin-bottom: 1rem;
+    margin-right: 0;
+  }
+
+  &__section:last-of-type {
+    border-bottom: none;
+  }
+
+  &__section &__section {
+    border-bottom: none;
+  }
+
+  &__item {
+    list-style-type: none;
+    padding: 0;
+    padding-right: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  &__tree > &__item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0px;
+    border-bottom: 1px solid nhsuk-colour('grey-4');
+  }
+
+  &__tree > &__item:last-child {
+    border-bottom: none;
+  }
+
+  &__item.tel-lhs-navigation__section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  // ============================================================================
+  // Section Content (Nested Lists)
+  // ============================================================================
+  &__section-content {
+    border-left: 2px solid nhsuk-colour("grey-4");
+    margin-left: 0.9375rem;
+    margin-top: 0;
+    margin-bottom: 0.375rem;
+    padding-left: 0;
+    padding-top: 0.375rem;
+    flex-basis: 100%;
+
+    .tel-lhs-navigation__item {
+      padding-right: 0;
+    }
+
+    & .tel-lhs-navigation__section-content {
+      margin-left: 1.75rem;
+    }
+  }
+
+  // ============================================================================
+  // Links
+  // ============================================================================
+  &__link {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    color: nhsuk-colour('blue');
+    text-decoration: none;
+
+    &:visited {
+      color: nhsuk-colour('blue');
+    }
+
+    &:hover {
+      color: nhsuk-colour('blue');
+      text-decoration: underline;
+    }
+
+    &:hover:visited:not(:focus) {
+      color: nhsuk-colour('blue');
+    }
+
+    &:focus {
+      z-index: 2;
+      box-shadow: inset 0 -4px 0 nhsuk-colour('black');
+      border-radius: 0;
+    }
+
+    &--active {
+      border-left-color: nhsuk-colour('blue');
+      background: linear-gradient(
+        to right, 
+        nhsuk-colour("blue") 0px, 
+        nhsuk-colour("blue") 0.75rem, 
+        $tel-lhs-navigation-pale-blue 0.75rem, 
+        $tel-lhs-navigation-pale-blue 100%
+      );      
+      border-radius: 0.25rem;
+      margin-left: 1rem;
+      width: calc(100% - 1rem);
+      
+      .tel-lhs-navigation__tree > .tel-lhs-navigation__item > & {
+        margin-left: 0;
+        width: 100%;
+      }     
+
+      &:focus {
+        background: none; 
+        background-color: nhsuk-colour('yellow');        
+      }
+    }
+  }
+
+  // ============================================================================
+  // Chevron (Expand/Collapse Toggle)
+  // ============================================================================
+  &__chevron {
+    border-radius: 0.25rem;
+
+    &:not(:focus) {
+      background-color: $tel-lhs-navigation-pale-blue;
+    }
+
+    &:focus {
+      border-radius: 0;
+    }
+  }
+
+  &__chevron-icon {
+    align-self: flex-start;
+    flex-shrink: 0;
+
+    &--expanded {
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    &--collapsed {
+      display: none;
+    }
+
+    .icon {
+      font-size: 0.75rem;
+    }
+  }
+
+  // ============================================================================
+  // Text & Titles
+  // ============================================================================
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 1.4375rem;
+    width: 100%;
+  }
+
+  &__section &__title {
+    padding-left: 2.3125rem;
+  }
+
+  &__section &__link--active &__title {
+    padding-left: 1.3125rem;
+  }
+
+  &__section &__section-title {
+    position: relative;
+    padding-left: 0;
+  }
+
+  // ============================================================================
+  // Groups (Left & Right)
+  // ============================================================================
+  &__left-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__right-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    align-self: flex-start;
+    width: 2.75rem;
+    margin-left: 0.5rem;
+    padding-top: 0.125rem;
+
+    &--single {
+      width: 1.125rem; // 18px (width of one icon)
+
+      .tel-lhs-navigation__lock,
+      .tel-lhs-navigation__status {
+        margin: 0;
+      }
+    }
+  }
+
+  // ============================================================================
+  // Icons (Lock & Status)
+  // ============================================================================
+  &__lock {
+    flex-shrink: 0;
+    margin-right: auto;
+  }
+
+  &__status {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  &__lock + &__status {
+    margin-left: 0;
+  }
+
+  &__icon {
+    display: block;
+
+    &-background {
+      fill: nhsuk-colour('white');
+    }
+
+    &--lock {
+      .tel-lhs-navigation__icon-background {
+        fill: nhsuk-colour('grey-2');
+      }
+
+      .tel-lhs-navigation__icon-border {
+        stroke: nhsuk-shade(nhsuk-colour('grey-1'), 30%);
+      }
+
+      .tel-lhs-navigation__icon-symbol {
+        fill: nhsuk-colour('white');
+      }
+    }
+
+    &--complete {
+      .tel-lhs-navigation__icon-background {
+        fill: nhsuk-colour('green');
+      }
+
+      .tel-lhs-navigation__icon-border {
+        stroke: nhsuk-shade(nhsuk-colour('green'), 20%);
+      }
+
+      .tel-lhs-navigation__icon-symbol {
+        stroke: nhsuk-colour('white');
+      }
+    }
+
+    &--unstarted {
+      circle {
+        fill: nhsuk-colour('white');
+        stroke: nhsuk-colour('grey-1');
+      }
+    }
+  }
+
+  // ============================================================================
+  // Curve Connector (Visual Tree Lines)
+  // ============================================================================
+  &__curve {
+    width: 1rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    border-bottom: 2px solid nhsuk-colour('grey-4');
+    border-left: 2px solid nhsuk-colour('grey-4');
+    border-bottom-left-radius: 50%;
+    margin-left: -2px;
+    align-self: flex-start;
+  }
+
+  &__curve + &__chevron {
+    max-width: calc(100% - 0.875rem);
+  }
+
+  // ============================================================================
+  // Toggle Button (Mobile Menu Container Block)
+  // ============================================================================
+  &__toggle {
+    display: none;
+    width: fit-content;
+
+    .tel-lhs-navigation__content & {
+      margin-left: 1rem;
+    }
+  }
+
+  &__toggle.nhsuk-button {
+    &:focus:not(:active),
+    &:focus:not(:active):hover {
+      background-color: nhsuk-colour('yellow');
+      color: nhsuk-colour('black');
+      box-shadow: 0 4px 0 nhsuk-colour('black');
+      outline: 4px solid transparent;
+    }
+
+    &--secondary,
+    &--secondary-solid {
+      &::after {
+        border: none;
+        box-shadow: none;
+      }
+      &:not(:focus):not(:active)::before {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  // ============================================================================
+  // Consolidated Mobile / Tablet Responsive Layouts (< 48rem)
+  // ============================================================================
+  @media screen and (max-width: 48rem) {
+    
+    // Mobile configurations for the toggle button
+    &__toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      background: nhsuk-colour("white");
+      color: nhsuk-colour('blue');
+      border: 1px solid nhsuk-colour("black");
+      border-radius: 0.25rem;
+      box-shadow: inset 0 -3px 0 nhsuk-colour("black");
+      line-height: 1.5;
+
+      .icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        font-size: 14px;
+      }
+
+      .tel-lhs-navigation__toggle-text {
+        overflow-wrap: break-word;
+        font-size: 19px;
+        font-weight: 700;
+      }
+    }
+
+    &.tel-lhs-navigation--open > &__toggle {
+      display: none;
+    }
+
+    &__tree {
+      padding-left: 1rem;
+    }
+    
+    &__content {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: calc(100% - 1rem);
+      max-width: 400px;
+      height: 100%;
+      background-color: nhsuk-colour("white");
+      box-sizing: border-box;
+      transform: translateX(-100%);
+      transition: transform .3s ease-in-out;
+      z-index: 1000;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, .1);
+      overflow-y: auto;
+      overflow-x: visible;
+      overscroll-behavior: contain;
+      padding: 20px 0;
+    }
+
+    &.tel-lhs-navigation--open &__content {
+      transform: translateX(0);
+    }
+  }
+}
+
+// ============================================================================
+// JavaScript-Enabled States
+// ============================================================================
+.js-enabled {
+  .tel-lhs-navigation {
+    &__section-content.collapsed {
+      display: none;
+    }
+
+    &__chevron.collapsed {
+      &:not(:focus) {
+        background-color: transparent;
+      }
+
+      .tel-lhs-navigation__chevron-icon--collapsed {
+        display: inline-block;
+        flex-shrink: 0;
+      }
+
+      .tel-lhs-navigation__chevron-icon--expanded {
+        display: none;
+      }
+    }
+
+    &__item:has(> .tel-lhs-navigation__chevron.collapsed) .tel-lhs-navigation__curve {
+      border: none;
+    }
+  }
+}

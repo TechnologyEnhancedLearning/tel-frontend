@@ -22,6 +22,7 @@
 @import "docs/assets/css/mobile-iframe";
 @import "docs/assets/css/example";
 @import "docs/assets/css/utilities";
+@import "src/components/lhs-navigation/index";
 
 // Add correct spacing around code highlighter and content
 pre {
@@ -47,3 +48,9 @@ pre {
     word-break: break-word;
   }
 }
+
+// Increase page width to match NHS Digital service manual
+.nhsuk-width-container {
+  max-width: 1100px;
+}
+

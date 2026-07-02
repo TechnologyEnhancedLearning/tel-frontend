@@ -1,0 +1,191 @@
+---
+layout: layouts/example.njk
+title: Left Hand Side Navigation - Tree Structure with Status and Locks
+description: An example of the LHS Navigation component with a hierarchical tree structure including status and lock indicators.
+arguments: lhs-navigation
+---
+{% from 'tel/components/lhs-navigation/macro.njk' import telLhsNavigation %}
+
+{{ telLhsNavigation({
+  showLocks: true,
+  showStatus: true,
+  activeHref: "#5.1.2",
+  items: [
+    {
+      text: "Navigation title 1",
+      href: "#1"
+    },
+    {
+      text: "Navigation title 2",
+      href: "#2"
+    },
+    {
+      text: "Navigation section 3",
+      href: "#3",
+      expanded: false,
+      locked: false,
+      status: "complete",
+      children: [
+        {
+          text: "Subsection 3.1",
+          href: "#3.1",
+          expanded: false,
+          locked: false,
+          status: "complete",
+          children: [
+            {
+              text: "Navigation title 3.1.1",
+              href: "#3.1.1",
+              locked: false,
+              status: "complete"
+            },
+            {
+              text: "Navigation title 3.1.2",
+              href: "#3.1.2",
+              locked: false,
+              status: "complete"
+            }
+          ]
+        },
+        {
+          text: "Navigation title 3.2",
+          href: "#3.2",
+          locked: true,
+          status: "unstarted"
+        }
+      ]
+    },
+    {
+      text: "Navigation section 4",
+      href: "#4",
+      expanded: false,
+      locked: false,
+      status: "unstarted",
+      children: [
+        {
+          text: "Navigation title 4.1",
+          href: "#4.1",
+          locked: false,
+          status: "unstarted"
+        },
+        {
+          text: "Subsection 4.2",
+          href: "#4.2",
+          expanded: false,
+          locked: true,
+          status: "unstarted",
+          children: [
+            {
+              text: "Navigation title 4.2.1",
+              href: "#4.2.1",
+              locked: true,
+              status: "unstarted"
+            },
+            {
+              text: "Navigation title 4.2.2",
+              href: "#4.2.2",
+              locked: true,
+              status: "false"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      text: "Navigation section 5",
+      href: "#5",
+      expanded: false,
+      locked: false,
+      status: "complete",
+      children: [
+        {
+          text: "Subsection 5.1",
+          href: "#5.1",
+          expanded: false,
+          locked: false,
+          status: "complete",
+          children: [
+            {
+              text: "Navigation title 5.1.1",
+              href: "#5.1.1",
+              locked: false,
+              status: "complete"
+            },
+            {
+              text: "Navigation title 5.1.2",
+              href: "#5.1.2",
+              locked: true,
+              status: "unstarted"
+            }
+          ]
+        },
+        {
+          text: "Subsection 5.2",
+          href: "#5.2",
+          expanded: false,
+          locked: false,
+          status: "unstarted",
+          children: [
+            {
+              text: "Navigation title 5.2.1",
+              href: "#5.2.1",
+              locked: false,
+              status: "unstarted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      text: "Navigation section 6",
+      href: "#6",
+      expanded: false,
+      locked: true,
+      status: "unstarted",
+      children: [
+        {
+          text: "Navigation title 6.1",
+          href: "#6.1",
+          locked: true,
+          status: "unstarted"
+        },
+        {
+          text: "Navigation title 6.2",
+          href: "#6.2",
+          locked: true,
+          status: "false"
+        }
+      ]
+    },
+    {
+      text: "Navigation section 7",
+      href: "#7",
+      expanded: false,
+      locked: false,
+      status: "unstarted",
+      children: [
+        {
+          text: "Subsection 7.1",
+          href: "#7.1",
+          expanded: false,
+          locked: false,
+          status: "complete",
+          children: [
+            {
+              text: "Navigation title 7.1.1",
+              href: "#7.1.1",
+              locked: false,
+              status: "complete"
+            }
+          ]
+        },
+        {
+          text: "Navigation title 7.2",
+          href: "#7.2",
+          locked: true,
+          status: "unstarted"
+        }
+      ]
+    }
+  ]
+}) }}
