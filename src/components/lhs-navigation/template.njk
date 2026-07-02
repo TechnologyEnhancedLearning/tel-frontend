@@ -185,12 +185,3 @@
     </ul>
   </div>
 </nav>
-
-<script type="module">
-  import LhsNavigation from '{{ "/assets/js/components/lhs-navigation/lhs-navigation.js" | url }}';
-  
-  const $navs = document.querySelectorAll('[data-module="tel-lhs-navigation"]');
-  $navs.forEach(($nav) => {
-    new LhsNavigation($nav).init();
-  });
-</script>
