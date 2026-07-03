@@ -2,8 +2,8 @@ name: Publish npm Package
 
 on:
   push:
-    branches: 
-    TD-7283-Tel-frontend-create-github-workflow-file-for-npm-package-creation
+    branches:
+      - TD-7283-Tel-frontend-create-github-workflow-file-for-npm-package-creation
 
 permissions:
   contents: read
