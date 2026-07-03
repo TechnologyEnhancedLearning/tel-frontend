@@ -1,3 +1,4 @@
+import fs from 'fs'
 import gulp from 'gulp'
 import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass'
@@ -65,8 +66,13 @@ function minifyCSS() {
 /**
  * Copy assets such as icons and images into the distribution
  */
-function copyAssets() {
-  return gulp.src('src/assets/**').pipe(gulp.dest('dist/assets/'))
+function copyAssets(done) {
+  if (fs.existsSync('src/assets')) {
+    return gulp.src('src/assets/**').pipe(gulp.dest('dist/assets/'))
+  } else {
+    console.log('No src/assets folder found. Skipping asset copy.')
+    done() // This tells Gulp the task is complete so it doesn't hang
+  }
 }
 
 /**
