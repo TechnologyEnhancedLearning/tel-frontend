@@ -11,7 +11,7 @@ This guide explains how to update an existing component page to include UX guida
 
 All component documentation pages live in the `docs/components/` folder. They are written in standard Markdown (`.md`).
 
-For example, to update the "Hello world" component, you would open `docs/components/hello-world.md`.
+For example, to update the "Quick filters" component, you would open `docs/components/quick-filters.md`.
 
 ## Standard UX headings
 

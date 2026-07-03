@@ -1,5 +1,5 @@
 <!-- TODO: The main readme needs to be reviewed and geared towards TEL -->
-<!-- TODO: Add Folder relationship documentation to the readme file e.g. Talking about main component structure living in the src folder what is then consumed by the docs folder to be used within its examples structures out within docs/examples/[component-name]/[named-component-variation]. These examples are used using the example nunjucks macro on the documentation page. These pages are structured out as folders. components live in docs/components, patterns live in docs/patterns etc. In the example of hello world the documentation lives in docs/components/hello-world for instance. -->
+<!-- TODO: Add Folder relationship documentation to the readme file e.g. Talking about main component structure living in the src folder what is then consumed by the docs folder to be used within its examples structures out within docs/examples/[component-name]/[named-component-variation]. These examples are used using the example nunjucks macro on the documentation page. These pages are structured out as folders. components live in docs/components, patterns live in docs/patterns etc. -->
 
 # NHS TEL Frontend
 
