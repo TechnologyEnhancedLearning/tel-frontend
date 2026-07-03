@@ -16,13 +16,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm ci
-
-      # If your project requires a build step to compile JS/CSS components before shipping
-      - run: npm run build 
 
       - name: Publish to npm
         run: npm publish --dry-run
