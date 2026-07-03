@@ -1,9 +1,8 @@
 name: Publish npm Package
 
 on:
-  push:
-    branches:
-      - TD-7283-Tel-frontend-create-github-workflow-file-for-npm-package-creation
+  release:
+    types: [published]
 
 permissions:
   contents: read
@@ -22,6 +21,6 @@ jobs:
       - run: npm ci
 
       - name: Publish to npm
-        run: npm publish --dry-run
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
