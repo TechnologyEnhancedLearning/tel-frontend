@@ -6,7 +6,7 @@ See live examples of NHS TEL Frontend components, and guidance on when to use th
 
 ## Contact the team
 
-NHS TEL frontend is maintained by staff at NHS England. If you have a question, you can use [GitHub issues](https://github.com/TechnologyEnhancedLearning/tel-frontend/issues)
+NHS TEL frontend is maintained by staff at NHS England. If you have a question, you can use [GitHub issues](https://github.com/TechnologyEnhancedLearning/tel-frontend/issues).
 
 ## Building on the NHS digital service manual
 
