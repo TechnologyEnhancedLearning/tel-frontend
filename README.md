@@ -12,7 +12,7 @@ NHS TEL frontend is maintained by staff at NHS England. If you have a question, 
 
 NHS TEL builds directly upon the foundational rules of the [NHS design system](https://service-manual.nhs.uk/design-system). However, because TEL applications require specific user journeys, this repository serves to document and deliver our specialised design components and patterns alongside clear usage guidance.
 
-## Technical installation & setup guide
+## Technical installation and setup guide
 
 This library provides extended components built on top of the **NHS.UK Frontend (v10)** framework. Follow these steps to integrate these components into your project pipeline.
 
@@ -29,7 +29,7 @@ npm install tel-frontend
 
 ### 2. Build tool configuration (Sass load paths)
 
-Because this package references core NHS styles via bare import paths (e.g., @import "nhsuk/index";), you must configure your build tool's Sass preprocessor to include the proper node_modules paths.
+Because this package references core NHS styles via bare import paths (for example, @import "nhsuk/index";), you must configure your build tool's Sass preprocessor to include the proper node_modules paths.
 
 If you use Vite (vite.config.js)
 ```javascript
@@ -59,7 +59,7 @@ Configure your sass-loader options to include the paths:
 ```
 
 ### 3. Importing styles
-In your application's main Sass stylesheet (e.g., styles.scss or app.scss), import the NHS core layout followed by the extension components.
+In your application's main Sass stylesheet (for example, styles.scss or app.scss), import the NHS core layout followed by the extension components.
 ```
 // 1. Import core NHS.UK Frontend styles
 @import "nhsuk-frontend/dist/nhsuk";
@@ -69,8 +69,8 @@ In your application's main Sass stylesheet (e.g., styles.scss or app.scss), impo
 ```
 
 ### 4. Initialising JavaScript
-If you are using interactive components that require JavaScript functionality, initialise both packages in your primary JavaScript entry point (e.g., main.js or index.js):
-In your application's main Sass stylesheet (e.g., styles.scss or app.scss), import the NHS core layout followed by the extension components.
+If you are using interactive components that require JavaScript functionality, initialise both packages in your primary JavaScript entry point (for example, main.js or index.js):
+In your application's main Sass stylesheet (for example, styles.scss or app.scss), import the NHS core layout followed by the extension components.
 ```
 import { initAll } from 'nhsuk-frontend';
 import { initAll as initTelExtensions } from 'tel-frontend/dist/tel-frontend/all.js';
