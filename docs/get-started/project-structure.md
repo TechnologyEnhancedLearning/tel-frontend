@@ -2,7 +2,7 @@
 layout: layouts/get-started.njk
 title: Project structure
 tags: setup
-order: 1
+order: 2
 ---
 
 This guide provides a high-level overview of how the TEL frontend repository is organised. Understanding this structure will help you know exactly where to add new components, write documentation and configure the build process.
