@@ -2,10 +2,10 @@
 layout: layouts/get-started.njk
 title: How to document components
 tags: setup
-order: 3
+order: 4
 ---
 
-This guide explains how to update an existing component page to include UX guidance, research findings and accessibility notes.
+This guide explains how to update an existing component page to include UX guidance and research findings.
 
 ## Where to find the files
 

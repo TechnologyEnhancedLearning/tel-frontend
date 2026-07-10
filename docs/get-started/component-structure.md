@@ -2,7 +2,7 @@
 layout: layouts/get-started.njk
 title: Component structure
 tags: setup
-order: 2
+order: 3
 ---
 
 When building a new component for the TEL design system (or editing an existing one), you will be working inside the `src/components/` directory.
