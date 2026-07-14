@@ -1,7 +1,5 @@
 # NHS TEL Frontend Changelog
 
-## `1.0.0` - UNRELEASED
+## `0.1.0` - 14 July 2026
 
-### 💥 Breaking changes
-
-<!-- TODO: Describe the update of  -->
+### Initial Release

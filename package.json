@@ -1,9 +1,19 @@
 {
   "name": "tel-frontend",
-  "version": "5.0.1",
+  "version": "0.1.0",
   "description": "A CSS library built on top of nhsuk-frontend providing styles for the NHS Technology Enhanced Learning design system.",
-  "main": "index.js",
+  "main": "dist/tel-frontend/all.js",
+  "style": "dist/main.css",
+  "sass": "dist/tel-frontend/all.scss",
   "type": "module",
+  "exports": {
+    ".": {
+      "sass": "./dist/tel-frontend/all.scss",
+      "import": "./dist/tel-frontend/all.js",
+      "default": "./dist/tel-frontend/all.js"
+    },
+    "./styles": "./dist/main.css"
+  },
   "files": [
     "dist"
   ],
@@ -20,14 +30,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nhsuk/nhsapp-frontend.git"
+    "url": "git+https://github.com/TechnologyEnhancedLearning/tel-frontend.git"
   },
-  "author": "",
+  "author": "NHS England Technology Enhanced Learning",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nhsuk/nhsapp-frontend/issues"
+    "url": "https://github.com/TechnologyEnhancedLearning/tel-frontend/issues"
   },
-  "homepage": "https://github.com/nhsuk/nhsapp-frontend#readme",
+  "homepage": "https://github.com/TechnologyEnhancedLearning/tel-frontend#readme",
   "devDependencies": {
     "@11ty/eleventy": "3.0.0-alpha.6",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",

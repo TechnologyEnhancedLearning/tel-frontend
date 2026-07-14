@@ -28,7 +28,10 @@ export default {
   css: {
     preprocessorOptions: {
       scss: {
-        loadPaths: ['node_modules', 'node_modules/nhsuk-frontend/dist'],
+        loadPaths: [
+          'node_modules',
+          'node_modules/nhsuk-frontend/dist'
+        ],
       },
     },
   },
@@ -43,7 +46,10 @@ Configure your sass-loader options to include the paths:
   loader: "sass-loader",
   options: {
     sassOptions: {
-      includePaths: ['node_modules', 'node_modules/nhsuk-frontend/dist']
+      includePaths: [
+        'node_modules',
+        'node_modules/nhsuk-frontend/dist'
+      ]
     }
   }
 }
@@ -53,18 +59,18 @@ Configure your sass-loader options to include the paths:
 In your application's main Sass stylesheet (for example, styles.scss or app.scss), import the NHS core layout followed by the extension components.
 ```
 // 1. Import core NHS.UK Frontend styles
-@import "nhsuk-frontend/dist/nhsuk";
+@use "nhsuk-frontend/dist/nhsuk" as *;
 
 // 2. Import your extension styles
-@import "tel-frontend/dist/tel-frontend/all";
+@use "tel-frontend" as *;
 ```
 
 ### 4. Initialising JavaScript
 If you are using interactive components that require JavaScript functionality, initialise both packages in your primary JavaScript entry point (for example, main.js or index.js):
-In your application's main Sass stylesheet (for example, styles.scss or app.scss), import the NHS core layout followed by the extension components.
+
 ```
 import { initAll } from 'nhsuk-frontend';
-import { initAll as initTelExtensions } from 'tel-frontend/dist/tel-frontend/all.js';
+import { initAll as initTelExtensions } from 'tel-frontend';
 
 // Boot them up
 initAll();
