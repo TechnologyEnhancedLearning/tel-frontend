@@ -1,0 +1,314 @@
+@import "nhsuk/index";
+
+/* ==========================================================================
+   COMPONENT: Auto-Suggestion Base
+   ========================================================================== */
+
+.tel-auto-suggestion {
+  position: relative;
+  width: 100%;
+  max-width: 45rem;
+
+  // 1. Header & Typography Bounds
+
+  .nhsuk-body {
+    margin-bottom: 16px;
+    color: nhsuk-colour("black");
+  }
+
+  // 2. Selected Active Items Track (Tags)
+  &__selected-track {
+    margin-bottom: 16px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border: 1px dashed #a1acb2;
+    border-radius: 4px;
+
+    .nhsuk-heading-xs {
+      margin-bottom: 8px;
+      color: nhsuk-colour("black");
+    }
+  }
+
+  &__tags {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #005ea5;
+    color: #ffffff;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-family: "NHS Text", Arial, sans-serif;
+    font-weight: 700;
+    border-radius: 2px;
+  }
+
+  &__clear-tag {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    margin-left: 8px;
+    padding: 0;
+    text-decoration: underline;
+    font-size: 12px;
+
+    &:hover, &:focus {
+      color: #ffe114;
+    }
+  }
+
+  // 3. Search Bar Input Wrapper
+  &__search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid nhsuk-colour("grey-3");
+ 
+    .nhsuk-input {
+      padding: 0.25rem 1rem;
+      height: 3rem;
+      flex: 1;
+      border-radius: 0.25rem;
+      border: 2px solid transparent;
+
+    } 
+
+    .nhsuk-input:focus {
+      border:2px solid black;
+      margin-right:4px;
+    }
+
+    &--has-button .nhsuk-input {
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &__search-btn {
+    margin-bottom: 0;
+    padding: 10px 16px;
+    height: 40px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__svg-icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  // 4. Quick Filters & Dropdowns Integration Container
+  &__filters-container {
+    margin-bottom: 0.25rem;
+  }
+
+  &__menu {
+    background: #ffffff;
+    border: 1px solid #a1acb2;
+    border-radius: 6px;
+    margin-top: 4px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &__no-results {
+    padding: 16px;
+    margin: 0;
+    color: #4c6272;
+    font-style: italic;
+  }
+
+  // Global Item Formatting (Shared spacing and borders for all menu lists)
+  &__item {
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid $nhsuk-border-colour;
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  // 5. Pagination Layout Container Wrapper
+  &__pagination {
+    padding: 0;
+    margin: 16px 0px;
+
+    .nhsuk-pagination {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+
+  /* ==========================================================================
+     TYPE VARIATION: Page Links List (--page)
+     ========================================================================== */
+  &--page {
+  .tel-auto-suggestion__search-btn {
+    height: 3.25rem;
+    width: 3.25rem;
+    min-height: 3.25rem;
+    min-width: 3.25rem;
+    box-shadow: none;
+    border: none;
+  }
+
+  .tel-auto-suggestion__search-btn:before {
+    display:none;
+  }
+
+  .tel-auto-suggestion__search-btn:active {
+    top: 0px;
+  }
+
+  .tel-auto-suggestion__search-btn:focus,
+  .tel-auto-suggestion__search-btn:focus:hover {
+    top: 0px;
+    box-shadow: inset 0 0 0 4px nhsuk-colour("black");
+
+  }
+
+    .tel-auto-suggestion__item {
+      padding:1rem;
+    }
+
+    .tel-auto-suggestion__item:has(.tel-auto-suggestion__link:focus) {
+      background-color: nhsuk-colour("yellow");
+      box-shadow: 0 -2px nhsuk-colour("yellow"),0 4px nhsuk-colour("black");
+    }
+    
+    .tel-auto-suggestion__link {
+      display: flex;
+      align-items: center;
+      padding: none;
+      text-decoration: underline;
+      color: nhsuk-colour("blue");
+
+      .tel-auto-suggestion__search-text-highlight {
+        font-weight: bold;
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: $nhsuk-link-hover-colour;
+      }
+      
+      &:focus {
+        text-decoration: none;
+        color: nhsuk-colour("black");
+        background-color: transparent;
+        box-shadow: none;
+      }
+
+      &:focus:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .tel-auto-suggestion__icon-container {
+      display: inline-flex;
+      margin-right: 8px;
+      color: nhsuk-colour("grey-3");
+    }
+
+    .tel-auto-suggestion__link:focus .tel-auto-suggestion__icon-container {
+        color: nhsuk-colour("black");
+    }
+
+    .tel-auto-suggestion__subtext {
+      margin-top: 0.375rem;
+      font-size: 0.875rem;;
+      color: $nhsuk-secondary-text-colour;
+
+      .tel-auto-suggestion__subtext-value {
+        font-weight: bold;
+      }
+    }
+  }
+
+
+  /* ==========================================================================
+     TYPE VARIATIONS: Radios & Checkboxes Form Blocks (--radio, --checkbox)
+     ========================================================================== */
+  &--radio,
+  &--checkbox {
+    .tel-auto-suggestion__menu {
+      overflow: visible;
+      height: auto;
+
+      .nhsuk-fieldset {
+        padding: 0;
+        margin: 1.5rem;
+        border: none;
+      }
+    }
+
+    // Label spacing specific to form controls
+    .nhsuk-radios__item, 
+    .nhsuk-checkboxes__item {
+      margin-bottom: 16px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      & .nhsuk-label {
+        padding-bottom: 4px;
+      }
+    }
+    
+    .tel-auto-suggestion__escape-wrapper {
+      .nhsuk-radios__item, 
+      .nhsuk-checkboxes__item {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+
+  /* ==========================================================================
+     UNIFIED ESCAPE BLOCK: Standalone container matching 100% design view
+     ========================================================================== */
+  &__escape-wrapper {
+    margin-top: 16px;
+    margin-bottom: 24px;
+    display: block;
+    clear: both;
+
+    p {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: nhsuk-colour("black");
+      font-size: 16px;
+    }
+
+    .nhsuk-radios__item,
+    .nhsuk-checkboxes__item {
+      margin-bottom: 0;
+      padding: 0;
+      
+      label {
+        font-weight: 400;
+      }
+    }
+  }
+}

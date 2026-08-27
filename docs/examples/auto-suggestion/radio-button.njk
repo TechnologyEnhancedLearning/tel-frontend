@@ -1,0 +1,90 @@
+---
+layout: layouts/example.njk
+title: Auto Suggestion with Radio Buttons
+description: An example of the auto suggest pattern when implemented with radio buttons
+arguments: auto-suggestion
+---
+{% from 'tel/components/auto-suggestion/macro.njk' import telAutoSuggestion %}
+
+{{ telAutoSuggestion({
+  id: "radio-button-example",
+  input_name: "search-query",
+  placeholder: "Search roles",
+  type: "Radio",
+  show_other: true,
+  other_text: "If you cant find your role select other and enter your role manually",
+  other_label: "Other",
+  show_search_button: false,
+  show_filters: false,
+  show_selected: false,
+  
+  pagination: true,
+  pagination_previous_url: "/example?page=22",
+  pagination_previous_page: "Previous page",
+  pagination_next_url: "/example?page=24",
+  pagination_next_page: "Next page",
+  
+  pagination_items: [
+    {
+      number: 1,
+      href: "/example?page=1"
+    },
+    {
+      ellipsis: true
+    },
+    {
+      number: 22,
+      href: "/example?page=22"
+    },
+    {
+      number: 23,
+      href: "/example?page=23",
+      current: true
+    },
+    {
+      number: 24,
+      href: "/example?page=24"
+    },
+    {
+      ellipsis: true
+    },
+    {
+      number: 42,
+      href: "/example?page=42"
+    }
+  ],
+  
+  menu_items: [
+    {
+      text: "Midwife - Tutor",
+      value: "midwife-tutor",
+      type: "Radio",
+      hint: "Students",
+      selected: false
+    },
+    {
+      text: "Nursing Associate",
+      value: "nursing-associate",
+      type: "Radio",
+      hint: "Nursing and Midwifery Registered",
+      selected: false
+    },
+    {
+      text: "Nurse",
+      value: "nurse",
+      type: "Radio",
+      hint: "Nursing and Midwifery Registered",
+      selected: true
+    },
+    {
+      text: "Health Visitor",
+      value: "health-visitor",
+      type: "Radio",
+      hint: "Nursing and Midwifery Registered",
+      selected: false
+    }
+  ],
+
+  selected_items: [],
+  filters: []
+}) }}

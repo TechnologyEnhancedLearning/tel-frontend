@@ -1,5 +1,6 @@
 import QuickFilters from './components/quick-filters/quick-filters.js';
 import LhsNavigation from './components/lhs-navigation/lhs-navigation.js';
+import AutoSuggestion from './components/auto-suggestion/auto-suggestion.js';
 
 // Function to initialize all TEL components
 const initAll = () => {
@@ -15,11 +16,18 @@ const initAll = () => {
     new LhsNavigation($module).init();
   });
 
-  // 3. Add future components here, e.g.
+  // 3. Find all instances of Auto Suggestion
+  const $autoSuggestion = document.querySelectorAll('[data-module="tel-auto-suggestion"]');
+  $autoSuggestion.forEach(($module) => {
+    new AutoSuggestion($module).init();
+  });
+
+  // 4. Add future components here, e.g.
 };
 
 export {
   initAll,
   QuickFilters,
-  LhsNavigation
+  LhsNavigation,
+  AutoSuggestion
 };

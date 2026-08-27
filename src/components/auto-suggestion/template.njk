@@ -1,0 +1,199 @@
+{# Import the Quick Filters Macro #}
+{% from "../quick-filters/macro.njk" import telQuickFilters %}
+{% from "nhsuk/components/pagination/macro.njk" import pagination %}
+
+{# Macro: Case-insensitive highlight helper preserving original text casing #}
+{% macro renderHighlightedText(text, query) %}
+  {% if query and text %}
+    {% set lowerText = text | lower %}
+    {% set lowerQuery = query | lower %}
+    {% set index = lowerText.indexOf(lowerQuery) %}
+    
+    {% if index >= 0 %}
+      {% set length = query | length %}
+      {% set before = text.slice(0, index) %}
+      {% set match = text.slice(index, index + length) %}
+      {% set after = text.slice(index + length) %}
+      {{ before }}<span class="tel-auto-suggestion__search-text-highlight">{{ match }}</span>{{ after | safe }}
+    {% else %}
+      {{ text }}
+    {% endif %}
+  {% else %}
+    {{ text }}
+  {% endif %}
+{% endmacro %}
+
+{# Macro: Icon selection - can be expanded for other iconTypes #}
+{% macro telAutoSuggestionIcon(iconType) %}
+  {% if iconType == "search" %}
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="tel-auto-suggestion__svg-icon">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8558 10.5296L15.7218 14.3861C15.8998 14.5627 16 14.8031 16 15.0539C16 15.3047 15.8998 15.5451 15.7218 15.7218C15.5451 15.8998 15.3047 16 15.0539 16C14.8031 16 14.5627 15.8998 14.3861 15.7218L10.5296 11.8558C7.76424 13.9254 3.86973 13.5064 1.60799 10.8959C-0.653748 8.28537 -0.513826 4.37088 1.92852 1.92852C4.37088 -0.513826 8.28537 -0.653748 10.8959 1.60799C13.5064 3.86973 13.9254 7.76424 11.8558 10.5296ZM6.58834 1.88537C3.9909 1.88537 1.88525 3.99101 1.88525 6.58846C1.88525 9.1859 3.9909 11.2915 6.58834 11.2915C9.18578 11.2915 11.2914 9.1859 11.2914 6.58846C11.2914 3.99101 9.18578 1.88537 6.58834 1.88537Z" fill="currentColor"/>
+    </svg>
+  {% endif %}
+{% endmacro %}
+
+{% set isCheckbox = params.type | lower == "checkbox" %}
+{% set isRadio = params.type | lower == "radio" %}
+{% set isPage = params.type | lower == "page" %}
+
+<div class="tel-auto-suggestion tel-auto-suggestion--{{ params.type | lower | default('page') }}" 
+     data-module="tel-auto-suggestion" 
+     data-display-length="{{ params.display_length | default(12) }}"
+     {% if params.pagination %}
+       data-pagination="true"
+       data-current-page="{{ params.pagination_current_page | default(1) }}"
+       data-total-pages="{{ params.pagination_number_of_pages | default(1) }}"
+     {% endif %}>
+ 
+  {# Search Bar / Input #}
+  <div class="nhsuk-form-group tel-auto-suggestion__search-wrapper {% if params.show_search_button %}tel-auto-suggestion__search-wrapper--has-button{% endif %}">
+    <input class="nhsuk-input" 
+      id="auto-suggest-search-{{ params.id }}" 
+      name="{{ params.input_name | default('search-query') }}"           type="text" 
+      placeholder="{% if params.placeholder %}{{ params.placeholder }}{% else %} {% endif %}"
+      autocomplete="off"
+      aria-autocomplete="list">
+    {% if params.show_search_button %}
+      <button type="button" class="nhsuk-button tel-auto-suggestion__search-btn">
+        <span class="nhsuk-u-visually-hidden">Search</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="tel-auto-suggestion__svg-icon">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8558 10.5296L15.7218 14.3861C15.8998 14.5627 16 14.8031 16 15.0539C16 15.3047 15.8998 15.5451 15.7218 15.7218C15.5451 15.8998 15.3047 16 15.0539 16C14.8031 16 14.5627 15.8998 14.3861 15.7218L10.5296 11.8558C7.76424 13.9254 3.86973 13.5064 1.60799 10.8959C-0.653748 8.28537 -0.513826 4.37088 1.92852 1.92852C4.37088 -0.513826 8.28537 -0.653748 10.8959 1.60799C13.5064 3.86973 13.9254 7.76424 11.8558 10.5296ZM6.58834 1.88537C3.9909 1.88537 1.88525 3.99101 1.88525 6.58846C1.88525 9.1859 3.9909 11.2915 6.58834 11.2915C9.18578 11.2915 11.2914 9.1859 11.2914 6.58846C11.2914 3.99101 9.18578 1.88537 6.58834 1.88537Z" fill="currentColor"/>
+          </svg>
+      </button>
+    {% endif %}
+  </div>
+
+  {# quickfilters component #}
+  {% if params.show_filters and params.filters %}
+    <div class="tel-auto-suggestion__filters-container">
+      {{ telQuickFilters({
+        heading: params.filters.heading,
+        showAll: params.filters.showAll,
+        allLabel: params.filters.allLabel,
+        allHref: params.filters.allHref,
+        tags: params.filters.tags,
+        activeTags: params.filters.activeTags
+      }) }}
+    </div>
+  {% endif %}
+
+  {# Main Dropdown/List Container #}
+  <div class="tel-auto-suggestion__menu" role="region" aria-live="polite">
+    {% if isCheckbox or isRadio %}<fieldset class="nhsuk-fieldset">{% endif %}
+    <div class="{% if isCheckbox %}nhsuk-checkboxes{% elif isRadio %}nhsuk-radios{% else %}tel-auto-suggestion__list{% endif %}">
+      {% if params.menu_items and params.menu_items.length > 0 %}
+        {% for item in params.menu_items %}
+          <div class="tel-auto-suggestion__item {% if isCheckbox %}nhsuk-checkboxes__item{% elif isRadio %}nhsuk-radios__item{% endif %}" data-filter-categories="{{ item.category }}">
+            {% if isCheckbox or isRadio %}
+              <input class="{% if isCheckbox %}nhsuk-checkboxes__input{% else %}nhsuk-radios__input{% endif %}" 
+                     id="item-{{ params.id }}-{{ loop.index }}" 
+                     name="autosuggest-choice" 
+                     type="{{ 'checkbox' if isCheckbox else 'radio' }}" 
+                     value="{{ item.value }}"
+                     {% if item.hint %}aria-describedby="item-{{ params.id }}-{{ loop.index }}-hint"{% endif %}
+                     {% if item.selected %}checked{% endif %}>
+              <label class="nhsuk-label {% if isCheckbox %}nhsuk-checkboxes__label{% else %}nhsuk-radios__label{% endif %}" for="item-{{ params.id }}-{{ loop.index }}">
+                {{ item.text }}
+              </label>
+              {% if item.hint %}
+                <div class="nhsuk-hint {% if isCheckbox %}nhsuk-checkboxes__hint{% else %}nhsuk-radios__hint{% endif %}" id="item-{{ params.id }}-{{ loop.index }}-hint">
+                  {{ item.hint }}
+                </div>
+              {% endif %}
+            {% else %}
+              {# Variant: Page links layout #}
+              <a href="{{ item.href | default('#') }}" class="tel-auto-suggestion__link">
+                {% if item.icon %}
+                  <span class="tel-auto-suggestion__icon-container" aria-hidden="true">
+                    {{ telAutoSuggestionIcon(item.icon) }}
+                  </span>
+                {% endif %}
+                <span class="tel-auto-suggestion__link-text">
+                  {{ renderHighlightedText(item.text, params.search_text) }}
+                </span>
+              </a>
+              {% if item.type %}
+                <div class="tel-auto-suggestion__subtext">
+                  Type: <span class="tel-auto-suggestion__subtext-value">{{ item.type }}</span>
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="tel-auto-suggestion__no-results">No matches found</p>
+      {% endif %}
+    </div>
+    {% if isCheckbox or isRadio %}</fieldset>{% endif %}
+  </div>
+
+  {# nhsuk design system pagination component #}
+  {% if params.pagination and params.menu_items.length > 0 %}
+    <div class="tel-auto-suggestion__pagination">
+      {{ pagination({
+        previous: {
+          href: params.pagination_previous_url,
+          labelText: params.pagination_previous_page | default("Previous page")
+        } if params.pagination_previous_url,
+        
+        next: {
+          href: params.pagination_next_url,
+          labelText: params.pagination_next_page | default("Next page")
+        } if params.pagination_next_url,
+        
+        items: params.pagination_items
+      }) }}
+    </div>
+  {% endif %}
+
+  {# Radio or checkbox "other" option #}
+  {% if params.show_other %}
+    <div class="tel-auto-suggestion__escape-wrapper">
+      {% if params.other_text %}
+        <p class="nhsuk-body-s">{{ params.other_text }}</p>
+      {% endif %}
+
+      <div class="{% if isCheckbox %}nhsuk-checkboxes{% else %}nhsuk-radios{% endif %}">
+        <div class="{% if isCheckbox %}nhsuk-checkboxes__item{% else %}nhsuk-radios__item{% endif %}">
+          <input class="{% if isCheckbox %}nhsuk-checkboxes__input{% else %}nhsuk-radios__input{% endif %}" 
+            id="other-choice-escape-{{ params.id }}" 
+            name="autosuggest-choice" 
+            type="{{ 'checkbox' if isCheckbox else 'radio' }}" 
+            value="other"
+            data-aria-controls="conditional-other-panel-{{ params.id }}">
+          
+          <label class="nhsuk-label {% if isCheckbox %}nhsuk-checkboxes__label{% else %}nhsuk-radios__label{% endif %}" for="other-choice-escape-{{ params.id }}">
+            {{ params.other_label | default("Other") }}
+          </label>
+        </div>
+
+        {# NHS Conditional Revealing Box Panel Component #}
+        <div class="{% if isCheckbox %}nhsuk-checkboxes__conditional nhsuk-checkboxes__conditional--hidden{% else %}nhsuk-radios__conditional nhsuk-radios__conditional--hidden{% endif %}" id="conditional-other-panel-{{ params.id }}">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label" for="other-role-manual-input-{{ params.id }}">
+              Your role
+            </label>
+            <input class="nhsuk-input nhsuk-u-width-two-thirds" id="other-role-manual-input-{{ params.id }}" name="other-role-manual" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Optional: Active Filter/Selected Counters #}
+  {% if params.show_selected and params.selected_items.length > 0 %}
+    <div class="tel-auto-suggestion__selected-track" aria-live="polite">
+      <h2 class="nhsuk-heading-xs">Selected Items</h2>
+      <ul class="tel-auto-suggestion__tags">
+        {% for selected in params.selected_items %}
+          <li class="tel-auto-suggestion__tag">
+            {{ selected.title }}
+            <button type="button" class="tel-auto-suggestion__clear-tag" data-value="{{ selected.value }}">
+              Clear <span class="nhsuk-u-visually-hidden">{{ selected.title }}</span>
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}  
+</div>

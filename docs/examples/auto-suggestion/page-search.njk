@@ -1,0 +1,88 @@
+---
+layout: layouts/example.njk
+title: Auto suggestion for page search
+description: An example of the auto suggest pattern when implemented on a page search
+arguments: auto-suggestion
+---
+{% from 'tel/components/auto-suggestion/macro.njk' import telAutoSuggestion %}
+
+{{ telAutoSuggestion({
+  id: "page-search-example",
+  input_name: "search-query",
+  placeholder: "Search the learning hub",
+  type: "page",
+  search_text: "cardio",
+  show_other: false,
+  show_search_button: true,
+  show_filters: true,
+  
+  filters: {
+    heading: "Show",
+    showAll: true,
+    allLabel: "All",
+    activeTags: ["all"],
+    tags: [
+      { label: "Catalogues", value: "catalogues" },
+      { label: "Courses", value: "courses" },
+      { label: "Resources", value: "resources" }
+    ]
+  },
+
+  menu_items: [
+      {
+        text: "cardiovascular",
+        href: "/search?q=cardiovascular",
+        icon: "search"
+      },
+      {
+        text: "cardiology",
+        href: "/search?q=cardiology",
+        icon: "search"
+      },
+      {
+        text: "cardiomyopathy",
+        href: "/search?q=cardiomyopathy",
+        icon: "search"
+      },
+      {
+        text: "cardiologist",
+        href: "/search?q=cardiologist",
+        icon: "search"
+      },
+      {
+        text: "cardiothoracic",
+        href: "/search?q=cardiothoracic",
+        icon: "search"
+      },
+      {
+        text: "270 Reducing Cardio Vascular Risk in MH",
+        href: "/search?q=270-reducing-cardio-vascular-risk-in-mh",
+        type: "Learning resource",
+        category: "resources"
+      },
+      {
+        text: "Cardiovascular diseases toolkit",
+        href: "/search?q=cardiovascular-diseases-toolkit",
+        type: "Learning resource",
+        category: "resources"
+      },
+      {
+        text: "IMT Teaching - Cardiology (06/05/26)",
+        href: "/search?q=imt-teaching-cardiology",
+        type: "Learning resource",
+        category: "resources"
+      },
+      {
+        text: "Genomics in Medical Specialties: Cardiology",
+        href: "/search?q=genomics-in-medical-specialties-cardiology",
+        type: "Learning resource",
+        category: "resources"
+      },
+      {
+        text: "Genomics in Medical Specialties: Cardiology",
+        href: "/search?q=genomics-in-medical-specialties-cardiology",
+        type: "Learning resource",
+        category: "resources"
+      }
+    ]
+  }) }}
