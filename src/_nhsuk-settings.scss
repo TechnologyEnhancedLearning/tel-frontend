@@ -1,11 +1,4 @@
 // Override NHS.UK Frontend Sass variables here.
-//
-// These settings must be loaded before NHS.UK Frontend. The library declares
-// its configurable variables with `!default`, so values set here are retained.
 
 $nhsuk-page-width: 1200px;
 $nhsuk-body-background-colour: #fff;
-
-// Add other NHS.UK Frontend variable overrides below, for example:
-// $nhsuk-gutter: 32px;
-// $nhsuk-border-radius: 4px;
