@@ -63,7 +63,7 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {# 1. This loads your bundled JS (built by Gulp/Rollup) #} 
+  {# 1. This loads your bundled JS #} 
   <script src="/assets/js/main.js"></script>
 
   {# 2. Initialize NHS UK components #} 
@@ -72,7 +72,7 @@
     initAll();
   </script>
 
-{# YOUR TEL Frontend JS #}
+  {# 3. Initialize TEL Frontend components #}
   <script type="module">
     import { initAll as initTEL } from "{{ '/src/all.js' | url }}";
     initTEL();
