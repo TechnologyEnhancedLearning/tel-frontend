@@ -1,5 +1,8 @@
-// Import NHS.UK Frontend
-@import "nhsuk-frontend/dist/nhsuk/index";
+// Configure NHS.UK Frontend before importing the library.
+@import "nhsuk-settings";
+
+// Import NHS.UK Frontend library.
+@import "nhsuk-frontend/dist/nhsuk";
 
 // 2. Your Library Settings (Optional)
 // Add a blank file at src/_settings.scss if you need custom TEL variables later
