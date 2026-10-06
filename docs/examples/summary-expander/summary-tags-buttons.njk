@@ -1,0 +1,128 @@
+---
+layout: layouts/example.njk
+title: Summary expander with tags and buttons
+description: An example of the summary expander component using tags and buttons
+arguments: summary-expander
+---
+{% from 'tel/components/summary-expander/macro.njk' import telSummaryExpander %}
+
+{{ telSummaryExpander({
+  expander_title: "Marsha Klein",
+  is_admin: true,
+  open: true,
+
+  summary_list: {
+    rows: [
+      {
+        key: {
+          text: "Name"
+        },
+        value: {
+          text: "Marsha Klein"
+        },
+        actions: {
+          items: [
+            {
+              href: "#",
+              text: "Change",
+              visuallyHiddenText: "name"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Date of birth"
+        },
+        value: {
+          text: "11 April 1974"
+        },
+        actions: {
+          items: [
+            {
+              href: "#",
+              text: "Change",
+              visuallyHiddenText: "date of birth"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Contact information"
+        },
+        value: {
+          html: "23 Meteor Street<br>London<br> N7 0QZ"
+        },
+        actions: {
+          items: [
+            {
+              href: "#",
+              text: "Change",
+              visuallyHiddenText: "contact information"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Contact details"
+        },
+        value: {
+          html: "<p>07654 123123</p><p>marsha.klein@example.com</p>"
+        },
+        actions: {
+          items: [
+            {
+              href: "#",
+              text: "Change",
+              visuallyHiddenText: "contact details"
+            }
+          ]
+        }
+      }
+    ]
+  }, 
+
+  tags: [
+      {
+        text: "Inactive",
+        colour: "red"
+      },
+      {
+        text: "Password set",
+        colour: "green"
+      },
+      {
+        text: "Admin",
+        colour: "grey"
+      },
+      {
+        text: "Registered by centre",
+        colour: "grey"
+      },
+      {
+        text: "Claimed",
+        colour: "grey"
+      },
+      {
+        text: "Verified",
+        colour: "grey"
+      }
+  ],
+
+  buttons: [
+      {
+        text: "Manage delegate",
+        href: "#manage",
+        small: true
+      },
+      {
+        text: "Set password",
+        href: "#password",
+        variant: "secondary-solid",
+        small: true
+      }
+  ]
+  
+  }) }}

@@ -1,0 +1,35 @@
+{% from "details/macro.njk" import details %}
+{% from "tag/macro.njk" import tag %}
+{% from "summary-list/macro.njk" import summaryList %}
+{% from "button/macro.njk" import button %}
+
+<div class="tel-summary-expander" data-module="tel-summary-expander">
+  <details class="nhsuk-details nhsuk-expander" {% if params.open %}open{% endif %} >
+    <summary class="nhsuk-details__summary">
+      <span class="nhsuk-details__summary-text">
+        {{ params.expander_title }}
+      </span>
+      {% if params.is_admin %}{{ tag({text: "Admin", colour: "grey", classes: "tel-summary-expander__admin-tag"}) }}{% endif %}
+      {% if params.tags %}
+        <div class="tel-summary-expander__tags">
+          {% for summarytag in params.tags %}
+            {{ tag(summarytag) }}
+          {% endfor %}
+        </div>
+      {% endif %}   
+    </summary>
+    <div class="nhsuk-details__text">
+      {% if params.summary_list %}
+          {{ summaryList(params.summary_list) }}
+      {% endif %}
+
+      {% if params.buttons and params.buttons | length %}
+        <div class="tel-summary-expander__actions nhsuk-button-group">
+          {% for btn in params.buttons %}
+            {{ button(btn) }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </details>
+</div>
