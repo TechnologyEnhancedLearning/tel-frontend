@@ -1,0 +1,101 @@
+{% from "nhsuk/components/tag/macro.njk" import tag %}
+{% from "nhsuk/components/summary-list/macro.njk" import summaryList %}
+{% from "../tel-icons/certificate-icon.njk" import certificateIcon %}
+{% from "../tel-rating/macro.njk" import telRating %}
+
+{% macro activityDetailsAndProgress(params) %}
+  {% set progress = params.progress %}
+
+  {# --- 1. NOT STARTED --- #}
+  {% if not progress or progress == 0 or progress == 'not-started' %}
+
+    <div class="tel-learning-card__key-info--not-started">
+      <div class="tel-learning-card__key-info__information">
+        {% if params.activitySummary %}
+          {% set summaryHtml = params.activitySummary %}
+          {% if params.hasCertificate %}
+            {% set summaryHtml = summaryHtml + certificateIcon({ classes: "certificate-icon--small" }) %}
+          {% endif %}
+
+          {{ summaryList({
+            classes: "nhsuk-summary-list--no-border tel-learning-card__summary-list",
+            rows: [
+              {
+                key: { text: "includes:" },
+                value: { html: summaryHtml }
+              }
+            ]
+          }) }}
+        {% endif %}
+      </div>
+    </div>
+
+    {{ tag({ text: "Not started", classes: "nhsuk-tag--grey" }) }}
+
+  {# --- 2. IN PROGRESS --- #}
+  {% elseif progress is number and progress < 100 %}
+
+    {% set rows = [
+      {
+        key: { text: "Type:" },
+        value: { text: params.type | default("Course") }
+      }
+    ] %}
+
+    {% if params.lastAccessed %}
+      {% set rows = (rows.push({
+        key: { text: "Accessed:" },
+        value: { text: params.lastAccessed }
+      }), rows) %}
+    {% endif %}
+
+    <div class="tel-learning-card__key-info--in-progress">
+      <div class="tel-learning-card__key-info__information">
+        {{ summaryList({
+          classes: "nhsuk-summary-list--no-border tel-learning-card__summary-list",
+          rows: rows
+        }) }}
+      </div>
+
+      <div class="tel-learning-card__key-info__status">
+        {{ tag({ text: "In progress", classes: "nhsuk-tag--blue" }) }}
+      </div>
+    </div>
+
+    {{ telRating({
+      type: 'progress-bar',
+      progress: progress
+    }) }}
+
+  {# --- 3. COMPLETED --- #}
+  {% elseif progress == 100 or progress == 'complete' or progress == 'completed' %}
+
+    {% set rows = [
+      {
+        key: { text: "Type:" },
+        value: { text: params.type | default("Course") }
+      }
+    ] %}
+
+    {% if params.awardedDate %}
+      {% set rows = (rows.push({
+        key: { text: "Awarded:" },
+        value: { text: params.awardedDate }
+      }), rows) %}
+    {% endif %}
+
+    <div class="tel-learning-card__key-info--completed">
+      <div class="tel-learning-card__key-info__information">
+        {{ summaryList({
+          classes: "nhsuk-summary-list--no-border tel-learning-card__summary-list",
+          rows: rows
+        }) }}
+      </div>
+
+      <div class="tel-learning-card__key-info__status">
+        {{ tag({ text: "Completed", classes: "nhsuk-tag--green" }) }}
+      </div>
+    </div>
+
+  {% endif %}
+{% endmacro %}

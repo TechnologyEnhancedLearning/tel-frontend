@@ -1,0 +1,180 @@
+{% from "nhsuk/components/card/macro.njk" import card %}
+{% from "nhsuk/components/tag/macro.njk" import tag %}
+{% from "nhsuk/components/summary-list/macro.njk" import summaryList %}
+{% from "../tel-icons/certificate-icon.njk" import certificateIcon %}
+{% from "../tel-rating/macro.njk" import telRating %}
+
+{% set headingLevel = params.headingLevel if params.headingLevel else 2 %}
+{% set hTag = "h" + headingLevel %}
+{% set image = params.image if params.image else null %}
+{% set courseCardClass = ' tel-learning-card--course-card' if params.isCourse else '' %}
+{% set progress = params.progress %}
+
+{# Determine footer visibility conditions #}
+{% set hasCatalogue = params.catalogueLinkUrl and params.catalogueLinkText %}
+{% set hasDevelopedWith = params.developedWith is string and params.developedWith | trim | length > 0 %}
+{% set showFooter = hasCatalogue or hasDevelopedWith %}
+
+{% set learning_card_heading %}
+  <div class="tel-learning-card__heading">
+    <a href="{{ params.href | default('#') }}" class="tel-learning-card__heading-link">
+      <{{ hTag }} class="tel-learning-card__heading-text">
+        {{ params.heading }}
+      </{{ hTag }}>
+    </a>
+  </div>
+{% endset %}
+
+{% set learning_card_content %}
+  <div class="tel-learning-card__content">
+    {% if params.description %}
+      <div class="tel-learning-card__description">
+        <p>{{ params.description }}</p>
+      </div>
+    {% endif %}
+
+    {% if params.starRating is defined %}
+      <div class="tel-learning-card__rating">
+        {{ telRating({
+          type: 'star',
+          progress: params.starRating,
+          count: params.ratingCount,
+          href: params.ratingHref
+        }) }}
+      </div>
+    {% endif %}
+
+    {% if progress is defined and progress != null %}
+      <div class="tel-learning-card__key-activity-information">
+        {# --- 1. NOT STARTED --- #}
+        {% if progress == 0 or progress == 'not-started' %}
+
+          <div class="tel-learning-card__key-info--not-started">
+            <div class="tel-learning-card__key-info__information">
+              {% if params.activitySummary %}
+                {% set summaryHtml = params.activitySummary %}
+                {% if params.hasCertificate %}
+                  {% set summaryHtml = summaryHtml + certificateIcon({ classes: "certificate-icon--small" }) %}
+                {% endif %}
+
+                {{ summaryList({
+                  classes: "nhsuk-summary-list--no-border tel-learning-card__summary-list",
+                  rows: [
+                    {
+                      key: { text: "includes:" },
+                      value: { html: summaryHtml }
+                    }
+                  ]
+                }) }}
+              {% endif %}
+            </div>
+          </div>
+
+          {{ tag({ text: "Not started", classes: "nhsuk-tag--grey" }) }}
+
+        {# --- 2. IN PROGRESS --- #}
+        {% elseif progress is number and progress < 100 %}
+
+          {% set rows = [
+            {
+              key: { text: "Type:" },
+              value: { text: params.type | default("Course") }
+            }
+          ] %}
+
+          {% if params.lastAccessed %}
+            {% set rows = (rows.push({
+              key: { text: "Accessed:" },
+              value: { text: params.lastAccessed }
+            }), rows) %}
+          {% endif %}
+
+          <div class="tel-learning-card__key-info--in-progress">
+            <div class="tel-learning-card__key-info__information">
+              {{ summaryList({
+                classes: "nhsuk-summary-list--no-border tel-learning-card__summary-list",
+                rows: rows
+              }) }}
+            </div>
+
+            <div class="tel-learning-card__key-info__status">
+              {{ tag({ text: "In progress", classes: "nhsuk-tag--blue" }) }}
+            </div>
+          </div>
+
+          {{ telRating({
+            type: 'progress-bar',
+            progress: progress
+          }) }}
+
+        {# --- 3. COMPLETED --- #}
+        {% elseif progress == 100 or progress == 'complete' or progress == 'completed' %}
+
+          {% set rows = [
+            {
+              key: { text: "Type:" },
+              value: { text: params.type | default("Course") }
+            }
+          ] %}
+
+          {% if params.awardedDate %}
+            {% set rows = (rows.push({
+              key: { text: "Awarded:" },
+              value: { text: params.awardedDate }
+            }), rows) %}
+          {% endif %}
+
+          <div class="tel-learning-card__key-info--completed">
+            <div class="tel-learning-card__key-info__information">
+              {{ summaryList({
+                classes: "nhsuk-summary-list--no-border tel-learning-card__summary-list",
+                rows: rows
+              }) }}
+            </div>
+
+            <div class="tel-learning-card__key-info__status">
+              {{ tag({ text: "Completed", classes: "nhsuk-tag--green" }) }}
+            </div>
+          </div>
+
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if showFooter %}
+    <div class="tel-learning-card__footer">
+      {% if hasCatalogue %}
+        <div class="tel-learning-card__catalogue">
+          {% if params.catalogueImage %}
+            <img src="{{ params.catalogueImage }}" alt="" class="tel-learning-card__catalogue-image">
+          {% endif %}
+          <a href="{{ params.catalogueLinkUrl }}" class="tel-learning-card__catalogue-link">
+            {{ params.catalogueLinkText }}
+          </a>
+        </div>
+      {% endif %}
+
+      {% if hasDevelopedWith %}
+        <div class="tel-learning-card__developed-with">
+          {{ params.developedWith }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endset %}
+
+{% if params.showAsCard == true %}
+  {% call card({
+    classes: "tel-learning-card tel-learning-card--learning-card" + courseCardClass,
+    image: image,
+    headingHtml: learning_card_heading
+  }) %}
+    {{ learning_card_content | safe }}
+  {%- endcall %}
+{%- else %}
+  <div class="tel-learning-card nhsuk-u-reading-width">
+    {{ learning_card_heading | safe }}
+    {{ learning_card_content | safe }}
+  </div>
+{%- endif %}

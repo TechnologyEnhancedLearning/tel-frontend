@@ -1,4 +1,4 @@
-.tel-learning-listing {
+.tel-learning-card {
   $this: &;
 
   display: flex;
@@ -67,23 +67,55 @@
     align-items: baseline;
   }
 
-  &__key-info__information__dl {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 nhsuk-spacing(4);
-    margin: 0 0 nhsuk-spacing(2) 0;
+  &__summary-list {
+    margin-bottom: nhsuk-spacing(2);
+    line-height: 1.5;
 
-    .definition-list__group{
-      margin: 0 nhsuk-spacing(3) nhsuk-spacing(1) 0;
-      flex: 1 0 max-content;
+    @include nhsuk-font-size(16);
+    @include adjust-heading($size: 16);
+
+    .nhsuk-summary-list__row {
+      border-bottom: 0;
+      display: block;
+
+      &:nth-last-child(n + 2) {
+        padding-bottom: nhsuk-spacing(1);
+      }
+    }
+
+    .nhsuk-summary-list__key,
+    .nhsuk-summary-list__value {
+      display: inline;
+      padding: 0;
+      width: auto;
+      word-break: break-word;
+    }
+
+    .nhsuk-summary-list__key {
+      font-weight: bold;
+      margin-right: nhsuk-spacing(1);
+    }
+
+    .nhsuk-summary-list__value {
+      margin-left: 0;
+
+      p {
+        display: inline-block;
+        margin-bottom: 0;
+      }
+
+      .certificate-icon--small {
+        vertical-align: middle;
+        margin-left: nhsuk-spacing(1);
+      }
     }
   }
 
   &__key-info__status {
     flex: 1 0 content;
 
-      margin: 0 0 nhsuk-spacing(2) 0;
-      text-align: right;
+    margin: 0 0 nhsuk-spacing(2) 0;
+    text-align: right;
   }
 
   &__catalogue {
@@ -101,7 +133,7 @@
   }
 
   &__catalogue-image {
-    width: 32Px;
+    width: 32px;
     height: 32px;
     margin-right: nhsuk-spacing(3);
     border: 1px solid $nhsuk-form-border-color;

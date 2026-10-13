@@ -1,0 +1,32 @@
+---
+layout: layouts/example.njk
+title: Learning Card Container Variant
+description: An example of the learning card component rendered inside a structured NHS card container.
+arguments: learning-card
+---
+{% from 'tel/components/learning-card/macro.njk' import telLearningCard %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full tel-max-width--400">
+    {{ telLearningCard({
+      isCourse: true,
+      showAsCard: true,
+      image: {
+        src: "https://assets.nhs.uk/prod/images/A_0218_exercise-main_FKW1X7.width-690.jpg",
+        alt: "Card image alt text"
+      },
+      headingLevel: 3,
+      heading: "Infection Prevention and Control - Level 2",
+      description: "Standard precautions and best practices for clinical healthcare workers across hospital settings.",
+      starRating: 90,
+      ratingCount: 45,
+      progress: 100,
+      type: "Course",
+      awardedDate: "22 Jan 2026",
+      catalogueImage: "https://picsum.photos/100",
+      catalogueLinkUrl: "#",
+      catalogueLinkText: "Enabling Effective Learning",
+      developedWith: "Developed with elearning for healthcare"
+    }) }}
+  </div>
+</div>

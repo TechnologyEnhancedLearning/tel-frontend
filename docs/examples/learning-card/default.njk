@@ -1,0 +1,19 @@
+---
+layout: layouts/example.njk
+title: Learning Card Default
+description: Baseline learning card showing minimum required parameters.
+arguments: learning-card
+---
+{% from 'tel/components/learning-card/macro.njk' import telLearningCard %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full tel-max-width--400">
+    {{ telLearningCard({
+      showAsCard: true,
+      headingLevel: 3,
+      heading: "Symptom Management in End of Life Care",
+      description: "Learn fundamental principles for identifying, assessing, and managing distressing symptoms in palliative patients.",
+      type: "e-Learning"
+    }) }}
+  </div>
+</div>

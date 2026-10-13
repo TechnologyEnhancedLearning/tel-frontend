@@ -1,0 +1,24 @@
+---
+layout: layouts/example.njk
+title: Learning Card Default
+description: A standard example of the learning card component in an inline listing layout.
+arguments: learning-card
+---
+{% from 'tel/components/learning-card/macro.njk' import telLearningCard %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
+    {{ telLearningCard({
+      headingLevel: 3,
+      heading: "Symptom Management in End of Life Care",
+      description: "Learn fundamental principles for identifying, assessing, and managing distressing symptoms in palliative patients.",
+      starRating: 80,
+      ratingCount: 12,
+      progress: 50,
+      type: "e-Learning",
+      lastAccessed: "14 Oct 2025",
+      footerLinkText: "Enabling Effective Learning",
+      footerLink: "#"
+    }) }}
+  </div>
+</div>

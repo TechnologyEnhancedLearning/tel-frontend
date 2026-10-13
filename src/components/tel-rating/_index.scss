@@ -43,8 +43,6 @@
         mix-blend-mode: color;
       }
     }
-
-    #{$this}__description {}
   }
 
   &--progress-bar {
@@ -63,8 +61,6 @@
       white-space: nowrap;
       background-color: $color_nhsuk-green;
     }
-
-    #{$this}__completion {}
 
     #{$this}__cover {
       height: 8px;
