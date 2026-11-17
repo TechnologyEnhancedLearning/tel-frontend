@@ -138,7 +138,32 @@
                 {{ params.activitiesCompleted }} of {{ params.totalActivities }} activities completed
             </div>
           </div>
-
+          
+          {% if params.awardedCertificates and params.awardedCertificates | length > 0 %}
+            <div class="tel-learning-card__awarded-section-wrapper">
+              <div class="tel-learning-card__awarded-content">
+                <span class="nhsuk-u-font-weight-bold">Certificates gained:</span>
+                {% for cert in params.awardedCertificates %}
+                  <div class="tel-learning-card__awarded-item">
+                    {% if cert.certificateName %}
+                      <div class="tel-learning-card__certificate-name-row">
+                        <span class="tel-learning-card__awarded-name-text">{{ cert.certificateName }}</span>
+                      </div>
+                    {% endif %}
+                    <div class="tel-learning-card__awarded-date-row">
+                      <span>Awarded: {{ cert.awardedDate }}</span>
+                    </div>
+                    {% if cert.certificateLink %}
+                      <div class="tel-learning-card__certificate-link-row">
+                        <a href="{{ cert.certificateLink }}" class="tel-learning-card__download-link">Download Certificate</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+         
           {% if isCourse and numberOfCertificates > 0 %}
             <div class="tel-learning-card__in-progress-certificate">
               <span class="tel-learning-card__small-cert-icon">{{ certificateIcon("certificate-icon--small") }}</span>

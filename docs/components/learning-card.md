@@ -1,8 +1,7 @@
 ---
-layout: layouts/component.njk
 title: Learning card
 description: A card component designed to present learning activities, courses, and catalogue items across different states of the user journey.
-backlogID: #
+layout: layouts/component.njk
 tags:
   - component
 ---
