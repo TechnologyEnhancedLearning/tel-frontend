@@ -1,0 +1,25 @@
+---
+layout: layouts/example.njk
+title: Course Discovering Card
+description: Learning card showing discovery metadata including star ratings, activity counts, and certificate availability for users browsing content.
+arguments: learning-card
+---
+{% from 'tel/components/learning-card/macro.njk' import telLearningCard %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full tel-max-width--400">
+    {{ telLearningCard({
+      showAsCard: true,
+      headingLevel: 3,
+      heading: "Infection Prevention and Control - Level 2",
+      description: "Standard precautions and best practices for clinical healthcare workers across hospital settings.",
+      type: "Course",
+      starRating: 90,
+      ratingCount: 45,
+      activitiesCompleted: 0,
+      totalActivities: 8,
+      numberOfCertificates: 1,
+      developedWith: "Developed with elearning for healthcare"
+    }) }}
+  </div>
+</div>

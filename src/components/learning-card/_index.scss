@@ -30,7 +30,7 @@
     }
 
     #{$this}__developed-with {
-      padding: nhsuk-spacing(1) nhsuk-spacing(4);
+      padding: nhsuk-spacing(2) nhsuk-spacing(4);
     }
 
     #{$this}__footer {
@@ -43,17 +43,10 @@
     margin-bottom: nhsuk-spacing(3);
   }
 
-  &__heading-link {}
-
   &__heading-text {
     @include nhsuk-font(19, $weight: normal);
-    @include adjust-heading(19);
 
     margin-bottom: nhsuk-spacing(0);
-
-    @include nhsuk-media-query($from: tablet) {
-      @include adjust-heading(19);
-    }
   }
 
   &__description > * {
@@ -68,11 +61,13 @@
   }
 
   &__summary-list {
-    margin-bottom: nhsuk-spacing(2);
     line-height: 1.5;
-
+    
     @include nhsuk-font-size(16);
-    @include adjust-heading($size: 16);
+
+    &.nhsuk-summary-list {
+      margin-bottom: nhsuk-spacing(2);
+    }
 
     .nhsuk-summary-list__row {
       border-bottom: 0;
@@ -103,19 +98,127 @@
         display: inline-block;
         margin-bottom: 0;
       }
+    }
 
-      .certificate-icon--small {
-        vertical-align: middle;
-        margin-left: nhsuk-spacing(1);
-      }
+    &--compact {
+      margin-bottom: 0;
     }
   }
 
-  &__key-info__status {
-    flex: 1 0 content;
+  &__key-info__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
 
-    margin: 0 0 nhsuk-spacing(2) 0;
+  &__key-info__information {
+    flex: 1;
+  }
+
+  &__key-info__status {
+    flex: 0 0 auto;
+    margin: 0 0 nhsuk-spacing(2) nhsuk-spacing(2);
     text-align: right;
+  }
+
+  &__key-activity-information {
+    margin-bottom: nhsuk-spacing(4);
+  }
+
+  &__not-started-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    position: relative;
+
+    .tel-learning-card__key-info__information {
+      flex: 1;
+      padding-right: 48px;
+    }
+
+    .tel-learning-card__action-icon--blue {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &__in-progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  &__in-progress-certificate {
+    display: flex;
+    align-items: center;
+    margin-bottom: nhsuk-spacing(2);
+  }
+
+  &__small-cert-icon {
+    margin-right: nhsuk-spacing(1);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__small-cert-text {
+    @include nhsuk-font-size(16);
+    color: $nhsuk-secondary-text-color;
+  }
+
+  &__detailed-summary-wrapper {
+    margin-bottom: nhsuk-spacing(2);
+  }
+
+  &__awarded-section-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: nhsuk-spacing(2);
+
+    .tel-learning-card__awarded-content {
+      flex: 1;
+      padding-right: 48px;
+    }
+
+    .tel-learning-card__action-icon--green {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &__action-icon {
+    svg, img {
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__awarded-item {
+    margin-bottom: nhsuk-spacing(2);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__awarded-date-row {
+    @include nhsuk-font-size(16);
+    margin-bottom: 2px;
+  }
+
+  &__certificate-link-row {
+    @include nhsuk-font-size(16);
+  }
+
+  &__download-link {
+    display: inline-block;
   }
 
   &__catalogue {
@@ -142,9 +245,76 @@
 
   &__developed-with {
     @include nhsuk-font-size(14);
-    @include adjust-heading(14);
 
     background: $color_nhsuk-blue;
     color: $color_nhsuk-white;
+  }
+
+  .tel-progress-bar {
+    margin-bottom: nhsuk-spacing(3);
+
+    &__track {
+      overflow: hidden;
+      height: 8px;
+      margin-right: 6px;
+      margin-bottom: nhsuk-spacing(2);
+      border-radius: 6px;
+      // NHS light grey background and matching soft grey border
+      background-color: $color_nhsuk-grey-5; 
+      border: 1px solid $color_nhsuk-grey-4;
+      position: relative;
+    }
+
+    &__fill {
+      height: 100%;
+      // Official NHS green fill
+      background-color: $color_nhsuk-green; 
+      border-radius: 4px 0 0 4px;
+    }
+  }
+
+  .tel-progress-bar__text {
+    @include nhsuk-font-size(16);
+    color: $nhsuk-secondary-text-color;
+  }
+}
+
+
+/* ==========================================================================
+    LAYOUT UTILITIES / GRID INTEGRATION
+    ==========================================================================
+    The styles below are optional helper utilities for page layouts using 
+    cards in multi-column rows. They do not alter the internal card design,
+    but ensure cards placed side-by-side stretch to match equal heights.
+
+    Usage example:
+    <div class="nhsuk-grid-row nhsuk-grid-row--equal-heights">
+      <div class="nhsuk-grid-column-one-third"> ... </div>
+    </div>
+    ========================================================================== */
+
+.nhsuk-grid-row--equal-heights {
+  @include nhsuk-media-query(tablet) {
+    display: flex;
+    flex-wrap: wrap;
+
+    // Ensure grid column wrappers stretch vertically within the flex row
+    > [class*="nhsuk-grid-column-"] {
+      display: flex;
+      flex-direction: column;
+    }
+
+    // Force cards to expand to 100% of the column height and stretch content
+    .tel-learning-card {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      height: 100%;
+
+      // Push card footers to align nicely across adjacent cards
+      .tel-learning-card__content {
+        flex-grow: 1;
+      }
+    }
   }
 }

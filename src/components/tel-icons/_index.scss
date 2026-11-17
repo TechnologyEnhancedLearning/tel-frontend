@@ -6,19 +6,16 @@
     fill: none;
   }
 
-  // .cls-3, .cls-4, .cls-2 {
-  //   stroke-width: 2.4px;
-  // }
-
   .cls-2, .cls-3, .cls-4 {
-    stroke: #005eb8;
+    stroke: $color_nhsuk-blue;
     stroke-width: 2.4px;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
+
   .cls-5, .cls-4 {
-    fill: #f2f8fd;
+    fill: $color_nhsuk-white;
   }
 
   .cls-6 {
@@ -29,11 +26,6 @@
     width: 19px;
     height: 25px;
 
-
-    // .cls-4, .cls-2, .cls-3  {
-    //   stroke-width: 2px;
-    // }
-
     .cls-4, .cls-2, .cls-3 {
       stroke: $color_nhsuk-grey-2;
       stroke-width: 2px;
@@ -43,29 +35,8 @@
   }
 }
 
-// Grey small
-  // .cls-1, .cls-2, .cls-3 {
-  //   fill: none;
-  // }
-
-  // .cls-3 {
-  //   stroke-width: 1.2px;
-  // }
-
-  // .cls-4, .cls-2 {
-  //   stroke-width: .9px;
-  // }
-
-  // .cls-4, .cls-2, .cls-3 {
-  //   stroke: #aeb7bd;
-  //   stroke-linecap: round;
-  //   stroke-linejoin: round;
-  // }
-
-  // .cls-4, .cls-5 {
-  //   fill: #f2f8fd;
-  // }
-
-  // .cls-6 {
-  //   clip-path: url(#clippath);
-  // }
+.tel-learning-card__action-icon--green .certificate-icon {
+  .cls-2, .cls-3, .cls-4 {
+    stroke: $color_nhsuk-green;
+  }
+}
