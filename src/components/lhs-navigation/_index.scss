@@ -328,7 +328,7 @@ $tel-lhs-navigation-pale-blue: #e4f0fa;
   // ============================================================================
   // Toggle Button (Mobile Menu Container Block)
   // ============================================================================
-  &__toggle {
+  &__toggle.nhsuk-button {
     display: none;
     width: fit-content;
 
@@ -365,7 +365,7 @@ $tel-lhs-navigation-pale-blue: #e4f0fa;
   @media screen and (max-width: 48rem) {
     
     // Mobile configurations for the toggle button
-    &__toggle {
+    &__toggle.nhsuk-button {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -396,7 +396,7 @@ $tel-lhs-navigation-pale-blue: #e4f0fa;
       }
     }
 
-    &.tel-lhs-navigation--open > &__toggle {
+    &.tel-lhs-navigation--open > &__toggle.nhsuk-button {
       display: none;
     }
 
