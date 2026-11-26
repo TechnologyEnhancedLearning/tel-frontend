@@ -3,3 +3,87 @@
   padding: 0;
   list-style: none;
 }
+
+@mixin adjust-heading($size, $line-heigh: false, $important: false) {
+  // Check for a font map exactly matching the given size
+  $font-map: map-get($nhsuk-typography-scale, $size);
+
+  // No match? Try with string type (e.g. $size: "16" not 16)
+  @if not $font-map {
+    @each $font-size in map.keys($nhsuk-typography-scale) {
+      @if not $font-map and "#{$font-size}" == "#{$size}" {
+        $font-map: map.get($nhsuk-typography-scale, $font-size);
+      }
+    }
+  }
+
+  // Still no match? Throw error
+  @if not $font-map {
+    @error "Unknown font size `#{$size}` - expected a point from the typography scale.";
+  }
+
+  @each $breakpoint, $breakpoint-map in $font-map {
+    $font-size: map-get($breakpoint-map, "font-size");
+
+    $calculated-line-height: nhsuk-line-height(
+      $line-height: map-get($breakpoint-map, "line-height"),
+      $font-size: $font-size
+    );
+
+    $calculated-top-margin-offset: -($calculated-line-height - 1) * 1em if($important, !important, null);
+    $calculated-line-height: $calculated-line-height if($important, !important, null);
+
+    & {
+      @if not $breakpoint {
+        margin-top: $calculated-top-margin-offset;
+        line-height: $calculated-line-height;
+      } @else if $breakpoint == "print" {
+        @include nhsuk-media-query($media-type: print) {
+          margin-top: $calculated-top-margin-offset;
+          line-height: $calculated-line-height;
+        }
+      } @else {
+        @include nhsuk-media-query($from: $breakpoint) {
+          margin-top: $calculated-top-margin-offset;
+          line-height: $calculated-line-height;
+        }
+      }
+    }
+  }
+}
+
+@mixin underline($thickness: 1px, $offset: 0.075em, $includeState: true) {
+  text-decoration: underline;
+  text-decoration-thickness: $thickness;
+  text-underline-offset: $offset;
+
+  @if ($includeState == true) {
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: $thickness;
+      text-underline-offset: $offset;
+    }
+
+    &:focus-visible {
+      text-decoration: none;
+    }
+  }
+}
+
+@mixin wysiwyg-content {
+  a {
+    @include underline;
+  }
+
+  & > *:last-child,
+  & > a:last-child img:last-child,
+  & > p:last-child .button:last-child {
+    margin-bottom: 0;
+  }
+
+  & > ul,
+  & > ol {
+    margin-left: 36px;
+    margin-bottom: 1em;
+  }
+}

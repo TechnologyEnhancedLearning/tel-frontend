@@ -11,6 +11,9 @@
 @import "mixins";
 
 // 3. Your Custom Components
+@import "components/tel-icons/index";
+@import "components/learning-card/index";
+@import "components/tel-rating/index";
 @import "components/quick-filters/index";
 @import "components/lhs-navigation/index";
 @import "components/auto-suggestion/index";

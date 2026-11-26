@@ -1,0 +1,40 @@
+---
+layout: layouts/example.njk
+title: Certificate Card
+description: Learning card showing the completed state with an awarded date and completion status tag.
+arguments: learning-card
+---
+{% from 'tel/components/learning-card/macro.njk' import telLearningCard %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full tel-max-width--400">
+    {{ telLearningCard({
+      showAsCard: true,
+      headingLevel: 3,
+      heading: "Infection Prevention and Control - Level 2",
+      description: "Standard precautions and best practices for clinical healthcare workers across hospital settings.",
+      type: "Course",
+      activitiesCompleted: 8,
+      totalActivities: 8,
+      numberOfCertificates: 1,
+      awardedCertificates: [
+        {
+          certificateName: "Stage 1",
+          awardedDate: "9/7/2026",
+          certificateLink: "https://en.wikipedia.org/wiki/Certificate"
+        },
+        {
+          certificateName: "Stage 2",
+          awardedDate: "10/7/2026",
+          certificateLink: "https://en.wikipedia.org/wiki/Certificate"
+        },
+        {
+          certificateName: "Stage 3",
+          awardedDate: "12/7/2026",
+          certificateLink: "https://en.wikipedia.org/wiki/Certificate"
+        }
+      ],
+      developedWith: "Developed with elearning for healthcare"
+    }) }}
+  </div>
+</div>

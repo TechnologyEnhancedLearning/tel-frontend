@@ -1,0 +1,53 @@
+---
+layout: layouts/example.njk
+title: Learning cards in a grid
+description: Demonstrates three learning cards aligned horizontally in a 3-column responsive grid that collapses on smaller screens.
+arguments: learning-card
+---
+{% from 'tel/components/learning-card/macro.njk' import telLearningCard %}
+
+<div class="nhsuk-grid-row nhsuk-grid-row--equal-heights">
+  <div class="nhsuk-grid-column-one-third">
+    {{ telLearningCard({
+      showAsCard: true,
+      headingLevel: 3,
+      heading: "Infection Prevention and Control - Level 2",
+      description: "Standard precautions and best practices for clinical healthcare workers across hospital settings.",
+      type: "Course",
+      starRating: 90,
+      ratingCount: 45,
+      totalActivities: 7,
+      numberOfCertificates: 1,
+      developedWith: "Developed with elearning for healthcare"
+    }) }}
+  </div>
+
+  <div class="nhsuk-grid-column-one-third">
+    {{ telLearningCard({
+      showAsCard: true,
+      headingLevel: 3,
+      heading: "Safeguarding Adults - Level 1",
+      description: "Essential awareness training covering indicators of abuse and reporting pathways.",
+      type: "Course",
+      activitiesCompleted: 3,
+      totalActivities: 8,
+      lastAccessed: "14 Oct 2026",
+      developedWith: "Developed with elearning for healthcare"
+    }) }}
+  </div>
+
+  <div class="nhsuk-grid-column-one-third">
+    {{ telLearningCard({
+      showAsCard: true,
+      headingLevel: 3,
+      heading: "Information Governance Refresh 2026",
+      description: "Data protection guidelines, GDPR compliance, and managing patient records safely.",
+      type: "Course",
+      numberOfCertificates: 1,
+      activitiesCompleted: 8,
+      totalActivities: 8,
+      awardedDate: "22 Jan 2026",
+      developedWith: "Developed with elearning for healthcare"
+    }) }}
+  </div>
+</div>
